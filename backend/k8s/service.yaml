@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: eventhive-service
+  namespace: default
+spec:
+  selector:
+    app: eventhive-backend
+  ports:
+    - protocol: TCP
+      port: 80        # The outside world hits port 80 (HTTP)
+      targetPort: 5000 # K8s forwards it to port 5000 
+  type: LoadBalancer   # Exposes it to localhost

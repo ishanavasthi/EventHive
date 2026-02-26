@@ -3,26 +3,26 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const connectDB = require('./config/db'); 
 
 const app = express();
 
 // Middleware
-app.use(express.json()); // Parse JSON bodies
-app.use(cors());         // Enable CORS for React Native
-app.use(helmet());       // Security Headers (DevSecOps Best Practice)
-app.use(morgan('dev'));  // Logging
+app.use(express.json()); 
+app.use(cors());        
+app.use(helmet());       
+app.use(morgan('dev'));  
 
-// Basic Health Check Route (Vital for DevOps Probes)
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'UP', message: 'EventHive Backend is running' });
 });
 
-// Start Server (only if not in test mode)
 if (require.main === module) {
+  connectDB();
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
 }
 
-module.exports = app; // Export for testing
+module.exports = app; 
