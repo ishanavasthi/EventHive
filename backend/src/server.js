@@ -17,6 +17,9 @@ app.get('/health', (req, res) => {
   res.status(200).json({ status: 'UP', message: 'EventHive Backend is running' });
 });
 
+// Routes
+app.use('/api/auth', require('./routes/auth'));
+
 if (require.main === module) {
   connectDB();
   const PORT = process.env.PORT || 5000;
