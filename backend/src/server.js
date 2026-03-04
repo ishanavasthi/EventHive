@@ -19,6 +19,7 @@ app.get('/health', (req, res) => {
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/events', require('./routes/events'));
 
 if (require.main === module) {
   connectDB();
