@@ -8,16 +8,23 @@ const EventSchema = new mongoose.Schema({
   },
   name: { type: String, required: true },
   description: { type: String, required: true },
-  category: { 
-    type: String, 
+  category: {
+    type: String,
     enum: ['Music', 'Workshop', 'Meetup', 'Sports', 'Other'], // PRD Categories
-    required: true 
+    required: true
   },
-  date: { type: Date, required: true },
-  location: { type: String, required: true }, // Keeping it simple for now
+  startDate: { type: Date, required: true },
+  endDate: { type: Date, required: true },
+  location: {
+    address: { type: String, required: true },
+    lat: { type: Number },
+    lng: { type: Number }
+  },
+  ticketType: { type: String, enum: ['Free', 'Paid'], default: 'Free' },
   price: { type: Number, default: 0 },        // 0 = Free
   totalTickets: { type: Number, required: true },
-  poster: { type: String }, // URL to image (we'll handle upload later)
+  inventory: { type: Number, required: true },
+  poster: { type: String }, // URL to image
   createdAt: { type: Date, default: Date.now }
 });
 

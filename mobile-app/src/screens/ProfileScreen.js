@@ -73,7 +73,20 @@ const ProfileScreen = ({ navigation }) => {
                         title="Account Details"
                         onPress={() => navigation.navigate('EditProfile')}
                     />
+                    <View style={styles.divider} />
 
+                    <MenuItem
+                        icon={CreditCard}
+                        title="Payment Methods"
+                        onPress={() => { }}
+                    />
+                    <View style={styles.divider} />
+
+                    <MenuItem
+                        icon={Settings}
+                        title="Settings"
+                        onPress={() => { }}
+                    />
                 </GlassCard>
 
                 <GlassCard style={[styles.menuContainer, { marginTop: 20 }]}>

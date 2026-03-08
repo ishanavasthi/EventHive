@@ -1,7 +1,6 @@
 
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet, ActivityIndicator, Dimensions, ScrollView } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
 import api from '../services/api';
 import { AuthContext } from '../context/AuthContext';
 import { COLORS, FONTS, SIZES } from '../constants/theme';
@@ -19,12 +18,11 @@ const MyEventsScreen = ({ navigation }) => {
     const [loading, setLoading] = useState(true);
 
     const fetchMyEvents = async () => {
-        // Don't show full loader on refetch to keep it smooth, or use refresh control state
-        if (hostedEvents.length === 0) setLoading(true);
+        setLoading(true);
         try {
             // 1. Fetch Hosted
             const hostedRes = await api.get('/events');
-            const myHosted = hostedRes.data.filter(e => (e.host._id || e.host) === user._id);
+            const myHosted = hostedRes.data.filter(e => e.host._id === user._id);
             setHostedEvents(myHosted);
 
             // 2. Fetch Attended
@@ -44,11 +42,9 @@ const MyEventsScreen = ({ navigation }) => {
         }
     };
 
-    useFocusEffect(
-        useCallback(() => {
-            fetchMyEvents();
-        }, [])
-    );
+    useEffect(() => {
+        fetchMyEvents();
+    }, []);
 
     const filterEvents = (events) => {
         const now = new Date();
