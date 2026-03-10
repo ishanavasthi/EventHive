@@ -16,6 +16,7 @@ const LoginScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
+    console.log('Sign In button pressed. Attempting login for:', email);
     if (!email || !password) {
       Alert.alert('Error', 'Please fill in all fields');
       return;

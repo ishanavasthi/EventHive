@@ -103,7 +103,8 @@ const EventDetailsScreen = ({ route, navigation }) => {
                 <View style={styles.imageContainer}>
                     <Image source={{ uri: event.poster || 'https://via.placeholder.com/300' }} style={styles.poster} />
                     <LinearGradient
-                        colors={['rgba(0,0,0,0.3)', 'transparent', '#050511']}
+                        colors={['transparent', 'rgba(5,5,17,0.8)', '#050511']}
+                        locations={[0, 0.7, 1]}
                         style={styles.imageOverlay}
                     />
 
@@ -125,9 +126,7 @@ const EventDetailsScreen = ({ route, navigation }) => {
                             <View style={styles.badge}>
                                 <Text style={styles.badgeText}>{event.ticketType === 'Free' ? 'FREE' : `₹${event.price}`}</Text>
                             </View>
-                            <View style={[styles.badge, { backgroundColor: 'rgba(255,255,255,0.1)' }]}>
-                                <Text style={[styles.badgeText, { color: COLORS.secondary }]}>{event.category}</Text>
-                            </View>
+
                         </View>
 
                         <Text style={styles.title}>{event.name}</Text>

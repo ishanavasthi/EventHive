@@ -5,8 +5,11 @@ import Constants from 'expo-constants';
 const MANUAL_IP = '';
 
 // 2. Logic to determine URL
-let uri = 'http://localhost:5000/api';
+// Default to Render Backend
+let uri = 'https://eventhive-l9j5.onrender.com/api';
 
+// Uncomment the below logic if you want to switch back to local development
+/*
 if (MANUAL_IP) {
   uri = `http://${MANUAL_IP}:5000/api`;
 } else if (Constants.expoConfig?.hostUri) {
@@ -17,7 +20,7 @@ if (MANUAL_IP) {
   // Fallback for Android Simulator if no hostUri
   // uri = 'http://10.0.2.2:5000/api'; 
 }
-
+*/
 const BASE_URL = uri;
 console.log('API BASE_URL configured as:', BASE_URL);
 

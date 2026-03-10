@@ -18,7 +18,7 @@ const MOCK_EVENTS = [
     { _id: '3', name: 'Zen Garden Workshop', date: new Date(Date.now() + 86400000).toISOString(), price: 1500, poster: 'https://images.unsplash.com/photo-1598556776374-2c28d2d689b6?w=500&q=80', description: 'Find your peace.', location: { address: 'Lodi Gardens' }, inventory: 20, ticketType: 'Paid', host: { name: 'Mindful Inc' }, category: 'Wellness' }
 ];
 
-const CITIES = ['All Cities', 'New Delhi', 'Mumbai', 'Bangalore', 'Pune', 'Hyderabad', 'Virtual'];
+const CITIES = ['All Cities', 'New Delhi', 'Mumbai', 'Bengaluru', 'Pune', 'Hyderabad', 'Virtual'];
 
 const HomeScreen = ({ navigation }) => {
     const { user } = useContext(AuthContext);
@@ -75,11 +75,9 @@ const HomeScreen = ({ navigation }) => {
                     colors={['transparent', 'rgba(0,0,0,0.9)']}
                     style={styles.featuredOverlay}
                 >
-                    <View style={styles.featuredBadge}>
-                        <Text style={styles.featuredBadgeText}>{item.category || 'Event'}</Text>
-                    </View>
+
                     <Text style={styles.featuredTitle}>{item.name}</Text>
-                    <Text style={styles.featuredDate}>{new Date(item.date).toDateString()} • {item.location.address}</Text>
+                    <Text style={styles.featuredDate}>{new Date(item.startDate || item.date).toDateString()} • {item.location.address}</Text>
                 </LinearGradient>
             </Animated.View>
         </TouchableOpacity>
@@ -96,7 +94,7 @@ const HomeScreen = ({ navigation }) => {
                         <Image source={{ uri: item.poster || 'https://via.placeholder.com/150' }} style={styles.thumb} />
                         <View style={styles.eventInfo}>
                             <Text style={styles.eventTitle} numberOfLines={1}>{item.name}</Text>
-                            <Text style={styles.eventMeta} numberOfLines={1}>📅 {new Date(item.date).toLocaleDateString()}</Text>
+                            <Text style={styles.eventMeta} numberOfLines={1}>📅 {new Date(item.startDate || item.date).toLocaleDateString()}</Text>
                             <Text style={styles.eventMeta} numberOfLines={1}>📍 {item.location.address}</Text>
 
                             <View style={styles.priceTag}>
@@ -178,12 +176,7 @@ const HomeScreen = ({ navigation }) => {
                         <View>
                             <View style={styles.sectionHeader}>
                                 <Text style={styles.sectionTitle}>Featured</Text>
-                                <TouchableOpacity
-                                    onPress={() => setCity('All Cities')}
-                                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                                >
-                                    <Text style={styles.sectionLink}>See All</Text>
-                                </TouchableOpacity>
+
                             </View>
                             <FlatList
                                 horizontal
