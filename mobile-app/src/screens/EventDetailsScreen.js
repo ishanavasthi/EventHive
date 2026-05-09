@@ -58,11 +58,7 @@ const EventDetailsScreen = ({ route, navigation }) => {
     };
 
     const showTicket = () => {
-        Alert.alert(
-            "Your Ticket",
-            `Ticket Code: ${myTicket.ticketCode}\nStatus: ${myTicket.status}`,
-            [{ text: "OK" }]
-        );
+        navigation.navigate('Ticket', { ticket: myTicket, event: event });
     };
 
     const openMaps = () => {
@@ -189,7 +185,7 @@ const EventDetailsScreen = ({ route, navigation }) => {
                         <GradientButton
                             text="Manage Event"
                             colors={[COLORS.error, '#ff4444']}
-                            onPress={() => Alert.alert('Manage', 'Host options coming soon.')}
+                            onPress={() => navigation.navigate('ManageEvent', { event })}
                         />
                     ) : isBooked ? (
                         <GradientButton

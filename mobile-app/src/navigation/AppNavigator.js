@@ -21,6 +21,8 @@ import BookingSuccessScreen from '../screens/BookingSuccessScreen';
 import MyEventsScreen from '../screens/MyEventsScreen';
 import { COLORS } from '../constants/theme';
 import ProfileScreen from '../screens/ProfileScreen'; // Optional
+import ManageEventScreen from '../screens/ManageEventScreen';
+import TicketScreen from '../screens/TicketScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -35,6 +37,8 @@ const HomeStack = () => (
         <Stack.Screen name="EventDetails" component={EventDetailsScreen} options={{ title: 'Event Details' }} />
         <Stack.Screen name="Payment" component={PaymentScreen} options={{ title: 'Payment' }} />
         <Stack.Screen name="BookingSuccess" component={BookingSuccessScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="ManageEvent" component={ManageEventScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Ticket" component={TicketScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
 );
 
@@ -71,7 +75,8 @@ const AppNavigator = () => {
 
     const getTabBarVisibility = (route) => {
         const routeName = getFocusedRouteNameFromRoute(route) ?? 'OneEvent';
-        if (routeName === 'EventDetails') {
+        const hideOnScreens = ['EventDetails', 'ManageEvent', 'Ticket'];
+        if (hideOnScreens.includes(routeName)) {
             return 'none';
         }
         return 'flex';

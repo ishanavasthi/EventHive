@@ -21,6 +21,7 @@ const BookingSchema = new mongoose.Schema({
     paymentId: { type: String }, // Razorpay Payment ID
     orderId: { type: String },   // Razorpay Order ID
     ticketCode: { type: String, unique: true }, // Simple unique code for entry
+    checkedIn: { type: Boolean, default: false }, // Whether the guest has checked in
     createdAt: { type: Date, default: Date.now }
 });
 

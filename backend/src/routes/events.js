@@ -3,6 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../middleware/auth'); // Import our security guard
 const Event = require('../models/Event');
+const Booking = require('../models/Booking');
 
 // @route   POST /api/events
 // @desc    Create a new event
@@ -93,6 +94,62 @@ router.delete('/:id', auth, async (req, res) => {
   } catch (err) {
     console.error(err.message);
     if (err.kind === 'ObjectId') return res.status(404).json({ msg: 'Event not found' });
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   GET /api/events/:id/guests
+// @desc    Get all bookings/guests for an event
+// @access  Private
+router.get('/:id/guests', auth, async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id);
+    if (!event) return res.status(404).json({ msg: 'Event not found' });
+
+    // Check if the requester is the host
+    if (event.host.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'Not authorized' });
+    }
+
+    const guests = await Booking.find({ event: req.params.id }).populate('user', ['name', 'email', 'profilePicture']);
+    res.json(guests);
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind === 'ObjectId') return res.status(404).json({ msg: 'Event not found' });
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   POST /api/events/:id/checkin
+// @desc    Check in a guest by ticket code
+// @access  Private
+router.post('/:id/checkin', auth, async (req, res) => {
+  try {
+    const { ticketCode } = req.body;
+    if (!ticketCode) return res.status(400).json({ msg: 'Ticket code is required' });
+
+    const event = await Event.findById(req.params.id);
+    if (!event) return res.status(404).json({ msg: 'Event not found' });
+
+    if (event.host.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'Not authorized' });
+    }
+
+    const booking = await Booking.findOne({ event: req.params.id, ticketCode });
+    if (!booking) {
+      return res.status(404).json({ msg: 'Invalid ticket for this event' });
+    }
+
+    if (booking.checkedIn) {
+      return res.status(400).json({ msg: 'Guest is already checked in' });
+    }
+
+    booking.checkedIn = true;
+    await booking.save();
+
+    res.json({ msg: 'Check-in successful', booking });
+  } catch (err) {
+    console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
