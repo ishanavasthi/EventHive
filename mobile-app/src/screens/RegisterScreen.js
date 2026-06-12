@@ -1,22 +1,24 @@
 
 import React, { useState, useContext } from 'react';
-import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, Alert, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, Alert, ScrollView, TouchableOpacity } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import { COLORS, FONTS, SIZES } from '../constants/theme';
 import { LinearGradient } from 'expo-linear-gradient';
 import CustomInput from '../components/ui/CustomInput';
 import GradientButton from '../components/ui/GradientButton';
 import GlassCard from '../components/ui/GlassCard';
-import { Mail, Lock, User, CreditCard, Building } from 'lucide-react-native';
+import { Mail, Lock, User, CreditCard, Building, MapPin } from 'lucide-react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
 const RegisterScreen = ({ navigation }) => {
     const { register } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
+    const [userType, setUserType] = useState('individual'); // 'individual' | 'organization'
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: '',
+        city: '',
         accountNumber: '',
         ifscCode: '',
         accountHolderName: ''
@@ -27,7 +29,7 @@ const RegisterScreen = ({ navigation }) => {
     };
 
     const handleRegister = async () => {
-        const { name, email, password, accountNumber, ifscCode, accountHolderName } = formData;
+        const { name, email, password, city, accountNumber, ifscCode, accountHolderName } = formData;
         if (!name || !email || !password) {
             Alert.alert('Error', 'Name, Email and Password are required');
             return;
@@ -36,7 +38,7 @@ const RegisterScreen = ({ navigation }) => {
         setLoading(true);
         const bankDetails = { accountNumber, ifscCode, accountHolderName };
         try {
-            const res = await register(name, email, password, bankDetails);
+            const res = await register(name, email, password, bankDetails, userType, city);
             if (!res.success) {
                 Alert.alert('Registration Failed', res.msg);
             }
@@ -66,10 +68,28 @@ const RegisterScreen = ({ navigation }) => {
 
                     <Animated.View entering={FadeInDown.delay(400).duration(1000).springify()}>
                         <GlassCard style={styles.card}>
-                            <Text style={styles.sectionTitle}>Personal Info</Text>
+                            <Text style={styles.sectionTitle}>Account Type</Text>
+                            <View style={styles.selectorContainer}>
+                                <TouchableOpacity
+                                    style={[styles.selectorBtn, userType === 'individual' && styles.selectorBtnActive]}
+                                    onPress={() => setUserType('individual')}
+                                >
+                                    <Text style={[styles.selectorBtnText, userType === 'individual' && styles.selectorBtnTextActive]}>Individual</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={[styles.selectorBtn, userType === 'organization' && styles.selectorBtnActive]}
+                                    onPress={() => setUserType('organization')}
+                                >
+                                    <Text style={[styles.selectorBtnText, userType === 'organization' && styles.selectorBtnTextActive]}>Organization</Text>
+                                </TouchableOpacity>
+                            </View>
+
+                            <Text style={[styles.sectionTitle, { marginTop: 10 }]}>
+                                {userType === 'individual' ? 'Personal Info' : 'Organization Details'}
+                            </Text>
                             <CustomInput
-                                icon={User}
-                                placeholder="Full Name"
+                                icon={userType === 'individual' ? User : Building}
+                                placeholder={userType === 'individual' ? "Full Name" : "Organization Name"}
                                 value={formData.name}
                                 onChangeText={(t) => handleChange('name', t)}
                             />
@@ -86,6 +106,12 @@ const RegisterScreen = ({ navigation }) => {
                                 value={formData.password}
                                 onChangeText={(t) => handleChange('password', t)}
                                 secureTextEntry
+                            />
+                            <CustomInput
+                                icon={MapPin}
+                                placeholder="City (e.g. Bengaluru, Mumbai)"
+                                value={formData.city}
+                                onChangeText={(t) => handleChange('city', t)}
                             />
 
                             <Text style={[styles.sectionTitle, { marginTop: 20 }]}>Payout Details (Optional)</Text>
@@ -140,6 +166,34 @@ const styles = StyleSheet.create({
     subtitle: { ...FONTS.body1, color: COLORS.textDim, textAlign: 'center', marginBottom: 30 },
     card: { padding: 15 },
     sectionTitle: { ...FONTS.h3, color: COLORS.text, marginBottom: 15, fontWeight: '600' },
+    selectorContainer: {
+        flexDirection: 'row',
+        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+        borderRadius: 12,
+        padding: 4,
+        marginBottom: 15,
+        borderWidth: 1,
+        borderColor: 'rgba(255, 255, 255, 0.1)',
+    },
+    selectorBtn: {
+        flex: 1,
+        paddingVertical: 12,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10,
+    },
+    selectorBtnActive: {
+        backgroundColor: COLORS.primary,
+    },
+    selectorBtnText: {
+        color: COLORS.textDim,
+        fontWeight: '600',
+        fontSize: 14,
+    },
+    selectorBtnTextActive: {
+        color: '#000',
+        fontWeight: 'bold',
+    },
     footer: { flexDirection: 'row', justifyContent: 'center', marginTop: 24 },
     footerText: { ...FONTS.body2, color: COLORS.textDim },
     link: { ...FONTS.body2, color: COLORS.secondary, fontWeight: 'bold' }

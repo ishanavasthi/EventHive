@@ -1,16 +1,18 @@
 import axios from 'axios';
 import Constants from 'expo-constants';
+import { Platform } from 'react-native';
 
 // 1. If you know your IP, enter it here (e.g., '192.168.1.5')
 const MANUAL_IP = '';
 
 // 2. Logic to determine URL
 // Default to Render Backend
-let uri = 'https://eventhive-l9j5.onrender.com/api';
+let uri = 'https://eventhive-backend-glp5.onrender.com/api';
 
-// Uncomment the below logic if you want to switch back to local development
-/*
-if (MANUAL_IP) {
+// Switch to local for development
+if (Platform.OS === 'web') {
+  uri = 'http://localhost:5000/api';
+} else if (MANUAL_IP) {
   uri = `http://${MANUAL_IP}:5000/api`;
 } else if (Constants.expoConfig?.hostUri) {
   // Dynamic IP from Expo (LAN)
@@ -18,9 +20,8 @@ if (MANUAL_IP) {
   uri = `http://${ip}:5000/api`;
 } else {
   // Fallback for Android Simulator if no hostUri
-  // uri = 'http://10.0.2.2:5000/api'; 
+  uri = 'http://10.0.2.2:5000/api'; 
 }
-*/
 const BASE_URL = uri;
 console.log('API BASE_URL configured as:', BASE_URL);
 

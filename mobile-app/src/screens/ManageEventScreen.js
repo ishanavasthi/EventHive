@@ -23,6 +23,8 @@ const ManageEventScreen = ({ route, navigation }) => {
     useEffect(() => {
         if (activeTab === 'list') {
             fetchGuests();
+        } else if (activeTab === 'scanner') {
+            setScanned(false);
         }
     }, [activeTab]);
 

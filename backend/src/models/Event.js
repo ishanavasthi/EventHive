@@ -10,7 +10,7 @@ const EventSchema = new mongoose.Schema({
   description: { type: String, required: true },
   category: {
     type: String,
-    enum: ['Music', 'Workshop', 'Meetup', 'Sports', 'Other'], // PRD Categories
+    enum: ['Music', 'Workshop', 'Meetup', 'Sports', 'Tech', 'Art', 'Cultural', 'Cooking', 'Other'],
     required: true
   },
   startDate: { type: Date, required: true },
@@ -22,9 +22,20 @@ const EventSchema = new mongoose.Schema({
   },
   ticketType: { type: String, enum: ['Free', 'Paid'], default: 'Free' },
   price: { type: Number, default: 0 },        // 0 = Free
-  totalTickets: { type: Number, required: true },
-  inventory: { type: Number, required: true },
+  totalTickets: { 
+    type: Number, 
+    required: function() { return !this.isExternalTicket; },
+    default: 0 
+  },
+  inventory: { 
+    type: Number, 
+    required: function() { return !this.isExternalTicket; },
+    default: 0 
+  },
+  isExternalTicket: { type: Boolean, default: false },
+  externalTicketUrl: { type: String, default: '' },
   poster: { type: String }, // URL to image
+  registrationDeadline: { type: Date },
   createdAt: { type: Date, default: Date.now }
 });
 

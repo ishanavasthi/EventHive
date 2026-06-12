@@ -18,6 +18,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: 'user',
   },
+  userType: {
+    type: String,
+    enum: ['individual', 'organization'],
+    default: 'individual',
+  },
   profilePicture: {
     type: String, // URL from Cloudinary
     default: ''
@@ -26,6 +31,10 @@ const UserSchema = new mongoose.Schema({
     accountNumber: { type: String, default: '' },
     ifscCode: { type: String, default: '' },
     accountHolderName: { type: String, default: '' }
+  },
+  city: {
+    type: String,
+    default: ''
   },
   createdAt: {
     type: Date,

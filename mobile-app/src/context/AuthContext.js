@@ -25,9 +25,9 @@ export const AuthProvider = ({ children }) => {
   console.log('------------------------------------------------');
 
   const [request, response, promptAsync] = Google.useAuthRequest({
-    webClientId: '878257577448-jlb8ocmbha6jgublnlmp60fjl6haogjf.apps.googleusercontent.com',
-    androidClientId: '878257577448-jlb8ocmbha6jgublnlmp60fjl6haogjf.apps.googleusercontent.com',
-    iosClientId: '878257577448-jlb8ocmbha6jgublnlmp60fjl6haogjf.apps.googleusercontent.com',
+    webClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID || '878257577448-jlb8ocmbha6jgublnlmp60fjl6haogjf.apps.googleusercontent.com',
+    androidClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID || '878257577448-jlb8ocmbha6jgublnlmp60fjl6haogjf.apps.googleusercontent.com',
+    iosClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID || '878257577448-jlb8ocmbha6jgublnlmp60fjl6haogjf.apps.googleusercontent.com',
     redirectUri: redirectUri
   });
 
@@ -54,6 +54,22 @@ export const AuthProvider = ({ children }) => {
       await AsyncStorage.setItem('userInfo', JSON.stringify(user));
     } catch (err) {
       console.error('Google Login Error', err);
+    }
+  };
+
+  const appleLogin = async (identityToken, fullName) => {
+    try {
+      const res = await api.post('/auth/apple', { identityToken, fullName });
+      const { token: jwt, user } = res.data;
+
+      setUser(user);
+      api.defaults.headers.common['x-auth-token'] = jwt;
+      await AsyncStorage.setItem('token', jwt);
+      await AsyncStorage.setItem('userInfo', JSON.stringify(user));
+      return { success: true };
+    } catch (err) {
+      console.error('Apple Login Error', err);
+      return { success: false, msg: err.response?.data?.msg || 'Apple sign-in failed' };
     }
   };
 
@@ -95,9 +111,9 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (name, email, password, bankDetails) => {
+  const register = async (name, email, password, bankDetails, userType, city) => {
     try {
-      const res = await api.post('/auth/register', { name, email, password, bankDetails });
+      const res = await api.post('/auth/register', { name, email, password, bankDetails, userType, city });
       const { token, user } = res.data; // Assuming same structure
 
       setUser(user);
@@ -134,7 +150,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, login, register, guestLogin, logout, promptAsync }}>
+    <AuthContext.Provider value={{ user, setUser, loading, login, register, guestLogin, logout, promptAsync, appleLogin }}>
       {children}
     </AuthContext.Provider>
   );

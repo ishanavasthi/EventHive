@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, Alert, Linking, Platform, Dimensions, StatusBar } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, Alert, Linking, Platform, Dimensions, StatusBar, Modal } from 'react-native';
 import api from '../services/api';
 import { AuthContext } from '../context/AuthContext';
 import { COLORS, FONTS, SIZES } from '../constants/theme';
@@ -10,6 +10,7 @@ import GradientButton from '../components/ui/GradientButton';
 import GlassCard from '../components/ui/GlassCard';
 import { MapPin, Calendar, Clock, ArrowLeft, Share2 } from 'lucide-react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
+import { Ionicons } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window');
 
@@ -21,6 +22,8 @@ const EventDetailsScreen = ({ route, navigation }) => {
     const [isBooked, setIsBooked] = useState(false);
     const [myTicket, setMyTicket] = useState(null);
     const [actionLoading, setActionLoading] = useState(false);
+    const [timeLeft, setTimeLeft] = useState(null);
+    const [showRedirectModal, setShowRedirectModal] = useState(false);
 
     useEffect(() => {
         const fetchEvent = async () => {
@@ -51,10 +54,81 @@ const EventDetailsScreen = ({ route, navigation }) => {
         checkBookingStatus();
     }, [eventId, user]);
 
+    useEffect(() => {
+        if (!event || !event.registrationDeadline) return;
+
+        const updateTimer = () => {
+            const diffMs = new Date(event.registrationDeadline) - new Date();
+            setTimeLeft(diffMs > 0 ? diffMs : 0);
+        };
+
+        updateTimer();
+        const interval = setInterval(updateTimer, 1000);
+        return () => clearInterval(interval);
+    }, [event?.registrationDeadline]);
+
+    const getDeadlineStatus = () => {
+        if (!event?.registrationDeadline) return null;
+        if (timeLeft === null) return null;
+        
+        if (timeLeft <= 0) {
+            return { status: 'closed', text: 'Registrations Closed 🚫', color: COLORS.error, countdown: null };
+        }
+        
+        const diffSeconds = Math.floor(timeLeft / 1000);
+        const diffMinutes = Math.floor(diffSeconds / 60);
+        const diffHours = Math.floor(diffMinutes / 60);
+        const diffDays = Math.floor(diffHours / 24);
+        
+        if (diffDays >= 2) {
+            return { 
+                status: 'open', 
+                text: `Registrations close in ${diffDays} days ⏳`, 
+                color: COLORS.primary,
+                countdown: null
+            };
+        } else {
+            const displayHours = diffHours.toString().padStart(2, '0');
+            const displayMins = (diffMinutes % 60).toString().padStart(2, '0');
+            const displaySecs = (diffSeconds % 60).toString().padStart(2, '0');
+            const displayDaysStr = diffDays > 0 ? `${diffDays}d : ` : '';
+            return { 
+                status: 'urgent', 
+                text: `Closing Soon! Closes in ${displayDaysStr}${displayHours % 24}h : ${displayMins}m : ${displaySecs}s ⏳`, 
+                color: COLORS.warning,
+                countdown: `${displayDaysStr}${displayHours % 24}h : ${displayMins}m : ${displaySecs}s`
+            };
+        }
+    };
+
+    const deadlineInfo = getDeadlineStatus();
+    const isClosed = deadlineInfo && deadlineInfo.status === 'closed';
+
     const handleBook = () => {
+        if (isClosed) {
+            Alert.alert('Notice', 'Registrations for this event have closed.');
+            return;
+        }
+        if (event.isExternalTicket) {
+            setShowRedirectModal(true);
+            return;
+        }
         if (!user) return navigation.navigate('Login');
         if (event.host._id === user._id) return Alert.alert('Notice', 'You are the host.');
         navigation.navigate('Payment', { event });
+    };
+
+    const confirmExternalRedirect = () => {
+        setShowRedirectModal(false);
+        let url = event.externalTicketUrl;
+        if (url) {
+            if (!/^https?:\/\//i.test(url)) {
+                url = 'https://' + url;
+            }
+            Linking.openURL(url).catch(err => Alert.alert('Error', 'Invalid link or cannot open URL'));
+        } else {
+            Alert.alert('Error', 'No external link provided for tickets');
+        }
     };
 
     const showTicket = () => {
@@ -118,6 +192,21 @@ const EventDetailsScreen = ({ route, navigation }) => {
                 {/* Content */}
                 <View style={styles.content}>
                     <Animated.View entering={FadeInDown.duration(600).springify()}>
+                        {deadlineInfo && (
+                            <GlassCard
+                                style={[
+                                    styles.deadlineCard,
+                                    { borderColor: deadlineInfo.color, marginBottom: 15 }
+                                ]}
+                                contentContainerStyle={{ padding: 12, flexDirection: 'row', alignItems: 'center', gap: 10 }}
+                            >
+                                <Clock size={16} color={deadlineInfo.color} />
+                                <Text style={{ color: '#fff', fontSize: 13, fontWeight: 'bold' }}>
+                                    {deadlineInfo.text}
+                                </Text>
+                            </GlassCard>
+                        )}
+
                         <View style={styles.tagRow}>
                             <View style={styles.badge}>
                                 <Text style={styles.badgeText}>{event.ticketType === 'Free' ? 'FREE' : `₹${event.price}`}</Text>
@@ -132,12 +221,58 @@ const EventDetailsScreen = ({ route, navigation }) => {
                                 <View style={styles.avatar}>
                                     <Text style={styles.avatarText}>{event.host?.name?.[0] || '?'}</Text>
                                 </View>
-                                <View>
+                                <View style={{ flex: 1 }}>
                                     <Text style={styles.hostLabel}>Hosted by</Text>
-                                    <Text style={styles.hostName}>{event.host?.name || 'Unknown'}</Text>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+                                        <Text style={styles.hostName}>{event.host?.name || 'Unknown'}</Text>
+                                        {event.host?.userType === 'organization' && (
+                                            <View style={styles.verifiedBadge}>
+                                                <Ionicons name="checkmark-circle" size={12} color="#000" style={{ marginRight: 3 }} />
+                                                <Text style={styles.verifiedText}>VERIFIED ORG</Text>
+                                            </View>
+                                        )}
+                                    </View>
                                 </View>
                             </View>
                         </GlassCard>
+
+                        {/* Visual Event Timeline */}
+                        {event.registrationDeadline && (
+                            <GlassCard style={styles.timelineCard}>
+                                <Text style={styles.timelineTitle}>Registration & Event Schedule</Text>
+                                
+                                <View style={styles.timelineRow}>
+                                    <View style={styles.timelineIconContainer}>
+                                        <View style={[styles.timelineNode, { backgroundColor: isClosed ? COLORS.error : COLORS.primary }]} />
+                                        <View style={styles.timelineLine} />
+                                    </View>
+                                    <View style={styles.timelineContent}>
+                                        <Text style={styles.timelineStepTitle}>Registration Deadline</Text>
+                                        <Text style={styles.timelineStepDate}>
+                                            {new Date(event.registrationDeadline).toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' })} • {new Date(event.registrationDeadline).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                        </Text>
+                                        <Text style={[styles.timelineStepStatus, { color: isClosed ? COLORS.error : COLORS.success }]}>
+                                            {isClosed ? 'Registrations Closed' : deadlineInfo?.countdown ? `Closes in ${deadlineInfo.countdown}` : 'Open (Booking Available)'}
+                                        </Text>
+                                    </View>
+                                </View>
+
+                                <View style={[styles.timelineRow, { marginBottom: 0 }]}>
+                                    <View style={styles.timelineIconContainer}>
+                                        <View style={[styles.timelineNode, { backgroundColor: COLORS.secondary }]} />
+                                    </View>
+                                    <View style={styles.timelineContent}>
+                                        <Text style={styles.timelineStepTitle}>Event Starts</Text>
+                                        <Text style={styles.timelineStepDate}>
+                                            {new Date(event.startDate || event.date).toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' })} • {new Date(event.startDate || event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                        </Text>
+                                        <Text style={{ fontSize: 12, color: COLORS.textDim, marginTop: 2 }}>
+                                            Actual event occurs on this date
+                                        </Text>
+                                    </View>
+                                </View>
+                            </GlassCard>
+                        )}
 
                         {/* Info Section */}
                         <View style={styles.infoSection}>
@@ -176,18 +311,25 @@ const EventDetailsScreen = ({ route, navigation }) => {
             {/* Sticky Bottom Action Bar */}
             <BlurView intensity={80} tint="dark" style={styles.actionBar}>
                 <View style={styles.priceBlock}>
-                    <Text style={styles.priceLabel}>Total Price</Text>
-                    <Text style={styles.priceValue}>{event.ticketType === 'Free' ? 'Free' : `₹${event.price}`}</Text>
+                    <Text style={styles.priceLabel}>{event.isExternalTicket ? 'Ticket Source' : 'Total Price'}</Text>
+                    <Text style={styles.priceValue}>{event.isExternalTicket ? 'External' : event.ticketType === 'Free' ? 'Free' : `₹${event.price}`}</Text>
                 </View>
 
                 <View style={{ flex: 1, marginLeft: 20 }}>
-                    {user && user._id === event.host._id ? (
+                    {user && user._id === event.host._id && !event.isExternalTicket ? (
                         <GradientButton
                             text="Manage Event"
                             colors={[COLORS.error, '#ff4444']}
                             onPress={() => navigation.navigate('ManageEvent', { event })}
                         />
-                    ) : isBooked ? (
+                    ) : isClosed ? (
+                        <GradientButton
+                            text="Registrations Closed"
+                            colors={['#333', '#444']}
+                            disabled={true}
+                            onPress={() => {}}
+                        />
+                    ) : isBooked && !event.isExternalTicket ? (
                         <GradientButton
                             text="View Ticket"
                             colors={[COLORS.success, '#00b894']}
@@ -195,15 +337,60 @@ const EventDetailsScreen = ({ route, navigation }) => {
                         />
                     ) : (
                         <GradientButton
-                            text={event.inventory > 0 ? "Book Now" : "Sold Out"}
-                            colors={event.inventory > 0 ? COLORS.gradientPrimary : ['#555', '#777']}
+                            text={event.isExternalTicket ? "Book on Website" : event.inventory > 0 ? "Book Now" : "Sold Out"}
+                            colors={event.isExternalTicket || event.inventory > 0 ? COLORS.gradientPrimary : ['#555', '#777']}
                             onPress={handleBook}
                             isLoading={actionLoading}
-                            disabled={event.inventory <= 0}
+                            disabled={!event.isExternalTicket && event.inventory <= 0}
                         />
                     )}
                 </View>
             </BlurView>
+
+            {/* External Redirect Modal */}
+            <Modal visible={showRedirectModal} transparent animationType="fade">
+                <BlurView intensity={90} tint="dark" style={styles.modalBackdrop}>
+                    <GlassCard style={styles.redirectModalCard}>
+                        <Text style={styles.redirectTitle}>Leaving EventHive 🌐</Text>
+                        <Text style={styles.redirectMessage}>
+                            You are being redirected to register for this event on the official host website:
+                        </Text>
+                        
+                        <View style={styles.urlBox}>
+                            <Text style={styles.urlText} numberOfLines={2}>
+                                {event.externalTicketUrl || 'External Website'}
+                            </Text>
+                        </View>
+                        
+                        {event.registrationDeadline && (
+                            <View style={styles.redirectWarningBox}>
+                                <Clock size={16} color={COLORS.warning} style={{ marginTop: 2 }} />
+                                <Text style={styles.redirectWarningText}>
+                                    Make sure to complete your registration before registrations close on:{'\n'}
+                                    <Text style={{ fontWeight: 'bold' }}>
+                                        {new Date(event.registrationDeadline).toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' })} at {new Date(event.registrationDeadline).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                    </Text>
+                                </Text>
+                            </View>
+                        )}
+                        
+                        <View style={styles.modalBtnRow}>
+                            <TouchableOpacity 
+                                style={[styles.modalBtn, { backgroundColor: '#333' }]} 
+                                onPress={() => setShowRedirectModal(false)}
+                            >
+                                <Text style={{ color: '#fff', fontWeight: 'bold' }}>Cancel</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                                style={[styles.modalBtn, { backgroundColor: COLORS.primary }]} 
+                                onPress={confirmExternalRedirect}
+                            >
+                                <Text style={{ color: '#000', fontWeight: 'bold' }}>Continue</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </GlassCard>
+                </BlurView>
+            </Modal>
         </View>
     );
 };
@@ -264,7 +451,144 @@ const styles = StyleSheet.create({
     },
     priceBlock: { justifyContent: 'center' },
     priceLabel: { color: COLORS.textDim, fontSize: 12, marginBottom: 2 },
-    priceValue: { color: COLORS.text, fontSize: 24, fontWeight: 'bold' }
+    priceValue: { color: COLORS.text, fontSize: 24, fontWeight: 'bold' },
+    verifiedBadge: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: COLORS.primary,
+        paddingHorizontal: 6,
+        paddingVertical: 2,
+        borderRadius: 6,
+    },
+    verifiedText: {
+        color: '#000',
+        fontWeight: 'bold',
+        fontSize: 10,
+        letterSpacing: 0.5
+    },
+    timelineCard: {
+        padding: 16,
+        marginBottom: 25,
+        borderRadius: 12,
+    },
+    timelineTitle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#fff',
+        marginBottom: 15,
+    },
+    timelineRow: {
+        flexDirection: 'row',
+        marginBottom: 12,
+    },
+    timelineIconContainer: {
+        alignItems: 'center',
+        marginRight: 15,
+        width: 16,
+    },
+    timelineNode: {
+        width: 12,
+        height: 12,
+        borderRadius: 6,
+        marginTop: 4,
+    },
+    timelineLine: {
+        width: 2,
+        flex: 1,
+        backgroundColor: 'rgba(255,255,255,0.1)',
+        marginVertical: 4,
+        minHeight: 25,
+    },
+    timelineContent: {
+        flex: 1,
+    },
+    timelineStepTitle: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: '#fff',
+    },
+    timelineStepDate: {
+        fontSize: 13,
+        color: COLORS.text,
+        marginTop: 2,
+    },
+    timelineStepStatus: {
+        fontSize: 12,
+        fontWeight: '600',
+        marginTop: 2,
+    },
+    redirectModalCard: {
+        width: '85%',
+        padding: 20,
+        borderRadius: 20,
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: 'rgba(255,255,255,0.1)'
+    },
+    redirectTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#fff',
+        marginBottom: 12,
+        textAlign: 'center',
+    },
+    redirectMessage: {
+        fontSize: 14,
+        color: COLORS.textDim,
+        textAlign: 'center',
+        lineHeight: 20,
+        marginBottom: 15,
+    },
+    urlBox: {
+        width: '100%',
+        backgroundColor: 'rgba(0,0,0,0.3)',
+        padding: 12,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: 'rgba(255,255,255,0.05)',
+        marginBottom: 15,
+    },
+    urlText: {
+        color: COLORS.primary,
+        fontSize: 13,
+        textAlign: 'center',
+    },
+    redirectWarningBox: {
+        flexDirection: 'row',
+        backgroundColor: 'rgba(255,165,0,0.1)',
+        borderWidth: 1,
+        borderColor: 'rgba(255,165,0,0.2)',
+        padding: 12,
+        borderRadius: 10,
+        gap: 8,
+        width: '100%',
+        marginBottom: 20,
+    },
+    redirectWarningText: {
+        color: COLORS.text,
+        fontSize: 12,
+        flex: 1,
+        lineHeight: 16,
+    },
+    modalBtnRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%',
+        gap: 15,
+    },
+    modalBtn: {
+        flex: 1,
+        paddingVertical: 12,
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    modalBackdrop: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        alignItems: 'center',
+    }
 });
 
 export default EventDetailsScreen;

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, StyleSheet, ScrollView, Image, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../services/api';
 import { AuthContext } from '../context/AuthContext';
 import { COLORS, FONTS } from '../constants/theme';
@@ -12,6 +13,7 @@ const EditProfileScreen = ({ navigation }) => {
     // Form State
     const [email, setEmail] = useState(user?.email || '');
     const [profilePicture, setProfilePicture] = useState(user?.profilePicture || '');
+    const [city, setCity] = useState(user?.city || '');
 
     // Bank Details
     const [accountNumber, setAccountNumber] = useState(user?.bankDetails?.accountNumber || '');
@@ -38,6 +40,7 @@ const EditProfileScreen = ({ navigation }) => {
             const payload = {
                 email,
                 profilePicture,
+                city,
                 bankDetails: {
                     accountNumber,
                     ifscCode,
@@ -47,10 +50,9 @@ const EditProfileScreen = ({ navigation }) => {
 
             const res = await api.put('/auth/profile', payload);
 
-            // Update Context
-            // We need to merge the new user data with the existing token logic if needed, 
-            // but setUser usually just updates the user object in state.
+            // Update Context & AsyncStorage
             setUser(res.data);
+            await AsyncStorage.setItem('userInfo', JSON.stringify(res.data));
 
             Alert.alert('Success', 'Profile Updated Successfully!');
             navigation.goBack();
@@ -92,6 +94,15 @@ const EditProfileScreen = ({ navigation }) => {
                 onChangeText={setEmail}
                 keyboardType="email-address"
                 autoCapitalize="none"
+            />
+
+            <Text style={styles.label}>City (e.g. Bengaluru, Mumbai)</Text>
+            <TextInput
+                style={styles.input}
+                value={city}
+                onChangeText={setCity}
+                placeholder="Ex: Bengaluru"
+                placeholderTextColor={COLORS.textDim}
             />
 
             <View style={styles.divider} />

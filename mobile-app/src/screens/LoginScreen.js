@@ -8,11 +8,12 @@ import GradientButton from '../components/ui/GradientButton';
 import GlassCard from '../components/ui/GlassCard';
 import { Mail, Lock } from 'lucide-react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
+import * as AppleAuthentication from 'expo-apple-authentication';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useContext(AuthContext);
+  const { login, promptAsync, appleLogin } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
@@ -26,6 +27,40 @@ const LoginScreen = ({ navigation }) => {
       await login(email, password);
     } catch (error) {
       Alert.alert('Login Failed', error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      setLoading(true);
+      await promptAsync();
+    } catch (error) {
+      Alert.alert('Google Sign-In Error', error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAppleLogin = async () => {
+    try {
+      setLoading(true);
+      const credential = await AppleAuthentication.signInAsync({
+        requestedScopes: [
+          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+          AppleAuthentication.AppleAuthenticationScope.EMAIL,
+        ],
+      });
+
+      const res = await appleLogin(credential.identityToken, credential.fullName);
+      if (!res.success) {
+        Alert.alert('Apple Sign-In Failed', res.msg);
+      }
+    } catch (error) {
+      if (error.code !== 'ERR_REQUEST_CANCELED') {
+        Alert.alert('Apple Sign-In Error', error.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -76,6 +111,30 @@ const LoginScreen = ({ navigation }) => {
               isLoading={loading}
               containerStyle={{ marginTop: 10 }}
             />
+
+            <View style={styles.dividerContainer}>
+              <View style={styles.dividerLine} />
+              <Text style={styles.dividerText}>OR</Text>
+              <View style={styles.dividerLine} />
+            </View>
+
+            <GradientButton
+              text="Continue with Google"
+              onPress={handleGoogleLogin}
+              colors={['#4285F4', '#2a69c7']}
+              containerStyle={{ marginTop: 0 }}
+            />
+
+            {Platform.OS === 'ios' && (
+              <View style={{ marginTop: 10 }}>
+                <AppleAuthentication.AppleAuthenticationButton
+                  buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
+                  buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE_OUTLINE}
+                  style={styles.appleButton}
+                  onPress={handleAppleLogin}
+                />
+              </View>
+            )}
 
             <View style={styles.footer}>
               <Text style={styles.footerText}>New here? </Text>
@@ -147,7 +206,27 @@ const styles = StyleSheet.create({
     ...FONTS.body2,
     color: COLORS.secondary,
     fontWeight: 'bold',
+  },
+  dividerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  dividerLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: COLORS.textDim,
+    opacity: 0.3,
+  },
+  dividerText: {
+    ...FONTS.body2,
+    color: COLORS.textDim,
+    paddingHorizontal: 10,
+  },
+  appleButton: {
+    width: '100%',
+    height: 56,
   }
 });
 
-export default LoginScreen;
+export default LoginScreen;

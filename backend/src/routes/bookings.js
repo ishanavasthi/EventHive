@@ -5,6 +5,7 @@ const Razorpay = require('razorpay');
 const auth = require('../middleware/auth');
 const Event = require('../models/Event');
 const Booking = require('../models/Booking');
+const Notification = require('../models/Notification');
 
 // Initialize Razorpay
 // NOTE: We need real keys in .env
@@ -22,6 +23,10 @@ router.post('/checkout', auth, async (req, res) => {
     try {
         const event = await Event.findById(eventId);
         if (!event) return res.status(404).json({ msg: 'Event not found' });
+
+        if (event.registrationDeadline && new Date() > new Date(event.registrationDeadline)) {
+            return res.status(400).json({ msg: 'Registrations for this event have closed' });
+        }
 
         if (event.host.toString() === req.user.id) {
             return res.status(400).json({ msg: 'Host cannot book their own event' });
@@ -89,6 +94,10 @@ router.post('/verify', auth, async (req, res) => {
         const event = await Event.findById(eventId);
         if (!event) return res.status(404).json({ msg: 'Event not found' });
 
+        if (event.registrationDeadline && new Date() > new Date(event.registrationDeadline)) {
+            return res.status(400).json({ msg: 'Registrations for this event have closed' });
+        }
+
         // Verify Signature (Skip for mock/free)
         // const hmac = crypto.createHmac('sha256', process.env.RAZORPAY_KEY_SECRET);
         // hmac.update(razorpay_order_id + "|" + razorpay_payment_id);
@@ -114,6 +123,16 @@ router.post('/verify', auth, async (req, res) => {
         });
 
         await newBooking.save();
+
+        // Create booking confirmation notification
+        const notification = new Notification({
+            user: req.user.id,
+            title: 'Booking Confirmed! 🎟️',
+            message: `You have successfully booked tickets for "${event.name}". See you there!`,
+            type: 'booking_confirmed',
+            relatedId: newBooking._id
+        });
+        await notification.save();
 
         res.json({ msg: 'Booking confirmed', booking: newBooking });
 
