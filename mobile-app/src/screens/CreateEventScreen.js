@@ -42,6 +42,8 @@ const CreateEventScreen = ({ navigation }) => {
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('Music');
     const [showCategoryModal, setShowCategoryModal] = useState(false);
+    const [targetAgeGroup, setTargetAgeGroup] = useState('All Ages');
+    const [showAgeModal, setShowAgeModal] = useState(false);
 
     // Picker State
     const [pickerVisible, setPickerVisible] = useState(false);
@@ -274,7 +276,8 @@ const CreateEventScreen = ({ navigation }) => {
                 poster: image,
                 isExternalTicket,
                 externalTicketUrl: isExternalTicket ? externalTicketUrl : '',
-                registrationDeadline: hasDeadline ? deadlineDate.toISOString() : null
+                registrationDeadline: hasDeadline ? deadlineDate.toISOString() : null,
+                targetAgeGroup
             };
             await api.post('/events', payload);
             Alert.alert('Success', 'Event Created!');
@@ -334,6 +337,16 @@ const CreateEventScreen = ({ navigation }) => {
                             <TouchableOpacity style={styles.input} onPress={() => setShowCategoryModal(true)}>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <Text style={{ color: COLORS.text }}>{category}</Text>
+                                    <ChevronDown size={18} color={COLORS.textDim} />
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.inputGroup}>
+                            <Text style={styles.label}>Target Age Group</Text>
+                            <TouchableOpacity style={styles.input} onPress={() => setShowAgeModal(true)}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <Text style={{ color: COLORS.text }}>{targetAgeGroup}</Text>
                                     <ChevronDown size={18} color={COLORS.textDim} />
                                 </View>
                             </TouchableOpacity>
@@ -494,6 +507,36 @@ const CreateEventScreen = ({ navigation }) => {
                                 >
                                     <Text style={[styles.categoryText, category === item && { color: '#000', fontWeight: 'bold' }]}>{item}</Text>
                                     {category === item && <Check size={18} color="#000" />}
+                                </TouchableOpacity>
+                            )}
+                        />
+                    </View>
+                </BlurView>
+            </Modal>
+
+            {/* Target Age Group Modal */}
+            <Modal visible={showAgeModal} transparent animationType="fade">
+                <BlurView intensity={90} tint="dark" style={styles.modalBackdrop}>
+                    <View style={styles.categoryContainer}>
+                        <View style={styles.modalHeader}>
+                            <Text style={styles.modalTitle}>Choose Target Age Group</Text>
+                            <TouchableOpacity onPress={() => setShowAgeModal(false)}>
+                                <X size={24} color={COLORS.text} />
+                            </TouchableOpacity>
+                        </View>
+                        <FlatList
+                            data={['All Ages', 'Kids', 'Teens', '18+', '21+']}
+                            keyExtractor={(item) => item}
+                            renderItem={({ item }) => (
+                                <TouchableOpacity
+                                    style={[styles.categoryItem, targetAgeGroup === item && styles.categoryItemSelected]}
+                                    onPress={() => {
+                                        setTargetAgeGroup(item);
+                                        setShowAgeModal(false);
+                                    }}
+                                >
+                                    <Text style={[styles.categoryText, targetAgeGroup === item && { color: '#000', fontWeight: 'bold' }]}>{item}</Text>
+                                    {targetAgeGroup === item && <Check size={18} color="#000" />}
                                 </TouchableOpacity>
                             )}
                         />

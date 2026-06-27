@@ -211,7 +211,12 @@ const EventDetailsScreen = ({ route, navigation }) => {
                             <View style={styles.badge}>
                                 <Text style={styles.badgeText}>{event.ticketType === 'Free' ? 'FREE' : `₹${event.price}`}</Text>
                             </View>
-
+                            <View style={[styles.badge, { backgroundColor: COLORS.secondary }]}>
+                                <Text style={[styles.badgeText, { color: '#000' }]}>{event.category}</Text>
+                            </View>
+                            <View style={[styles.badge, { backgroundColor: COLORS.tertiary }]}>
+                                <Text style={[styles.badgeText, { color: '#fff' }]}>{event.targetAgeGroup || 'All Ages'}</Text>
+                            </View>
                         </View>
 
                         <Text style={styles.title}>{event.name}</Text>

@@ -26,13 +26,14 @@ router.post('/', [auth, [
       }
     }
     return true;
-  })
+  }),
+  check('targetAgeGroup', 'Target age group is invalid').optional().isIn(['All Ages', 'Kids', 'Teens', '18+', '21+'])
 ]], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
   try {
-    const { name, description, category, startDate, endDate, location, price, totalTickets, ticketType, poster, isExternalTicket, externalTicketUrl, registrationDeadline } = req.body;
+    const { name, description, category, startDate, endDate, location, price, totalTickets, ticketType, poster, isExternalTicket, externalTicketUrl, registrationDeadline, targetAgeGroup } = req.body;
 
     if (registrationDeadline) {
       if (new Date(registrationDeadline) > new Date(startDate)) {
@@ -55,7 +56,8 @@ router.post('/', [auth, [
       poster,
       isExternalTicket: !!isExternalTicket,
       externalTicketUrl: isExternalTicket ? externalTicketUrl : '',
-      registrationDeadline: registrationDeadline || null
+      registrationDeadline: registrationDeadline || null,
+      targetAgeGroup: targetAgeGroup || 'All Ages'
     });
 
     const event = await newEvent.save();

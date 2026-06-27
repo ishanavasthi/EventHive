@@ -22,6 +22,7 @@ const MOCK_EVENTS = [
 const CITIES = ['All Cities', 'New Delhi', 'Mumbai', 'Bengaluru', 'Pune', 'Hyderabad', 'Virtual'];
 const CATEGORIES = ['All Categories', 'Tech', 'Art', 'Sports', 'Cultural', 'Cooking', 'Meetup', 'Music', 'Workshop', 'Other'];
 const DATE_OPTIONS = ['All Dates', 'Today', 'Tomorrow', 'This Week', 'This Month'];
+const AGE_GROUPS = ['All Ages', 'Kids', 'Teens', '18+', '21+'];
 
 const HomeScreen = ({ navigation }) => {
     const { user } = useContext(AuthContext);
@@ -37,6 +38,8 @@ const HomeScreen = ({ navigation }) => {
     const [showCategoryModal, setShowCategoryModal] = useState(false);
     const [selectedDateOption, setSelectedDateOption] = useState('All Dates');
     const [showDateModal, setShowDateModal] = useState(false);
+    const [selectedAgeGroup, setSelectedAgeGroup] = useState('All Ages');
+    const [showAgeModal, setShowAgeModal] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
 
     const fetchEvents = async () => {
@@ -126,12 +129,17 @@ const HomeScreen = ({ navigation }) => {
             }
         }
         
+        // Age Group Filter
+        if (selectedAgeGroup !== 'All Ages') {
+            result = result.filter(e => e.targetAgeGroup && e.targetAgeGroup.toLowerCase() === selectedAgeGroup.toLowerCase());
+        }
+        
         // Search Query Filter
         if (searchQuery) {
             result = result.filter(e => e.name && e.name.toLowerCase().includes(searchQuery.toLowerCase()));
         }
         setFilteredEvents(result);
-    }, [city, selectedCategory, selectedDateOption, searchQuery, events]);
+    }, [city, selectedCategory, selectedDateOption, selectedAgeGroup, searchQuery, events]);
 
     const getClosingSoonStatus = (event) => {
         if (!event.registrationDeadline) return null;
@@ -321,6 +329,11 @@ const HomeScreen = ({ navigation }) => {
                             <Ionicons name="calendar-outline" size={16} color={selectedDateOption !== 'All Dates' ? '#000' : COLORS.primary} style={{ marginRight: 6 }} />
                             <Text style={[styles.filterChipText, selectedDateOption !== 'All Dates' && styles.filterChipTextActive]}>{selectedDateOption}</Text>
                         </TouchableOpacity>
+
+                        <TouchableOpacity onPress={() => setShowAgeModal(true)} style={[styles.filterChip, selectedAgeGroup !== 'All Ages' && styles.filterChipActive]}>
+                            <Ionicons name="people-outline" size={16} color={selectedAgeGroup !== 'All Ages' ? '#000' : COLORS.primary} style={{ marginRight: 6 }} />
+                            <Text style={[styles.filterChipText, selectedAgeGroup !== 'All Ages' && styles.filterChipTextActive]}>{selectedAgeGroup}</Text>
+                        </TouchableOpacity>
                     </ScrollView>
                 </View>
 
@@ -425,6 +438,25 @@ const HomeScreen = ({ navigation }) => {
                                 onPress={() => { setSelectedDateOption(opt); setShowDateModal(false); }}
                             >
                                 <Text style={[styles.cityText, selectedDateOption === opt && { color: COLORS.background }]}>{opt}</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+                </BlurView>
+            </Modal>
+
+            {/* Age Group Filter Modal */}
+            <Modal visible={showAgeModal} transparent animationType="fade">
+                <BlurView intensity={90} tint="dark" style={styles.modalContainer}>
+                    <TouchableOpacity style={{ flex: 1 }} onPress={() => setShowAgeModal(false)} />
+                    <View style={styles.modalContent}>
+                        <Text style={styles.modalTitle}>Choose Target Age Group</Text>
+                        {AGE_GROUPS.map(opt => (
+                            <TouchableOpacity
+                                key={opt}
+                                style={[styles.cityItem, selectedAgeGroup === opt && styles.citySelected]}
+                                onPress={() => { setSelectedAgeGroup(opt); setShowAgeModal(false); }}
+                            >
+                                <Text style={[styles.cityText, selectedAgeGroup === opt && { color: COLORS.background }]}>{opt}</Text>
                             </TouchableOpacity>
                         ))}
                     </View>

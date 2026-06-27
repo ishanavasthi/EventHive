@@ -23,7 +23,7 @@ describe('Event Registration Deadline API Integration Tests', () => {
     // Create Test Host
     hostUser = new User({
       name: 'Deadline Host',
-      email: `deadline_host_${Date.now()}@example.com`,
+      email: `deadline_host_${Date.now()}_${Math.floor(Math.random() * 1000000)}@example.com`,
       password: 'password123'
     });
     await hostUser.save();
@@ -32,7 +32,7 @@ describe('Event Registration Deadline API Integration Tests', () => {
     // Create Test Attendee
     attendeeUser = new User({
       name: 'Deadline Attendee',
-      email: `deadline_attendee_${Date.now()}@example.com`,
+      email: `deadline_attendee_${Date.now()}_${Math.floor(Math.random() * 1000000)}@example.com`,
       password: 'password123'
     });
     await attendeeUser.save();
@@ -163,5 +163,55 @@ describe('Event Registration Deadline API Integration Tests', () => {
 
     expect(verifyRes.statusCode).toEqual(400);
     expect(verifyRes.body.msg).toEqual('Registrations for this event have closed');
+  });
+
+  it('should successfully create an event with a valid targetAgeGroup', async () => {
+    const validEvent = {
+      name: 'Adults Only Meetup',
+      description: 'A tech meetup for professionals',
+      category: 'Meetup',
+      startDate: new Date(Date.now() + 3600000 * 24), // tomorrow
+      endDate: new Date(Date.now() + 3600000 * 27),
+      location: { address: 'Delhi', lat: 0, lng: 0 },
+      ticketType: 'Free',
+      price: 0,
+      totalTickets: 50,
+      targetAgeGroup: '18+'
+    };
+
+    const res = await request(app)
+      .post('/api/events')
+      .set('x-auth-token', hostToken)
+      .send(validEvent);
+
+    expect(res.statusCode).toEqual(200);
+    expect(res.body.targetAgeGroup).toEqual('18+');
+    
+    // Cleanup the created event
+    const Event = require('../src/models/Event');
+    await Event.deleteOne({ _id: res.body._id });
+  });
+
+  it('should reject event creation if targetAgeGroup is invalid', async () => {
+    const invalidEvent = {
+      name: 'Invalid Age Group Event',
+      description: 'Test Description',
+      category: 'Workshop',
+      startDate: new Date(Date.now() + 3600000 * 24),
+      endDate: new Date(Date.now() + 3600000 * 27),
+      location: { address: 'Delhi', lat: 0, lng: 0 },
+      ticketType: 'Free',
+      price: 0,
+      totalTickets: 100,
+      targetAgeGroup: 'Toddlers' // Invalid value not in enum
+    };
+
+    const res = await request(app)
+      .post('/api/events')
+      .set('x-auth-token', hostToken)
+      .send(invalidEvent);
+
+    expect(res.statusCode).toEqual(400);
+    expect(res.body.errors[0].msg).toContain('Target age group is invalid');
   });
 });

@@ -24,7 +24,7 @@ describe('Check-in and User Population API', () => {
         // Create Test Host
         hostUser = new User({
             name: 'Test Host',
-            email: `host_${Date.now()}@example.com`,
+            email: `host_${Date.now()}_${Math.floor(Math.random() * 1000000)}@example.com`,
             password: 'password123'
         });
         await hostUser.save();
@@ -33,7 +33,7 @@ describe('Check-in and User Population API', () => {
         // Create Test Attendee
         attendeeUser = new User({
             name: 'Test Attendee',
-            email: `attendee_${Date.now()}@example.com`,
+            email: `attendee_${Date.now()}_${Math.floor(Math.random() * 1000000)}@example.com`,
             password: 'password123'
         });
         await attendeeUser.save();

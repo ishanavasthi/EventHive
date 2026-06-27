@@ -36,6 +36,11 @@ const EventSchema = new mongoose.Schema({
   externalTicketUrl: { type: String, default: '' },
   poster: { type: String }, // URL to image
   registrationDeadline: { type: Date },
+  targetAgeGroup: {
+    type: String,
+    enum: ['All Ages', 'Kids', 'Teens', '18+', '21+'],
+    default: 'All Ages'
+  },
   createdAt: { type: Date, default: Date.now }
 });
 

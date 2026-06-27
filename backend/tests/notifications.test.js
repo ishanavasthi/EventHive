@@ -25,7 +25,7 @@ describe('Notifications API & Triggers Integration Tests', () => {
     // Create Test Host
     hostUser = new User({
       name: 'Test Host',
-      email: `host_${Date.now()}@example.com`,
+      email: `host_${Date.now()}_${Math.floor(Math.random() * 1000000)}@example.com`,
       password: 'password123',
       city: 'Mumbai'
     });
@@ -35,7 +35,7 @@ describe('Notifications API & Triggers Integration Tests', () => {
     // Create Test Attendee
     attendeeUser = new User({
       name: 'Test Attendee',
-      email: `attendee_${Date.now()}@example.com`,
+      email: `attendee_${Date.now()}_${Math.floor(Math.random() * 1000000)}@example.com`,
       password: 'password123',
       city: 'New Delhi'
     });
@@ -228,7 +228,7 @@ describe('Notifications API & Triggers Integration Tests', () => {
     // Create new booking for cancellation test
     const newAttendee = new User({
       name: 'Cancel Attendee',
-      email: `cancel_${Date.now()}@example.com`,
+      email: `cancel_${Date.now()}_${Math.floor(Math.random() * 1000000)}@example.com`,
       password: 'password123',
       city: 'Mumbai'
     });
