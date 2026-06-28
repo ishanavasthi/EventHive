@@ -162,15 +162,21 @@ const EventDetailsScreen = ({ route, navigation }) => {
     
     const getEmbedUrl = (url) => {
         if (!url) return null;
-        const ytRegExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-        const ytMatch = url.match(ytRegExp);
-        if (ytMatch && ytMatch[2].length === 11) {
-            return `https://www.youtube.com/embed/${ytMatch[2]}`;
+        const cleanUrl = url.trim();
+        
+        // Robust YouTube Parser (matches watch, shorts, embed, short-links, and ignores tracking queries)
+        const ytRegExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/;
+        const ytMatch = cleanUrl.match(ytRegExp);
+        if (ytMatch && ytMatch[1]) {
+            return `https://www.youtube-nocookie.com/embed/${ytMatch[1]}?origin=https://www.youtube-nocookie.com`;
         }
-        const vimeoRegExp = /vimeo\.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/;
-        const vimeoMatch = url.match(vimeoRegExp);
-        if (vimeoMatch && vimeoMatch[3]) {
-            return `https://player.vimeo.com/video/${vimeoMatch[3]}`;
+        
+        // Robust Vimeo Parser
+        const vimeoRegExp = /(?:vimeo\.com\/)(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)/;
+        const vimeoMatch = cleanUrl.match(vimeoRegExp);
+        const vimeoId = vimeoMatch ? (vimeoMatch[3] || vimeoMatch[0].match(/\d+/)?.[0]) : null;
+        if (vimeoId) {
+            return `https://player.vimeo.com/video/${vimeoId}`;
         }
         return null;
     };
@@ -325,15 +331,21 @@ const EventDetailsScreen = ({ route, navigation }) => {
                         {event.videoUrl && getEmbedUrl(event.videoUrl) && (
                             <View style={{ marginBottom: 25 }}>
                                 <Text style={styles.sectionTitle}>Event Video Preview</Text>
-                                <GlassCard style={{ borderRadius: 16, overflow: 'hidden', height: 200, borderWidth: 1, borderColor: 'rgba(255,255,255,0.1)', marginTop: 10 }}>
+                                <View style={{ borderRadius: 16, overflow: 'hidden', height: 200, borderWidth: 1, borderColor: 'rgba(255,255,255,0.1)', marginTop: 10, backgroundColor: '#000' }}>
                                     <WebView
-                                        source={{ uri: getEmbedUrl(event.videoUrl) }}
-                                        style={{ flex: 1, backgroundColor: 'transparent' }}
+                                        source={{ 
+                                            uri: getEmbedUrl(event.videoUrl),
+                                            headers: {
+                                                Referer: 'https://www.youtube-nocookie.com'
+                                            }
+                                        }}
+                                        userAgent="Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36"
+                                        style={{ flex: 1, backgroundColor: '#000' }}
                                         allowsFullScreenVideo={true}
                                         javaScriptEnabled={true}
                                         domStorageEnabled={true}
                                     />
-                                </GlassCard>
+                                </View>
                             </View>
                         )}
 
