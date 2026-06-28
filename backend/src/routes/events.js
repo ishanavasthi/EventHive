@@ -33,7 +33,7 @@ router.post('/', [auth, [
   if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
   try {
-    const { name, description, category, startDate, endDate, location, price, totalTickets, ticketType, poster, isExternalTicket, externalTicketUrl, registrationDeadline, targetAgeGroup } = req.body;
+    const { name, description, category, startDate, endDate, location, price, totalTickets, ticketType, poster, isExternalTicket, externalTicketUrl, registrationDeadline, targetAgeGroup, videoUrl } = req.body;
 
     if (registrationDeadline) {
       if (new Date(registrationDeadline) > new Date(startDate)) {
@@ -57,7 +57,8 @@ router.post('/', [auth, [
       isExternalTicket: !!isExternalTicket,
       externalTicketUrl: isExternalTicket ? externalTicketUrl : '',
       registrationDeadline: registrationDeadline || null,
-      targetAgeGroup: targetAgeGroup || 'All Ages'
+      targetAgeGroup: targetAgeGroup || 'All Ages',
+      videoUrl: videoUrl || ''
     });
 
     const event = await newEvent.save();

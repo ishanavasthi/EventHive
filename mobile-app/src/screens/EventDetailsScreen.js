@@ -11,6 +11,7 @@ import GlassCard from '../components/ui/GlassCard';
 import { MapPin, Calendar, Clock, ArrowLeft, Share2 } from 'lucide-react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
+import { WebView } from 'react-native-webview';
 
 const { width } = Dimensions.get('window');
 
@@ -158,6 +159,21 @@ const EventDetailsScreen = ({ route, navigation }) => {
     // Helpers
     const formatDate = (isoString) => new Date(isoString).toDateString();
     const formatTime = (isoString) => new Date(isoString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+    const getEmbedUrl = (url) => {
+        if (!url) return null;
+        const ytRegExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        const ytMatch = url.match(ytRegExp);
+        if (ytMatch && ytMatch[2].length === 11) {
+            return `https://www.youtube.com/embed/${ytMatch[2]}`;
+        }
+        const vimeoRegExp = /vimeo\.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/;
+        const vimeoMatch = url.match(vimeoRegExp);
+        if (vimeoMatch && vimeoMatch[3]) {
+            return `https://player.vimeo.com/video/${vimeoMatch[3]}`;
+        }
+        return null;
+    };
 
     return (
         <View style={styles.container}>
@@ -305,6 +321,21 @@ const EventDetailsScreen = ({ route, navigation }) => {
                         </View>
 
                         <View style={styles.divider} />
+
+                        {event.videoUrl && getEmbedUrl(event.videoUrl) && (
+                            <View style={{ marginBottom: 25 }}>
+                                <Text style={styles.sectionTitle}>Event Video Preview</Text>
+                                <GlassCard style={{ borderRadius: 16, overflow: 'hidden', height: 200, borderWidth: 1, borderColor: 'rgba(255,255,255,0.1)', marginTop: 10 }}>
+                                    <WebView
+                                        source={{ uri: getEmbedUrl(event.videoUrl) }}
+                                        style={{ flex: 1, backgroundColor: 'transparent' }}
+                                        allowsFullScreenVideo={true}
+                                        javaScriptEnabled={true}
+                                        domStorageEnabled={true}
+                                    />
+                                </GlassCard>
+                            </View>
+                        )}
 
                         <Text style={styles.sectionTitle}>About this Event</Text>
                         <Text style={styles.desc}>{event.description}</Text>

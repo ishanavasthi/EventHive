@@ -44,6 +44,7 @@ const CreateEventScreen = ({ navigation }) => {
     const [showCategoryModal, setShowCategoryModal] = useState(false);
     const [targetAgeGroup, setTargetAgeGroup] = useState('All Ages');
     const [showAgeModal, setShowAgeModal] = useState(false);
+    const [videoUrl, setVideoUrl] = useState('');
 
     // Picker State
     const [pickerVisible, setPickerVisible] = useState(false);
@@ -277,7 +278,8 @@ const CreateEventScreen = ({ navigation }) => {
                 isExternalTicket,
                 externalTicketUrl: isExternalTicket ? externalTicketUrl : '',
                 registrationDeadline: hasDeadline ? deadlineDate.toISOString() : null,
-                targetAgeGroup
+                targetAgeGroup,
+                videoUrl
             };
             await api.post('/events', payload);
             Alert.alert('Success', 'Event Created!');
@@ -330,6 +332,11 @@ const CreateEventScreen = ({ navigation }) => {
                         <View style={styles.inputGroup}>
                             <Text style={styles.label}>Description</Text>
                             <TextInput style={[styles.input, { height: 100, textAlignVertical: 'top' }]} multiline placeholder="Tell us more..." placeholderTextColor={COLORS.textDim} value={description} onChangeText={setDescription} />
+                        </View>
+
+                        <View style={styles.inputGroup}>
+                            <Text style={styles.label}>Video Preview URL (YouTube/Vimeo)</Text>
+                            <TextInput style={styles.input} placeholder="Ex: https://www.youtube.com/watch?v=..." placeholderTextColor={COLORS.textDim} autoCapitalize="none" keyboardType="url" value={videoUrl} onChangeText={setVideoUrl} />
                         </View>
 
                         <View style={styles.inputGroup}>

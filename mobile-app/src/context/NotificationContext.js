@@ -15,7 +15,7 @@ Notifications.setNotificationHandler({
 export const NotificationContext = createContext();
 
 export const NotificationProvider = ({ children }) => {
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -48,6 +48,10 @@ export const NotificationProvider = ({ children }) => {
       isInitialLoad.current = false;
     } catch (err) {
       console.log('Error fetching notifications:', err.message);
+      if (err.response && err.response.status === 401) {
+        console.log('Unauthorized token detected. Logging out user.');
+        if (logout) logout();
+      }
     } finally {
       if (!silent) setLoading(false);
     }

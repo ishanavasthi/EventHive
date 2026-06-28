@@ -41,6 +41,7 @@ const EventSchema = new mongoose.Schema({
     enum: ['All Ages', 'Kids', 'Teens', '18+', '21+'],
     default: 'All Ages'
   },
+  videoUrl: { type: String, default: '' },
   createdAt: { type: Date, default: Date.now }
 });
 
