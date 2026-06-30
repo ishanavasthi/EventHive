@@ -11,16 +11,16 @@ let uri = 'https://eventhive-backend-glp5.onrender.com/api';
 
 // Switch to local for development
 if (Platform.OS === 'web') {
-  uri = 'http://localhost:5000/api';
+  uri = 'http://localhost:5001/api';
 } else if (MANUAL_IP) {
-  uri = `http://${MANUAL_IP}:5000/api`;
+  uri = `http://${MANUAL_IP}:5001/api`;
 } else if (Constants.expoConfig?.hostUri) {
   // Dynamic IP from Expo (LAN)
   const ip = Constants.expoConfig.hostUri.split(':').shift();
-  uri = `http://${ip}:5000/api`;
+  uri = `http://${ip}:5001/api`;
 } else {
   // Fallback for Android Simulator if no hostUri
-  uri = 'http://10.0.2.2:5000/api'; 
+  uri = 'http://10.0.2.2:5001/api'; 
 }
 const BASE_URL = uri;
 console.log('API BASE_URL configured as:', BASE_URL);
