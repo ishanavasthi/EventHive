@@ -34,6 +34,90 @@ const generateDates = () => {
 };
 const DATES = generateDates();
 
+const PickerWheel = ({ data, selectedIndex, onChange, style }) => {
+    const flatListRef = React.useRef(null);
+    const currentOffset = React.useRef(0);
+    const isFirstRender = React.useRef(true);
+
+    React.useEffect(() => {
+        const timer = setTimeout(() => {
+            if (flatListRef.current && selectedIndex >= 0) {
+                const targetOffset = selectedIndex * 40;
+                if (Math.abs(currentOffset.current - targetOffset) > 5) {
+                    try {
+                        flatListRef.current.scrollToIndex({
+                            index: selectedIndex,
+                            animated: !isFirstRender.current,
+                            viewPosition: 0.5
+                        });
+                    } catch (_e) {
+                        try {
+                            flatListRef.current.scrollToOffset({
+                                offset: targetOffset,
+                                animated: !isFirstRender.current
+                            });
+                        } catch (_err) {}
+                    }
+                }
+                isFirstRender.current = false;
+            }
+        }, 150);
+        return () => clearTimeout(timer);
+    }, [selectedIndex]);
+
+    const handleScroll = (e) => {
+        currentOffset.current = e.nativeEvent.contentOffset.y;
+    };
+
+    const handleScrollEnd = (e) => {
+        const y = e.nativeEvent.contentOffset.y;
+        const index = Math.round(y / 40);
+        const safeIndex = Math.max(0, Math.min(index, data.length - 1));
+        if (safeIndex !== selectedIndex) {
+            onChange(safeIndex);
+        }
+    };
+
+    return (
+        <View style={[{ height: 180, overflow: 'hidden' }, style]}>
+            <FlatList
+                ref={flatListRef}
+                data={data}
+                keyExtractor={(_, i) => i.toString()}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ paddingVertical: 70 }}
+                snapToInterval={40}
+                decelerationRate="fast"
+                getItemLayout={(data, index) => ({ length: 40, offset: 40 * index, index })}
+                onScroll={handleScroll}
+                scrollEventThrottle={16}
+                onMomentumScrollEnd={handleScrollEnd}
+                onScrollEndDrag={handleScrollEnd}
+                renderItem={({ item, index }) => {
+                    const isSelected = selectedIndex === index;
+                    return (
+                        <TouchableOpacity
+                            onPress={() => onChange(index)}
+                            style={{ height: 40, justifyContent: 'center', alignItems: 'center' }}
+                            activeOpacity={0.7}
+                        >
+                            <Text
+                                style={{
+                                    color: isSelected ? COLORS.primary : COLORS.textDim,
+                                    fontSize: isSelected ? 18 : 15,
+                                    fontWeight: isSelected ? 'bold' : 'normal',
+                                }}
+                            >
+                                {item.label || item}
+                            </Text>
+                        </TouchableOpacity>
+                    );
+                }}
+            />
+        </View>
+    );
+};
+
 const CreateEventScreen = ({ navigation }) => {
     const { user } = useContext(AuthContext);
 
@@ -86,12 +170,6 @@ const CreateEventScreen = ({ navigation }) => {
         const [selMin, setSelMin] = useState(0);
         const [selAmPm, setSelAmPm] = useState(0); // 0 = AM, 1 = PM
 
-        // Refs for auto-scrolling
-        const dateListRef = React.useRef(null);
-        const hourListRef = React.useRef(null);
-        const minListRef = React.useRef(null);
-        const ampmListRef = React.useRef(null);
-
         React.useEffect(() => {
             if (visible && value) {
                 const valDateOnly = new Date(value);
@@ -129,20 +207,6 @@ const CreateEventScreen = ({ navigation }) => {
                 setSelAmPm(ampmIdx);
             }
         }, [visible, value]);
-
-        const scrollToIndexSafe = (ref, index) => {
-            if (ref?.current && index >= 0) {
-                setTimeout(() => {
-                    try { ref.current.scrollToIndex({ index, animated: true, viewPosition: 0.5 }); } catch (e) { }
-                }, 100);
-            }
-        };
-
-        // Effect to scroll when selection changes (or initial load)
-        React.useEffect(() => { if (visible) scrollToIndexSafe(dateListRef, selDate); }, [visible, selDate]);
-        React.useEffect(() => { if (visible) scrollToIndexSafe(hourListRef, selHour); }, [visible, selHour]);
-        React.useEffect(() => { if (visible) scrollToIndexSafe(minListRef, selMin); }, [visible, selMin]);
-        React.useEffect(() => { if (visible) scrollToIndexSafe(ampmListRef, selAmPm); }, [visible, selAmPm]);
 
         const handleConfirm = () => {
             const dObj = DATES[selDate].value;
@@ -183,47 +247,57 @@ const CreateEventScreen = ({ navigation }) => {
             onClose();
         };
 
-        if (!visible) return null;
+        const getFormattedPreviewDate = () => {
+            try {
+                const dObj = DATES[selDate]?.value;
+                if (!dObj) return '';
+                let h = parseInt(HOURS[selHour]);
+                if (selAmPm === 1 && h !== 12) h += 12;
+                if (selAmPm === 0 && h === 12) h = 0;
 
-        const renderCol = (data, sel, setSel, w, ref) => (
-            <View style={{ width: w, height: 180 }}>
-                <FlatList
-                    ref={ref}
-                    data={data}
-                    keyExtractor={(_, i) => i.toString()}
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ paddingVertical: 70 }}
-                    snapToInterval={40} decelerationRate="fast"
-                    getItemLayout={(data, index) => ({ length: 40, offset: 40 * index, index })}
-                    renderItem={({ item, index }) => (
-                        <TouchableOpacity onPress={() => setSel(index)} style={{ height: 40, justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ color: sel === index ? COLORS.primary : COLORS.textDim, fontSize: sel === index ? 18 : 16, fontWeight: sel === index ? 'bold' : 'normal' }}>
-                                {item.label || item}
-                            </Text>
-                        </TouchableOpacity>
-                    )}
-                />
-            </View>
-        );
+                const datePreview = new Date(dObj);
+                datePreview.setHours(h);
+                datePreview.setMinutes(parseInt(MINUTES[selMin]));
+                
+                return datePreview.toLocaleDateString('en-US', {
+                    weekday: 'short',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                });
+            } catch (e) {
+                return '';
+            }
+        };
+
+        if (!visible) return null;
 
         return (
             <Modal visible={visible} transparent animationType="fade">
                 <BlurView intensity={50} tint="dark" style={styles.modalBackdrop}>
                     <View style={styles.pickerContainer}>
                         <Text style={styles.modalTitle}>{title}</Text>
+                        
+                        <View style={styles.previewDateContainer}>
+                            <Calendar size={16} color={COLORS.primary} />
+                            <Text style={styles.previewDateText}>{getFormattedPreviewDate()}</Text>
+                        </View>
+
                         <View style={styles.colsContainer}>
-                            {renderCol(DATES, selDate, setSelDate, 120, dateListRef)}
-                            {renderCol(HOURS, selHour, setSelHour, 50, hourListRef)}
-                            {renderCol(MINUTES, selMin, setSelMin, 50, minListRef)}
-                            {renderCol(AMPM, selAmPm, setSelAmPm, 50, ampmListRef)}
+                            <PickerWheel data={DATES} selectedIndex={selDate} onChange={setSelDate} style={{ flex: 2.2 }} />
+                            <PickerWheel data={HOURS} selectedIndex={selHour} onChange={setSelHour} style={{ flex: 1 }} />
+                            <PickerWheel data={MINUTES} selectedIndex={selMin} onChange={setSelMin} style={{ flex: 1 }} />
+                            <PickerWheel data={AMPM} selectedIndex={selAmPm} onChange={setSelAmPm} style={{ flex: 1 }} />
+                            <View style={styles.wheelHighlight} pointerEvents="none" />
                         </View>
 
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%', marginTop: 20 }}>
-                            <TouchableOpacity onPress={onClose} style={[styles.modalBtn, { backgroundColor: '#333' }]}>
-                                <Text style={{ color: '#fff', fontWeight: '600' }}>Cancel</Text>
+                            <TouchableOpacity onPress={onClose} style={[styles.modalBtn, { backgroundColor: 'rgba(255, 255, 255, 0.05)', borderWidth: 1, borderColor: 'rgba(255, 255, 255, 0.1)' }]}>
+                                <Text style={{ color: '#aaa', fontWeight: '600' }}>Cancel</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={handleConfirm} style={[styles.modalBtn, { backgroundColor: 'rgba(255,255,255,0.1)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.2)' }]}>
-                                <Text style={{ color: COLORS.primary, fontWeight: '600' }}>Confirm</Text>
+                            <TouchableOpacity onPress={handleConfirm} style={[styles.modalBtn, { backgroundColor: COLORS.primary }]}>
+                                <Text style={{ color: '#000000', fontWeight: '600' }}>Confirm</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -594,10 +668,59 @@ const styles = StyleSheet.create({
     row: { flexDirection: 'row', justifyContent: 'space-between' },
 
     modalBackdrop: { flex: 1, justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.7)', alignItems: 'center' },
-    pickerContainer: { width: '90%', backgroundColor: '#1a1a1a', borderRadius: 20, padding: 20, alignItems: 'center' },
-    colsContainer: { flexDirection: 'row', justifyContent: 'space-around', height: 150, marginBottom: 20, width: '100%' },
-    modalTitle: { color: '#fff', fontSize: 18, fontWeight: 'bold', marginBottom: 20 },
+    pickerContainer: {
+        width: '95%',
+        backgroundColor: '#0f0f24',
+        borderRadius: 24,
+        padding: 24,
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: 'rgba(255, 255, 255, 0.08)',
+        shadowColor: '#00F0FF',
+        shadowOffset: { width: 0, height: 10 },
+        shadowOpacity: 0.2,
+        shadowRadius: 20,
+        elevation: 10,
+    },
+    colsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        height: 180,
+        marginBottom: 20,
+        width: '100%',
+        position: 'relative',
+    },
+    modalTitle: { color: '#fff', fontSize: 18, fontWeight: 'bold', marginBottom: 12 },
     cancelText: { color: COLORS.error, fontSize: 16 },
+    wheelHighlight: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 70,
+        height: 40,
+        backgroundColor: 'rgba(255, 255, 255, 0.04)',
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderColor: 'rgba(0, 240, 255, 0.2)',
+        borderRadius: 8,
+    },
+    previewDateContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 8,
+        backgroundColor: 'rgba(0, 240, 255, 0.08)',
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderRadius: 20,
+        marginBottom: 20,
+        borderWidth: 1,
+        borderColor: 'rgba(0, 240, 255, 0.2)',
+    },
+    previewDateText: {
+        color: COLORS.primary,
+        fontWeight: '600',
+        fontSize: 14,
+    },
 
     modalFull: { flex: 1, paddingTop: 60, paddingHorizontal: 20, backgroundColor: COLORS.background },
     modalHeader: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 },
