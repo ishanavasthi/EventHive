@@ -51,13 +51,13 @@ export const SIZES = {
 };
 
 export const FONTS = {
-    // We will stick to system fonts for now to avoid loading issues, but style them well
-    h1: { fontSize: SIZES.h1, lineHeight: 40, fontWeight: '800', letterSpacing: 0.5 },
-    h2: { fontSize: SIZES.h2, lineHeight: 30, fontWeight: '700', letterSpacing: 0.5 },
-    h3: { fontSize: SIZES.h3, lineHeight: 26, fontWeight: '600' },
-    body1: { fontSize: SIZES.body1, lineHeight: 24, fontWeight: '400' },
-    body2: { fontSize: SIZES.body2, lineHeight: 22, fontWeight: '400' },
-    body3: { fontSize: SIZES.body3, lineHeight: 20, fontWeight: '400' },
+    // Premium custom typography: Plus Jakarta Sans
+    h1: { fontFamily: 'PlusJakartaSans-ExtraBold', fontSize: SIZES.h1, lineHeight: 40, letterSpacing: -0.5 },
+    h2: { fontFamily: 'PlusJakartaSans-Bold', fontSize: SIZES.h2, lineHeight: 30, letterSpacing: -0.2 },
+    h3: { fontFamily: 'PlusJakartaSans-SemiBold', fontSize: SIZES.h3, lineHeight: 26 },
+    body1: { fontFamily: 'PlusJakartaSans-Regular', fontSize: SIZES.body1, lineHeight: 24 },
+    body2: { fontFamily: 'PlusJakartaSans-Medium', fontSize: SIZES.body2, lineHeight: 22 },
+    body3: { fontFamily: 'PlusJakartaSans-Regular', fontSize: SIZES.body3, lineHeight: 20 },
 };
 
 const appTheme = { COLORS, SIZES, FONTS };
