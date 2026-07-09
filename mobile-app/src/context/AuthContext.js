@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useMemo } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../services/api';
 import * as WebBrowser from 'expo-web-browser';
@@ -9,20 +9,20 @@ WebBrowser.maybeCompleteAuthSession();
 
 export const AuthContext = createContext();
 
+// Fallback construction if makeRedirectUri fails to pick up the proxy (declared outside to prevent infinite loops)
+const manualRedirectUri = 'https://auth.expo.io/@arjunojha/mobile-app';
+const redirectUri = makeRedirectUri({ useProxy: true });
+
+console.log('------------------------------------------------');
+console.log('GOOGLE AUTH REDIRECT URI (Add this to Google Cloud):');
+console.log('If the one below says exp://, use THIS one instead:');
+console.log(manualRedirectUri);
+console.log('Generated:', redirectUri);
+console.log('------------------------------------------------');
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  // Fallback construction if makeRedirectUri fails to pick up the proxy
-  const manualRedirectUri = 'https://auth.expo.io/@arjunojha/mobile-app';
-  const redirectUri = makeRedirectUri({ useProxy: true });
-
-  console.log('------------------------------------------------');
-  console.log('GOOGLE AUTH REDIRECT URI (Add this to Google Cloud):');
-  console.log('If the one below says exp://, use THIS one instead:');
-  console.log(manualRedirectUri);
-  console.log('Generated:', redirectUri);
-  console.log('------------------------------------------------');
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     webClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID || '878257577448-jlb8ocmbha6jgublnlmp60fjl6haogjf.apps.googleusercontent.com',
@@ -149,8 +149,20 @@ export const AuthProvider = ({ children }) => {
     await AsyncStorage.removeItem('userInfo');
   };
 
+  const authContextValue = useMemo(() => ({
+    user,
+    setUser,
+    loading,
+    login,
+    register,
+    guestLogin,
+    logout,
+    promptAsync,
+    appleLogin
+  }), [user, loading]);
+
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, login, register, guestLogin, logout, promptAsync, appleLogin }}>
+    <AuthContext.Provider value={authContextValue}>
       {children}
     </AuthContext.Provider>
   );
