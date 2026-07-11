@@ -112,28 +112,20 @@ const LoginScreen = ({ navigation }) => {
               containerStyle={{ marginTop: 10 }}
             />
 
-            <View style={styles.dividerContainer}>
-              <View style={styles.dividerLine} />
-              <Text style={styles.dividerText}>OR</Text>
-              <View style={styles.dividerLine} />
-            </View>
-
-            <GradientButton
-              text="Continue with Google"
-              onPress={handleGoogleLogin}
-              colors={['#4285F4', '#2a69c7']}
-              containerStyle={{ marginTop: 0 }}
-            />
-
             {Platform.OS === 'ios' && (
-              <View style={{ marginTop: 10 }}>
+              <>
+                <View style={styles.dividerContainer}>
+                  <View style={styles.dividerLine} />
+                  <Text style={styles.dividerText}>OR</Text>
+                  <View style={styles.dividerLine} />
+                </View>
                 <AppleAuthentication.AppleAuthenticationButton
                   buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
                   buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE_OUTLINE}
                   style={styles.appleButton}
                   onPress={handleAppleLogin}
                 />
-              </View>
+              </>
             )}
 
             <View style={styles.footer}>
