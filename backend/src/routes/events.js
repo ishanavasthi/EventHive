@@ -118,8 +118,21 @@ router.get('/:id', async (req, res) => {
 // @access  Public
 router.get('/', async (req, res) => {
   try {
-    // Return all events, sorted by newest first
-    const events = await Event.find().populate('host', ['name', 'email', 'profilePicture', 'userType']).sort({ startDate: 1 });
+    const page = parseInt(req.query.page);
+    const limit = parseInt(req.query.limit);
+    
+    let query = Event.find();
+    
+    if (page && limit) {
+      const skip = (page - 1) * limit;
+      query = query
+        .select('-description -videoUrl')
+        .skip(skip)
+        .limit(limit);
+    }
+
+    // Return events, sorted by newest first
+    const events = await query.populate('host', ['name', 'email', 'profilePicture', 'userType']).sort({ startDate: 1 });
     res.json(events);
   } catch (err) {
     console.error(err.message);
