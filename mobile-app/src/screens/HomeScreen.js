@@ -45,7 +45,7 @@ const HomeScreen = ({ navigation }) => {
     const fetchEvents = async () => {
         setLoading(true);
         try {
-            const res = await api.get('/events');
+            const res = await api.get('/events?page=1&limit=30');
             if (res.data.length > 0) {
                 setEvents(res.data);
             } else {
