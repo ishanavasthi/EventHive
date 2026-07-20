@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, Alert, Linking, Platform, Dimensions, StatusBar, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator, Alert, Linking, Platform, Dimensions, StatusBar, Modal } from 'react-native';
+import { Image } from 'expo-image';
 import api from '../services/api';
 import { AuthContext } from '../context/AuthContext';
 import { COLORS, FONTS, SIZES } from '../constants/theme';
@@ -193,7 +194,7 @@ const EventDetailsScreen = ({ route, navigation }) => {
             <ScrollView contentContainerStyle={{ paddingBottom: 100 }} showsVerticalScrollIndicator={false}>
                 {/* Header Image */}
                 <View style={styles.imageContainer}>
-                    <Image source={{ uri: event.poster || 'https://via.placeholder.com/300' }} style={styles.poster} />
+                    <Image source={{ uri: event.poster || 'https://via.placeholder.com/300' }} style={styles.poster} transition={200} />
                     <LinearGradient
                         colors={['transparent', 'rgba(5,5,17,0.8)', '#050511']}
                         locations={[0, 0.7, 1]}
