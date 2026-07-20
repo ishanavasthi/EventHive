@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet, TextInput, RefreshControl, Modal, SafeAreaView, Platform, StatusBar, Dimensions, ScrollView } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, TextInput, RefreshControl, Modal, SafeAreaView, Platform, StatusBar, Dimensions, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import api from '../services/api';
 import { AuthContext } from '../context/AuthContext';
@@ -10,6 +10,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import GlassCard from '../components/ui/GlassCard';
 import Animated, { FadeInDown, FadeInRight } from 'react-native-reanimated';
 import { BlurView } from 'expo-blur';
+import { Image } from 'expo-image';
 
 const { width } = Dimensions.get('window');
 

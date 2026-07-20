@@ -1,6 +1,7 @@
 
 import React, { useState, useContext, useCallback } from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet, ActivityIndicator, Dimensions, ScrollView } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, Dimensions, ScrollView } from 'react-native';
+import { Image } from 'expo-image';
 import { useFocusEffect } from '@react-navigation/native';
 import api from '../services/api';
 import { AuthContext } from '../context/AuthContext';
@@ -63,7 +64,7 @@ const MyEventsScreen = ({ navigation }) => {
             onPress={() => navigation.navigate('EventDetails', { eventId: item._id, eventData: item })}
         >
             <GlassCard style={styles.card}>
-                <Image source={{ uri: item.poster || 'https://via.placeholder.com/150' }} style={styles.poster} />
+                <Image source={{ uri: item.poster || 'https://via.placeholder.com/150' }} style={styles.poster} transition={200} />
                 <View style={styles.info}>
                     <Text style={styles.title} numberOfLines={1}>{item.name}</Text>
                     <Text style={styles.date}>{new Date(item.startDate || item.date).toDateString()}</Text>
