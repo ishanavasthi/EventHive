@@ -157,6 +157,27 @@ const HomeScreen = ({ navigation }) => {
         return null;
     };
 
+    const getEnteringAnimation = (type, index = 0) => {
+        const isAndroid = Platform.OS === 'android';
+        if (type === 'right') {
+            let anim = FadeInRight.duration(400);
+            if (!isAndroid) {
+                anim = anim.springify();
+            }
+            return anim;
+        } else {
+            let anim = FadeInDown.duration(400);
+            const delay = index * (isAndroid ? 50 : 100);
+            if (delay > 0) {
+                anim = anim.delay(delay);
+            }
+            if (!isAndroid) {
+                anim = anim.springify();
+            }
+            return anim;
+        }
+    };
+
     const FeaturedCard = ({ item }) => {
         const closingText = getClosingSoonStatus(item);
         return (
@@ -164,7 +185,7 @@ const HomeScreen = ({ navigation }) => {
                 activeOpacity={0.9}
                 onPress={() => navigation.navigate('EventDetails', { eventId: item._id, eventData: item })}
             >
-                <Animated.View entering={FadeInRight.duration(600).springify()} style={styles.featuredCard}>
+                <Animated.View entering={getEnteringAnimation('right')} style={styles.featuredCard}>
                     <Image source={{ uri: item.poster || 'https://via.placeholder.com/300' }} style={styles.featuredImage} />
                     
                     {closingText && (
@@ -196,7 +217,7 @@ const HomeScreen = ({ navigation }) => {
     const EventItem = ({ item, index }) => {
         const closingText = getClosingSoonStatus(item);
         return (
-            <Animated.View entering={FadeInDown.delay(index * 100).springify()}>
+            <Animated.View entering={getEnteringAnimation('down', index)}>
                 <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => navigation.navigate('EventDetails', { eventId: item._id, eventData: item })}
