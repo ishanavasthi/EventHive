@@ -246,13 +246,26 @@ const HomeScreen = ({ navigation }) => {
                                         )}
                                     </View>
                                 )}
-                                <Text style={styles.eventMeta} numberOfLines={1}>📅 {new Date(item.startDate || item.date).toLocaleDateString()}</Text>
-                                <Text style={styles.eventMeta} numberOfLines={1}>📍 {item.location.address}</Text>
-
-                                <View style={styles.priceTag}>
-                                    <Text style={styles.priceText}>
-                                        {item.ticketType === 'Free' ? 'Free' : `₹${item.price}`}
+                                
+                                <View style={styles.metaRow}>
+                                    <Ionicons name="calendar-outline" size={13} color={COLORS.textDim} style={{ marginRight: 6 }} />
+                                    <Text style={styles.eventMeta} numberOfLines={1}>
+                                        {new Date(item.startDate || item.date).toLocaleDateString()}
                                     </Text>
+                                </View>
+
+                                <View style={styles.locationAndPriceRow}>
+                                    <View style={styles.locationMetaContainer}>
+                                        <Ionicons name="location-outline" size={13} color={COLORS.textDim} style={{ marginRight: 6 }} />
+                                        <Text style={styles.eventMeta} numberOfLines={1}>
+                                            {item.location.address}
+                                        </Text>
+                                    </View>
+                                    <View style={styles.priceTag}>
+                                        <Text style={styles.priceText}>
+                                            {item.ticketType === 'Free' ? 'Free' : `₹${item.price}`}
+                                        </Text>
+                                    </View>
                                 </View>
                             </View>
                         </View>
@@ -275,7 +288,7 @@ const HomeScreen = ({ navigation }) => {
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={styles.header}>
                     <View style={{ flex: 1, marginRight: 10 }}>
-                        <Text style={styles.greeting} numberOfLines={1}>Hello, {user?.name?.split(' ')[0] || 'Explorer'} 👋</Text>
+                        <Text style={styles.greeting} numberOfLines={1}>Hello, {user?.name?.split(' ')[0] || 'Explorer'} </Text>
                         <Text style={styles.subGreeting} numberOfLines={1}>Ready for your next adventure?</Text>
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
@@ -612,17 +625,31 @@ const styles = StyleSheet.create({
     thumb: { width: 80, height: 80, borderRadius: 12, backgroundColor: '#333' },
     eventInfo: { flex: 1, marginLeft: 15 },
     eventTitle: { ...FONTS.h3, color: COLORS.text, marginBottom: 4 },
-    eventMeta: { ...FONTS.body3, color: COLORS.textDim, marginBottom: 2 },
+    eventMeta: { ...FONTS.body3, color: COLORS.textDim },
     priceTag: {
-        position: 'absolute',
-        right: 0,
-        bottom: 0,
         backgroundColor: 'rgba(255,255,255,0.1)',
         paddingHorizontal: 8,
         paddingVertical: 4,
         borderRadius: 8
     },
     priceText: { color: COLORS.success, fontWeight: 'bold', fontSize: 12 },
+    metaRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 4
+    },
+    locationAndPriceRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 2
+    },
+    locationMetaContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        flex: 1,
+        marginRight: 10
+    },
 
     modalContainer: { flex: 1, justifyContent: 'flex-end' },
     modalContent: {
