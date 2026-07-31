@@ -5,24 +5,39 @@ import { Platform } from 'react-native';
 // 1. If you know your IP, enter it here (e.g., '192.168.1.5')
 const MANUAL_IP = '';
 
-// 2. Logic to determine URL
-// Default to Render Backend
-let uri = 'https://eventhive-backend-glp5.onrender.com/api';
+// 2. Logic to determine URL dynamically
+const getBaseUrl = () => {
+  if (MANUAL_IP) {
+    return `http://${MANUAL_IP}:5001/api`;
+  }
 
-// Switch to local for development
-if (Platform.OS === 'web') {
-  uri = 'http://localhost:5001/api';
-} else if (MANUAL_IP) {
-  uri = `http://${MANUAL_IP}:5001/api`;
-} else if (Constants.expoConfig?.hostUri) {
-  // Dynamic IP from Expo (LAN)
-  const ip = Constants.expoConfig.hostUri.split(':').shift();
-  uri = `http://${ip}:5001/api`;
-} else {
-  // Fallback for Android Simulator if no hostUri
-  uri = 'http://10.0.2.2:5001/api'; 
-}
-const BASE_URL = uri;
+  // Extract host IP from Expo hostUri (available when running via Expo Go)
+  const expoHostIp = Constants.expoConfig?.hostUri?.split(':')?.shift() 
+    || Constants.manifest2?.extra?.expoGo?.developer?.tool?.split(':')?.shift();
+
+  let envUrl = process.env.EXPO_PUBLIC_API_URL;
+
+  // On physical mobile device, replace localhost/127.0.0.1 with Expo host IP
+  if (Platform.OS !== 'web' && expoHostIp && envUrl && (envUrl.includes('localhost') || envUrl.includes('127.0.0.1'))) {
+    return envUrl.replace('localhost', expoHostIp).replace('127.0.0.1', expoHostIp);
+  }
+
+  if (envUrl) {
+    return envUrl;
+  }
+
+  if (Platform.OS === 'web') {
+    return 'http://localhost:5001/api';
+  }
+
+  if (expoHostIp) {
+    return `http://${expoHostIp}:5001/api`;
+  }
+
+  return 'http://10.0.2.2:5001/api';
+};
+
+const BASE_URL = getBaseUrl();
 console.log('API BASE_URL configured as:', BASE_URL);
 
 const api = axios.create({
