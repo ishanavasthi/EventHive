@@ -88,7 +88,7 @@ router.post('/checkout', auth, async (req, res) => {
 // @desc    Verify payment and create booking
 // @access  Private
 router.post('/verify', auth, async (req, res) => {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, eventId, quantity } = req.body;
+    const { razorpay_order_id, razorpay_payment_id, eventId, quantity } = req.body;
 
     try {
         const event = await Event.findById(eventId);
