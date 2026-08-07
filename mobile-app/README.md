@@ -1,50 +1,66 @@
-# Welcome to your Expo app 👋
+# EventHive — Mobile App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+The React Native (Expo SDK 54) client for **[EventHive](../README.md)**. This is the only client;
+it talks to the [backend](../backend) exclusively over a JSON REST API.
 
-## Get started
+📖 **Full documentation: [docs/mobile-app.md](../docs/mobile-app.md)**
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Quick start
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Create `.env` in this directory:
 
-## Learn more
+```env
+EXPO_PUBLIC_API_URL=http://localhost:5000/api
+EXPO_PUBLIC_GOOGLE_MAPS_API_KEY=<google places key>
+EXPO_PUBLIC_GOOGLE_CLIENT_ID=<google oauth client id>    # optional
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npx expo start          # scan the QR code with Expo Go
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+`localhost` works even on a physical device — the API client detects that it is running on a device
+and substitutes your development machine's LAN IP, which Expo already knows from
+`Constants.expoConfig.hostUri`. See [docs/mobile-app.md §5.5](../docs/mobile-app.md#55-api-client).
 
-## Join the community
+The backend must be running first — see [backend setup](../docs/setup-and-deployment.md#73-running-locally).
 
-Join our community of developers creating universal apps.
+## Scripts
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+| Command | Purpose |
+| :--- | :--- |
+| `npm start` | Metro bundler + QR code |
+| `npm run android` | Android emulator or connected device |
+| `npm run ios` | iOS simulator |
+| `npm run web` | Browser build |
+| `npm run lint` | ESLint via `expo lint` |
+
+## Structure
+
+```
+src/
+├── screens/          13 screens — discovery, hosting, booking, ticketing, check-in, profile
+├── navigation/       AppNavigator.js — auth-gated stack + tab graph
+├── context/          AuthContext (session), NotificationContext (currently stubbed)
+├── components/       CustomTabBar + ui/ (GlassCard, GradientButton, CustomInput)
+├── constants/        theme.js — "Aurora" design tokens; config.js
+└── services/api.js   Axios instance with dynamic base-URL resolution
+```
+
+> The directories `components/`, `hooks/`, and `constants/` at the root of `mobile-app/` are
+> leftover TypeScript scaffolding from `create-expo-app`. The application uses only `src/`.
+
+## Notes
+
+- **Environment variables prefixed `EXPO_PUBLIC_` are inlined into the app bundle** and are not
+  secret. Only referrer-restricted or public-scope keys belong there.
+- `newArchEnabled` (Fabric/TurboModules) and `experiments.reactCompiler` are both on in `app.json`.
+- The notification bell always shows zero: `NotificationContext` is intentionally stubbed to remove
+  a 10-second polling loop. The backend notification API is complete and covered by tests. See
+  [Architecture §1.8](../docs/architecture.md#18-known-limitations--future-work).
