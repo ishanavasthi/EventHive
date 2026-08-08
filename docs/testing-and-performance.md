@@ -111,7 +111,7 @@ declared. **Current status: passing with zero errors and zero warnings.**
 
 Tests run automatically on every push and pull request to `main` via GitHub Actions, against an
 ephemeral **`mongo:7` service container** with a health-gated startup. See
-[Setup & Deployment §7.5](./setup-and-deployment.md#75-cicd-pipeline). CI is the evidence of record
+[Setup & Deployment §7.5](./setup-and-deployment.md#75-ci-pipeline). CI is the evidence of record
 for test results.
 
 ```bash

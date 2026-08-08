@@ -8,7 +8,7 @@ React Native (Expo) mobile client · Node.js/Express REST API · MongoDB · Dock
 
 *B.Sc. Computer Science — Final Semester Capstone Project*
 
-[![CI](https://img.shields.io/badge/CI-lint%20%2B%2016%20tests%20%2B%20Trivy-brightgreen)](#-testing--performance)
+[![CI](https://img.shields.io/badge/CI-lint%20%2B%2016%20tests-brightgreen)](#-testing--performance)
 [![Tests](https://img.shields.io/badge/tests-16%20passing-brightgreen)](./docs/testing-and-performance.md)
 [![Lint](https://img.shields.io/badge/eslint-0%20errors-brightgreen)](./docs/testing-and-performance.md#static-analysis)
 [![Backend](https://img.shields.io/badge/Node.js-Express%205-339933)](./backend)
@@ -150,7 +150,7 @@ exclusively over a JSON REST API. **20 endpoints**, **4 collections**, **13 scre
 <tr><td><b>Auth</b></td><td><code>google-auth-library</code> · <code>jwks-rsa</code> (Apple) · JSON Web Tokens</td></tr>
 <tr><td><b>Payments</b></td><td>Razorpay</td></tr>
 <tr><td><b>Testing</b></td><td>Jest 30 · Supertest 7 · ESLint 9 · custom load-benchmark harness</td></tr>
-<tr><td><b>DevOps</b></td><td>Docker · Kubernetes · GitHub Actions · Trivy · Render</td></tr>
+<tr><td><b>DevOps</b></td><td>Docker · Kubernetes · GitHub Actions · Render</td></tr>
 </table>
 
 ---
@@ -311,17 +311,19 @@ Each diagnosed bottleneck has a corresponding change in the codebase:
 
 ## 🔧 Engineering practices
 
-**CI/CD — three sequential gates, fail-closed**
+**CI — two sequential gates, fail-closed**
 
 ```
 push / PR → main
-  ├─ quality-check    ESLint → 16 Jest tests against an ephemeral mongo:7 service container
-  ├─ build-and-push   docker build → Trivy scan (CRITICAL/HIGH, fixable only) → Docker Hub
-  └─ deploy           kind cluster in-runner → kubectl apply → verified on a real control plane
+  └─ quality-check    ESLint → 16 Jest tests against an ephemeral mongo:7 service container
 ```
 
-Pull requests are validated but never publish an image. The Trivy scan runs **before** the push, so
-a vulnerable image never reaches the registry.
+Both gates run on every push **and** every pull request. Lint runs first, so a failure there stops
+the job before the test step. The MongoDB service container is health-gated, so tests never start
+against a database that is not yet accepting connections.
+
+Containerisation (`backend/Dockerfile`) and the Kubernetes manifests (`backend/k8s/`) are maintained
+and applied manually rather than from CI.
 
 **Security**
 - bcrypt password hashing, 10 salt rounds; `password` stripped from every response

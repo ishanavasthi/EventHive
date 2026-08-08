@@ -174,7 +174,7 @@ EXPOSE 5000
 CMD ["node", "src/server.js"]
 ```
 
-Notes on the choices: `node:20-alpine` keeps the image small and shrinks the Trivy attack surface;
+Notes on the choices: `node:20-alpine` keeps the image small and shrinks the attack surface;
 `npm ci --only=production` skips the ~200 MB of dev dependencies; copying `package*.json` before the
 source keeps the dependency layer cached across source changes.
 
@@ -190,10 +190,10 @@ docker run -p 5000:5000 \
 
 ---
 
-## 7.5 CI/CD pipeline
+## 7.5 CI pipeline
 
-`.github/workflows/` — triggered on push and pull request to `main`. Three sequential jobs, each
-gating the next.
+`.github/workflows/ci.yml` — triggered on push and pull request to `main`. A single job,
+`quality-check`, with two sequential gates.
 
 ```mermaid
 graph LR
@@ -203,22 +203,10 @@ graph LR
         B1["Node 20 + npm cache"] --> B2["npm ci"] --> B3["npm run lint"] --> B4["npm test<br/>against mongo:7 service"]
     end
 
-    B --> C{"main branch?"}
-    C -->|no| STOP["stop — PRs are validated only"]
-    C -->|yes| D
-
-    subgraph D["build-and-push"]
-        D1["docker build"] --> D2["Trivy scan<br/>CRITICAL + HIGH"] --> D3["push :sha and :latest"]
-    end
-
-    D --> E
-
-    subgraph E["deploy"]
-        E1["create kind cluster"] --> E2["kubectl cluster-info"] --> E3["kubectl apply -f k8s/"]
-    end
+    B --> C["✅ merge gate"]
 ```
 
-### Job 1 — `quality-check`
+### `quality-check`
 
 Runs on every push **and** pull request. Provisions an ephemeral MongoDB as a service container:
 
@@ -238,42 +226,18 @@ connections, producing intermittent failures unrelated to the code. Tests then r
 
 Gates: **ESLint must pass**, then **all 16 tests must pass**.
 
-### Job 2 — `build-and-push`
+### Why containerisation is not in CI
 
-`needs: quality-check`, and `if: github.ref == 'refs/heads/main'` — pull requests are validated but
-never publish an image.
+The `Dockerfile` and the Kubernetes manifests are maintained in the repository but are **not** built
+or applied by the pipeline. An earlier revision of this workflow carried `build-and-push` (Docker
+build → Trivy scan → Docker Hub) and `deploy` (kind cluster → `kubectl apply`) jobs, but they
+depended on `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` repository secrets that are not configured.
+Without them `docker/login-action` fails with `Username and password required`, which failed the
+whole run on every push even though lint and the tests had passed.
 
-Builds the image tagged with the commit SHA, then scans it with **Trivy**:
-
-```yaml
-- uses: aquasecurity/trivy-action@master
-  with:
-    image-ref: '…/eventhive-backend:${{ github.sha }}'
-    exit-code: '1'              # fail the pipeline on findings
-    ignore-unfixed: true        # only flag vulnerabilities with an available fix
-    vuln-type: 'os,library'
-    severity: 'CRITICAL,HIGH'
-```
-
-The scan runs **before** the push, so a vulnerable image never reaches the registry. `ignore-unfixed`
-keeps the gate actionable — it only fails on problems that can actually be remediated.
-
-On success the image is pushed twice: `:${{ github.sha }}` for traceability and `:latest` for the
-Kubernetes manifest.
-
-### Job 3 — `deploy`
-
-`needs: build-and-push`, main only. Spins up a real Kubernetes cluster **inside the runner** using
-`helm/kind-action`, verifies it with `kubectl cluster-info` and `kubectl get nodes`, then applies
-both manifests. This validates that the manifests are well-formed and schedulable on a genuine
-control plane, rather than assuming it.
-
-### Required repository secrets
-
-| Secret | Used by |
-| :--- | :--- |
-| `DOCKERHUB_USERNAME` | Docker Hub login, image tagging |
-| `DOCKERHUB_TOKEN` | Docker Hub login |
+Removing those jobs makes the pipeline report the thing it can actually verify — code quality —
+rather than a permanent red cross caused by absent credentials. Build and deploy the container
+manually (§7.4 and §7.6), or restore the jobs once the secrets are added to the repository.
 
 ---
 
@@ -391,7 +355,7 @@ Run it in a spare terminal before any evaluation or demo.
 | `Registration deadline must be before…` | Deadline set after `startDate` | Validated on both client and server. |
 | Notification bell always shows zero | `NotificationContext` is intentionally stubbed | Expected. See [Architecture §1.8](./architecture.md#18-known-limitations--future-work), item 7. |
 | CI fails at "Run Unit Tests" | The `mongo:7` service was not ready | The health check should prevent this; re-run the job. |
-| Trivy fails the pipeline | A new CRITICAL/HIGH CVE with a fix is available | Update the affected dependency or base image. |
+| CI fails at "Login to Docker Hub" | `DOCKERHUB_*` secrets are not configured | The Docker/k8s jobs were removed for this reason; see §7.5. |
 | First API call after idle times out | Render cold start | Run `node keep_alive.js`. |
 
 ---
