@@ -220,9 +220,11 @@ graph LR
 
     subgraph ci["GitHub Actions"]
         Q["quality-check<br/>eslint + jest<br/>(mongo:7 service container)"]
-        B["build-and-push<br/>docker build → Trivy scan → Docker Hub"]
-        D["deploy<br/>kind cluster → kubectl apply"]
-        Q --> B --> D
+    end
+
+    subgraph man["Manual — container artefacts"]
+        DK["docker build<br/>backend/Dockerfile"]
+        K8["kubectl apply<br/>backend/k8s/"]
     end
 
     subgraph prod["Runtime targets"]
@@ -232,15 +234,17 @@ graph LR
     end
 
     L --> Q
-    B -.image.-> R
-    D --> K
+    L -.auto-deploy.-> R
+    DK -.image.-> K8 --> K
     R --> M
     K --> M
 ```
 
-The pipeline is **fail-closed at three gates**: lint must pass, all 16 tests must pass against a
-real ephemeral MongoDB, and Trivy must find no `CRITICAL`/`HIGH` fixable vulnerabilities before the
-image is pushed. Details in [Setup & Deployment §7.5](./setup-and-deployment.md#75-cicd-pipeline).
+The pipeline is **fail-closed at two gates**: lint must pass, then all 16 tests must pass against a
+real ephemeral MongoDB. Nothing merges to `main` without both.
+
+The `Dockerfile` and the Kubernetes manifests are maintained and applied **manually** — they are not
+exercised by CI. Details in [Setup & Deployment §7.5](./setup-and-deployment.md#75-ci-pipeline).
 
 ---
 
