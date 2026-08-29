@@ -8,7 +8,7 @@ const MANUAL_IP = '';
 // 2. Logic to determine URL dynamically
 const getBaseUrl = () => {
   if (MANUAL_IP) {
-    return `http://${MANUAL_IP}:5001/api`;
+    return `http://${MANUAL_IP}:5000/api`;
   }
 
   // Extract host IP from Expo hostUri (available when running via Expo Go)
