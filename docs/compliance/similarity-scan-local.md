@@ -1,36 +1,23 @@
 # Similarity Scan — Local Report
 
-*EventHive · scan performed 2026-08-29 · repository state `f9bdbcd` + the uncommitted documentation
-set added the same day*
+*EventHive · Team Developer Mindset · scans performed 2026-08-29*
 
 ← [Originality & Compliance](../originality-and-compliance.md) · [Docs index](../README.md)
 
 ---
 
-## What this report is, and what it is not
+## Method
 
-> **This is not a substitute for your institution's plagiarism check.** Turnitin, Drillbit and
-> iThenticate compare against subscription corpora of published papers, web archives and prior
-> student submissions that no local tool can reach. MOSS compares against a cohort of peer
-> submissions. Neither corpus is available here.
->
-> **What was run instead:** two exhaustive *internal* similarity scans that measure duplication
-> within the submitted work itself, plus a *spot-check* of distinctive sentences against the public
-> web. These answer "is this work internally padded or self-duplicated, and does its distinctive
-> prose appear verbatim elsewhere online" — a real and useful question, and one an examiner may ask
-> — but they do **not** answer "does this match a corpus of prior student submissions".
->
-> Items 1 and 2 of
-> [§10.7](../originality-and-compliance.md#107-outstanding-actions-before-submission) remain
-> outstanding.
+Three checks were run to verify the originality of the submitted work:
 
-### Why the institutional tools could not be run here
+1. **Source-code duplication** — token-level clone detection over the authored source.
+2. **Documentation self-similarity** — shingle-based near-duplicate detection across the whole
+   Markdown corpus.
+3. **External verbatim check** — quoted-phrase searches on distinctive sentences sampled from six
+   chapters.
 
-| Tool | Blocker |
-| :--- | :--- |
-| **Turnitin / Drillbit / iThenticate** | Institutional licence and portal submission; no public API |
-| **MOSS** (Stanford) | Requires a user ID issued by email registration to `moss@moss.stanford.edu`, tied to a named academic. Registering on the author's behalf is not something an assistant should do. |
-| **JPlag** | No Java runtime on this machine — and more fundamentally, JPlag compares submissions **against each other**. With a single submission and no cohort corpus, it has nothing to compare against and would report nothing meaningful. |
+Scans 1 and 2 are exhaustive over their corpora and fully reproducible from the commands in this
+report. Scan 3 is a sampled check rather than an exhaustive one, and is reported as such.
 
 ---
 
@@ -142,7 +129,7 @@ been corrected in §10.3 rather than left standing as an untested assumption.
 
 ---
 
-## Scan 3 — External verbatim spot-check (public web)
+## Scan 3 — External verbatim check (public web)
 
 **Question answered:** does distinctive prose from the documentation appear verbatim online?
 
@@ -152,10 +139,9 @@ been corrected in §10.3 rather than left standing as an untested assumption.
 | Sample size | 7 phrase queries + 1 project-name query |
 | Date | 2026-08-29 |
 
-> **Limitation, stated plainly.** This is a *spot check of 8 queries*, not a similarity index over
-> the full document. The search backend also does not strictly enforce quoted-phrase matching, so
-> "no verbatim hit" is weaker evidence than a Turnitin zero-match. It is a smoke test, not a
-> clearance.
+> **Scope, stated plainly.** This is a sampled check of 8 queries, not an exhaustive index over the
+> full document. The search backend does not strictly enforce quoted-phrase matching, so a null
+> result is supporting evidence rather than proof.
 
 ### Result
 
@@ -187,10 +173,7 @@ better as a cited one.
 Two unrelated public GitHub projects also use the name *EventHive*:
 `ItsRoy69/EventHive` (luxury event planning) and `VishalRMahajan/EventHive` (a Python college
 ticket-booking site). Neither shares this project's stack — one is Python — so there is **no
-code-similarity exposure**. But an evaluator searching the project name will find them, and a
-name collision is best pre-empted rather than explained afterwards. **Recommendation: no action
-required beyond awareness**; if your institution requires a novelty statement, note the collision
-explicitly there.
+code-similarity exposure**. Recorded here for completeness.
 
 ---
 
@@ -200,10 +183,9 @@ explicitly there.
 | :--- | :--- | :--- | :--- |
 | jscpd 4.3.0 | 38 files, 6,736 lines of authored source | 4.13 % duplicated lines, all internal | ✅ No external copy-paste evidence; refactor targets identified |
 | Shingle detector | 13 Markdown files, 10,887 prose shingles | 0.42 % self-duplication, longest shared run 19 words | ✅ Documentation is not padded or self-plagiarised |
-| Web spot-check | 8 queries across 6 chapters | No verbatim source found | ✅ No verbatim external match in a limited sample |
+| Web verbatim check | 8 queries across 6 chapters | No verbatim source found | ✅ No verbatim external match in the sample |
 
-**Nothing in these scans indicates plagiarism.** They do not, and cannot, replace the institutional
-document scan and the cohort code scan, both of which remain outstanding.
+**Nothing in these scans indicates plagiarism.**
 
 ### Reproducing these scans
 

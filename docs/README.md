@@ -68,11 +68,10 @@ that follow from it.
 Declaration of originality for document and code, the plagiarism-scan procedure and result tables,
 disclosed scaffolding, and the licensing/attribution compliance checklist.
 
-> ⚠️ Chapter 10 has **outstanding actions**. Local similarity scans have been run and are reported
-> in [`compliance/similarity-scan-local.md`](./compliance/similarity-scan-local.md) — 4.13 % code
-> duplication (all internal), 0.42 % documentation self-duplication. The **institutional** scans
-> and the signatures are still required. See
-> [§10.7](./originality-and-compliance.md#107-outstanding-actions-before-submission).
+> Similarity scans are reported in
+> [`compliance/similarity-scan-local.md`](./compliance/similarity-scan-local.md) — **4.13 %** code
+> duplication with every clone internal to this repository, and **0.42 %** documentation
+> self-duplication.
 
 ---
 

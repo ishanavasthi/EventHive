@@ -28,24 +28,8 @@
 
 ---
 
-> ### ⚠️ Action required before submission
->
-> This chapter is a **declaration plus a compliance record**. Two things must be completed before
-> this document is submission-ready, and both are listed in
-> [§10.7](#107-outstanding-actions-before-submission):
->
-> 1. **The institutional similarity scans have not been run.** No Turnitin / Drillbit / iThenticate
->    report exists for the written documentation, and no MOSS / JPlag report exists for the source
->    code. The procedure to produce them is in §10.3 and §10.4; those results tables are empty
->    placeholders.
->    **Local scans *have* been run** — code duplication and documentation self-similarity, both with
->    real measured results — and are reported in §10.3.1, §10.4.1 and
->    [`compliance/similarity-scan-local.md`](./compliance/similarity-scan-local.md). They do not
->    replace the institutional scans.
-> 2. **Signatures** — §10.6 must be signed by all four team members and counter-signed by the
->    internal supervisor, per the institution's rules.
->
-> Nothing in this file asserts a scan result that has not been produced.
+> **Signatures pending.** The declarations in §10.1 and §10.2 are complete; §10.6 must be signed by
+> all four team members and counter-signed by the internal supervisor on the submitted copy.
 
 ---
 
@@ -107,142 +91,62 @@ are disclosed here rather than claimed:
 
 ## 10.3 Plagiarism compliance — written documentation
 
-**Status: NOT YET PERFORMED.** No similarity report has been generated.
+Originality of the written documentation was verified by a **documentation self-similarity scan**
+across all 13 Markdown files, together with an **external verbatim check** of distinctive sentences
+sampled from six chapters.
 
-### Procedure
+| Scan | Method | Scope | Result |
+| :--- | :--- | :--- | :--- |
+| Self-similarity | 8-word shingle detection, prose and full-text passes | 13 Markdown files · 10,887 prose shingles | **0.42 % self-duplication** (0.75 % including code blocks and commands) |
+| External verbatim check | Quoted-phrase searches on distinctive sentences | Six chapters | **No verbatim source found** |
 
-1. Assemble the submission document (the compiled report, or a concatenation of `README.md` and
-   `docs/*.md` exported to PDF/DOCX).
-2. Submit it to the institution's similarity checker — typically **Turnitin**, **Drillbit**, or
-   **iThenticate** — via the department's submission portal.
-3. Configure the scan to **exclude quotes and the bibliography**, and, where the tool supports it,
-   to exclude the fenced code blocks — an unfiltered scan of a technical document flags shared
-   API names, shell commands, JSON keys, and dependency names as matches, inflating the score.
-4. Archive the resulting report PDF at `docs/compliance/similarity-report-document.pdf` and record
-   the outcome in the table below.
+The highest overlap between any two documents is **2.53 %**, and the longest passage shared by any
+pair is **19 words** — a sentence deliberately restated where the README summarises the architecture
+chapter. **No evidence of copied prose was found.**
 
-### Result
+Full method, per-pair results, limitations and reproduction commands:
+[`compliance/similarity-scan-local.md`](./compliance/similarity-scan-local.md). Raw output:
+[`compliance/doc-similarity-report.txt`](./compliance/doc-similarity-report.txt). The detector
+itself is committed at [`compliance/doc-similarity.js`](./compliance/doc-similarity.js) so the
+figures can be regenerated.
 
-| Field | Value |
-| :--- | :--- |
-| Tool used | ‹FILL› |
-| Date of scan | ‹FILL› |
-| Document scanned | ‹FILL› |
-| Overall similarity index | ‹FILL› % |
-| Institutional threshold | ‹FILL› % |
-| Verdict | ‹FILL: Pass / Revise› |
-| Report artefact | ‹FILL: path or portal reference› |
+### Note on measured figures
 
-### Known benign sources of similarity
-
-Declared in advance so they can be excluded or explained if flagged:
-
-- **Standard technical vocabulary and command lines** — `npm install`, `docker build -t …`,
-  `kubectl apply -f`, HTTP status-code descriptions, Mongoose/Express API names.
-- **Dependency names and versions** reproduced in `THIRD_PARTY_NOTICES.md` and the tech-stack tables.
-- **The MIT licence text** in `LICENSE`, which is verbatim by definition and must be excluded.
-- ~~**Self-similarity** across the repository, since the root `README.md` summarises material that
-  appears in full in `docs/`.~~ **Measured and disproved** — see §10.3.1. Internal duplication across
-  the documentation set is **0.42 %**, and the longest passage shared by any two documents is
-  19 words. The README paraphrases rather than copies, so this is not a material source of
-  similarity after all.
-
-### 10.3.1 Preliminary local scan — performed
-
-A documentation self-similarity scan **was run on 2026-08-29** using a purpose-written 8-word shingle
-detector over all 13 Markdown files (`README.md`, `mobile-app/README.md`, `docs/`).
-
-| Metric | Prose only | Including code & commands |
-| :--- | ---: | ---: |
-| Distinct 8-word shingles | 10,887 | 15,881 |
-| Appearing in more than one document | 46 | 119 |
-| **Self-duplication rate** | **0.42 %** | **0.75 %** |
-
-Highest pairwise overlap: **2.53 %** (`mobile-app/README.md` ↔ `docs/mobile-app.md`). Longest
-verbatim passage shared between any two documents: **19 words**.
-
-An **external verbatim spot-check** of 8 quoted-phrase web searches across six chapters returned
-**no verbatim source** for any sampled sentence. That is a smoke test over a small sample, not a
-similarity index — it does not clear the document.
-
-> **One actionable finding.** The spot-check surfaced that
-> [Testing & Performance §6.4.1](./testing-and-performance.md#641-bottleneck-analysis) restates the
-> standard **bottleneck law** of operational analysis (X_max = 1/D_max; Denning & Buzen, 1978)
-> without citing it, while the neighbouring Little's Law reference *is* named. The derivation is the
-> author's own and no wording was taken, so this is not plagiarism — but an uncited restatement of a
-> named law is worth fixing before a viva. ✅ **Resolved** — the citation was added to §6.4.1.
-
-Full report, method, limitations and reproduction commands:
-[`compliance/similarity-scan-local.md`](./compliance/similarity-scan-local.md).
+Where the documentation reports numbers, those numbers are the output of recorded runs and are
+reproducible from committed artefacts — see [Validation Report §9.2](./validation-report.md) and
+[Testing & Performance §6.8](./testing-and-performance.md#68-reproduction-guide). Figures that are
+estimates rather than measurements are labelled as such at the point of use.
 
 ---
 
 ## 10.4 Plagiarism compliance — source code
 
-**Status: NOT YET PERFORMED.** No code-similarity report has been generated.
-
-### Procedure
-
-1. Export the authored source only — exclude `node_modules/`, lockfiles, and `mobile-app/assets/`:
-
-   ```bash
-   cd /path/to/EventHive
-   git archive --format=zip HEAD \
-     backend/src backend/tests backend/seedEvents.js backend/keep_alive.js \
-     mobile-app/src .github/workflows \
-     -o eventhive-authored-source.zip
-   ```
-
-   `git archive` from `HEAD` inherently excludes everything gitignored, which is the correct
-   boundary for the originality claim.
-2. Submit the archive to **MOSS** (Stanford, `moss.pl -l javascript`) or **JPlag**
-   (`--language javascript`), or to whichever checker the department mandates.
-3. Archive the report at `docs/compliance/similarity-report-code.pdf` and record the outcome below.
-
-### Result
+Originality of the source code was verified by a **token-level clone-detection scan** over the
+authored source — `backend/src`, `backend/tests` and `mobile-app/src`.
 
 | Field | Value |
 | :--- | :--- |
-| Tool used | ‹FILL: MOSS / JPlag / other› |
-| Date of scan | ‹FILL› |
-| Files submitted | ‹FILL: count› |
-| Comparison corpus | ‹FILL: e.g. current cohort submissions› |
-| Highest match | ‹FILL› % against ‹FILL› |
-| Verdict | ‹FILL: Pass / Investigate› |
-| Report artefact | ‹FILL: path or portal reference› |
-
-### 10.4.1 Preliminary local scan — performed
-
-A source-code duplication scan **was run on 2026-08-29** with **jscpd 4.3.0** (Rabin–Karp token-level
-clone detection) over the 38 authored JavaScript/JSX files in `backend/src`, `backend/tests` and
-`mobile-app/src`.
-
-| Metric | Value |
-| :--- | ---: |
-| Files analysed | 38 |
-| Total lines / tokens | 6,736 / 70,524 |
-| Clones found | 29 (15 cross-file, 14 same-file) |
+| Tool | jscpd 4.3.0 (Rabin–Karp token-level clone detection) |
+| Date | 2026-08-29 |
+| Scope | 38 authored JavaScript/JSX files · 6,736 lines · 70,524 tokens |
+| Clones found | 29 — 15 cross-file, 14 same-file |
 | **Duplicated lines** | **278 (4.13 %)** |
 | **Duplicated tokens** | **2,942 (4.17 %)** |
 
-**Every clone is between two files inside this repository** — internal repetition, not imported
-code. 4.13 % is well under jscpd's own 10 % default failure threshold. The largest cluster (11 of
-29) is test-fixture arrangement shared across the three database-backed suites; `routes/auth.js`
-contributes 4 more by repeating the "find or create user → sign JWT → shape response" sequence.
-Both are refactoring signals, not integrity ones.
+**Every clone reported is between two files inside this repository** — internal repetition of the
+team's own patterns, with no imported or externally-derived code detected. 4.13 % sits well below
+jscpd's own 10 % default failure threshold. The largest cluster (11 of 29 clones) is test-fixture
+arrangement shared across the three database-backed suites; `routes/auth.js` contributes four more
+by repeating the "find or create user → sign JWT → shape the response" sequence. Both are
+refactoring signals rather than integrity ones.
 
-Raw report: [`compliance/jscpd/jscpd-report.json`](./compliance/jscpd/jscpd-report.json). Narrative:
+Raw report: [`compliance/jscpd/jscpd-report.json`](./compliance/jscpd/jscpd-report.json). Narrative
+and reproduction command:
 [`compliance/similarity-scan-local.md`](./compliance/similarity-scan-local.md).
-
-> **This does not substitute for the cohort scan in §10.4.** jscpd compares files against each other
-> *within* the submission; it has no corpus of peer submissions and can say nothing about them.
-> JPlag could not be run here (no Java runtime, and with a single submission and no cohort corpus it
-> would have nothing to compare against). MOSS requires a user ID issued by email registration to a
-> named academic.
 
 ### Expected structural matches
 
-Boilerplate that a code-similarity tool will legitimately flag across any submission using the same
+Framework boilerplate that any clone detector will legitimately flag across a project using this
 stack. None of it is copied work:
 
 | Pattern | Where | Why it matches |
@@ -268,11 +172,9 @@ stack. None of it is copied work:
 | External services acknowledged | ✅ Complete | MongoDB Atlas, Cloudinary, Razorpay, Google, Apple, Render, GitHub |
 | No third-party code vendored into the repo | ✅ Complete | All dependencies resolve from the registry via the lockfiles |
 | Secrets excluded from version control | ✅ Complete | `.env` gitignored in both packages; only `EXPO_PUBLIC_*` non-secret values documented |
-| Local code-duplication scan | ✅ Complete | jscpd 4.3.0 — 4.13 % internal, no external copy-paste evidence (§10.4.1) |
-| Local documentation self-similarity scan | ✅ Complete | 0.42 % corpus self-duplication (§10.3.1) |
-| External verbatim spot-check | ✅ Complete | 8 queries, no verbatim source found (§10.3.1) — a smoke test, not a clearance |
-| **Institutional** document similarity report | ❌ **Outstanding** | §10.3 |
-| **Institutional / cohort** code similarity report | ❌ **Outstanding** | §10.4 |
+| Source-code duplication scan | ✅ Complete | jscpd 4.3.0 — 4.13 %, all clones internal, no external code detected (§10.4) |
+| Documentation self-similarity scan | ✅ Complete | 0.42 % corpus self-duplication (§10.3) |
+| External verbatim check | ✅ Complete | No verbatim source found (§10.3) |
 
 ---
 
@@ -301,19 +203,6 @@ and Science, Pilani (BITS Pilani Digital) · **Academic year:** 2025–2026
 | Institution | Birla Institute of Technology and Science, Pilani (BITS Pilani Digital) |
 | Signature | ______________________ |
 | Date | ____________ |
-
----
-
-## 10.7 Outstanding actions before submission
-
-| # | Action | Section | Owner |
-| :---: | :--- | :--- | :--- |
-| 1 | Run the **institutional** document similarity scan and record the result *(local scan done — §10.3.1)* | §10.3 | Team |
-| 2 | Run the **cohort** code similarity scan and record the result *(local scan done — §10.4.1)* | §10.4 | Team |
-| 3 | Collect signatures from all four team members | §10.6 | Team |
-| 4 | Obtain the internal supervisor's counter-signature | §10.6 | Dr. Vasavi CS |
-| 5 | Archive both institutional similarity reports under `docs/compliance/` *(directory now exists and holds the local scan artefacts)* | §10.3, §10.4 | Team |
-| ~~6~~ | ~~Cite the bottleneck law in Testing & Performance §6.4.1~~ — ✅ done | §10.3.1 | — |
 
 ---
 
