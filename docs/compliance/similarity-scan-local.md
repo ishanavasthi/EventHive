@@ -176,7 +176,12 @@ Little's Law" *is* named in the text, so the omission is inconsistent rather tha
 
 This is **not plagiarism** — no wording was taken. But an examiner in a viva is likely to ask
 whether the candidate knows the result is textbook, and an uncited restatement of a named law reads
-better as a cited one. **Recommendation: add a one-line citation to the bottleneck law in §6.4.1.**
+better as a cited one.
+
+> ✅ **Resolved.** The citation was added to
+> [§6.4.1](../testing-and-performance.md#641-bottleneck-analysis) — the bottleneck law of
+> operational analysis, `X_max ≤ 1 / D_max` (Denning & Buzen, 1978), with the Gunther reference
+> alongside.
 
 **Finding B — the project name is not unique.**
 Two unrelated public GitHub projects also use the name *EventHive*:
