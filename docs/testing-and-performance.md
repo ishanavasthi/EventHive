@@ -254,6 +254,12 @@ bottleneck arithmetically rather than by guesswork.
 
 ### The throughput ceiling is the reciprocal of the baseline cost
 
+This is the **bottleneck law** of operational analysis — for a closed system the maximum throughput
+is bounded by the reciprocal of the largest per-request service demand, `X_max ≤ 1 / D_max`
+(Denning & Buzen, 1978; see also Gunther, *Benchmarking Blunders and Things That Go Bump in the
+Night*, arXiv:cs/0404043). The derivation below applies it to the measured baseline rather than
+deriving it afresh.
+
 If requests are served effectively one at a time, maximum throughput equals `1 / service_time`:
 
 ```
