@@ -1,6 +1,7 @@
 # Third-Party Notices
 
-EventHive is distributed under the [MIT License](./LICENSE). It builds on open-source software
+EventHive is distributed under the [MIT License](./LICENSE), © 2026 Team Developer Mindset
+(Arjun Ojha, Ishan Avasthi, Karan Das A, Rajat Tyagi). It builds on open-source software
 authored by third parties, listed here in acknowledgement of their licences. Every dependency below
 is consumed **unmodified**, installed from the public npm registry, and pinned in the committed
 lockfiles (`backend/package-lock.json`, `mobile-app/package-lock.json`).

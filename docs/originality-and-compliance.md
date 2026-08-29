@@ -1,16 +1,38 @@
 # 10. Originality & Compliance
 
-*B.Sc. Computer Science Capstone Project — Declaration of Originality, Plagiarism Compliance, and Licensing*
+*Capstone Project — Declaration of Originality, Plagiarism Compliance, and Licensing*
 
 ← [Validation Report](./validation-report.md) · [Docs index](./README.md)
 
 ---
 
+## Project identification
+
+| | |
+| :--- | :--- |
+| **Project** | EventHive — event discovery, hosting and ticketing platform |
+| **Team name** | Developer Mindset |
+| **Programme** | B.Sc. Computer Science (Online Mode) |
+| **Institution** | Birla Institute of Technology and Science, Pilani (BITS Pilani Digital) |
+| **Academic year** | 2025–2026 |
+| **Internal supervisor** | Dr. Vasavi CS |
+
+### Team members
+
+| Name | Enrolment number | Role |
+| :--- | :--- | :--- |
+| Arjun Ojha | 2023EBCS720 | Member |
+| **Ishan Avasthi** | **2023EBCS640** | **Team Leader** |
+| Karan Das A | 2023EBCS642 | Member |
+| Rajat Tyagi | 2023EBCS669 | Member |
+
+---
+
 > ### ⚠️ Action required before submission
 >
-> This chapter is a **declaration template plus a compliance record**. Three things must be
-> completed by the author before this document is submission-ready. They are marked `‹FILL›`
-> throughout and listed in [§10.7](#107-outstanding-actions-before-submission):
+> This chapter is a **declaration plus a compliance record**. Two things must be completed before
+> this document is submission-ready, and both are listed in
+> [§10.7](#107-outstanding-actions-before-submission):
 >
 > 1. **The institutional similarity scans have not been run.** No Turnitin / Drillbit / iThenticate
 >    report exists for the written documentation, and no MOSS / JPlag report exists for the source
@@ -20,24 +42,24 @@
 >    real measured results — and are reported in §10.3.1, §10.4.1 and
 >    [`compliance/similarity-scan-local.md`](./compliance/similarity-scan-local.md). They do not
 >    replace the institutional scans.
-> 2. **Institutional details** (institution, department, roll number, supervisor, submission date)
->    are not recorded anywhere in this repository and must be filled in.
-> 3. **Signatures** — §10.6 must be printed and signed, or e-signed, per your institution's rules.
+> 2. **Signatures** — §10.6 must be signed by all four team members and counter-signed by the
+>    internal supervisor, per the institution's rules.
 >
-> Nothing in this file asserts a scan result that has not been produced. Do not submit it with the
-> `‹FILL›` markers still present.
+> Nothing in this file asserts a scan result that has not been produced.
 
 ---
 
 ## 10.1 Declaration of originality — written documentation
 
-I, **Ishan Avasthi**, ‹FILL: roll / enrolment number›, a student of ‹FILL: B.Sc. Computer Science,
-Department, Institution›, declare that:
+We, the members of team **Developer Mindset** — **Arjun Ojha** (2023EBCS720), **Ishan Avasthi**
+(2023EBCS640), **Karan Das A** (2023EBCS642) and **Rajat Tyagi** (2023EBCS669) — students of
+**B.Sc. Computer Science (Online Mode)** at the **Birla Institute of Technology and Science,
+Pilani (BITS Pilani Digital)**, declare that:
 
-1. The written documentation submitted with this project — the root `README.md`, the seven
-   technical chapters in `docs/`, the User Manual, and the Validation Report — is my own original
-   work, composed by me for this capstone project.
-2. Every idea, figure, measurement, and claim in that documentation is either my own or explicitly
+1. The written documentation submitted with this project — the root `README.md`, the technical
+   chapters in `docs/`, the User Manual, and the Validation Report — is the original work of this
+   team, composed by us for this capstone project.
+2. Every idea, figure, measurement, and claim in that documentation is either our own or explicitly
    attributed at the point of use.
 3. No part of the documentation has been copied verbatim from any book, paper, website, blog,
    thesis, or another student's submission without quotation and citation.
@@ -53,9 +75,10 @@ Department, Institution›, declare that:
 
 ## 10.2 Declaration of originality — source code
 
-I further declare, in respect of the source code in `backend/` and `mobile-app/`, that:
+We further declare, in respect of the source code in `backend/` and `mobile-app/`, that:
 
-1. All application source code committed to this repository was written by me. This covers
+1. All application source code committed to this repository was written by the team members named
+   in §10.1. This covers
    `backend/src/` (server, config, middleware, models, routes), `backend/tests/`,
    `backend/seedEvents.js`, `backend/keep_alive.js`, `mobile-app/src/` (13 screens, navigation,
    contexts, components, constants, services), the `Dockerfile`, the Kubernetes manifests in
@@ -255,25 +278,29 @@ stack. None of it is copied work:
 
 ## 10.6 Signatures
 
-I certify that the declarations in §10.1 and §10.2 are true, that the similarity results recorded in
-§10.3 and §10.4 are the unaltered output of the named tools, and that I understand the consequences
-of a false declaration under my institution's academic-integrity policy.
+We certify that the declarations in §10.1 and §10.2 are true, that the similarity results recorded
+in §10.3 and §10.4 are the unaltered output of the named tools, and that we understand the
+consequences of a false declaration under the institution's academic-integrity policy.
+
+**Programme:** B.Sc. Computer Science (Online Mode) · **Institution:** Birla Institute of Technology
+and Science, Pilani (BITS Pilani Digital) · **Academic year:** 2025–2026
+
+| Candidate | Enrolment number | Role | Signature | Date |
+| :--- | :--- | :--- | :--- | :--- |
+| Ishan Avasthi | 2023EBCS640 | Team Leader | ______________________ | ____________ |
+| Arjun Ojha | 2023EBCS720 | Member | ______________________ | ____________ |
+| Karan Das A | 2023EBCS642 | Member | ______________________ | ____________ |
+| Rajat Tyagi | 2023EBCS669 | Member | ______________________ | ____________ |
+
+**Internal supervisor**
 
 | | |
 | :--- | :--- |
-| **Candidate** | Ishan Avasthi |
-| Enrolment / roll number | ‹FILL› |
-| Programme | ‹FILL: B.Sc. Computer Science› |
-| Institution | ‹FILL› |
+| **Name** | Dr. Vasavi CS |
+| Designation | Internal Supervisor |
+| Institution | Birla Institute of Technology and Science, Pilani (BITS Pilani Digital) |
 | Signature | ______________________ |
-| Date | ‹FILL› |
-
-| | |
-| :--- | :--- |
-| **Supervisor** | ‹FILL› |
-| Designation / department | ‹FILL› |
-| Signature | ______________________ |
-| Date | ‹FILL› |
+| Date | ____________ |
 
 ---
 
@@ -281,11 +308,11 @@ of a false declaration under my institution's academic-integrity policy.
 
 | # | Action | Section | Owner |
 | :---: | :--- | :--- | :--- |
-| 1 | Run the **institutional** document similarity scan and record the result *(local scan done — §10.3.1)* | §10.3 | Candidate |
-| 2 | Run the **cohort** code similarity scan and record the result *(local scan done — §10.4.1)* | §10.4 | Candidate |
-| 3 | Fill in institution, department, enrolment number, programme, dates | §10.1, §10.6 | Candidate |
-| 4 | Obtain supervisor counter-signature | §10.6 | Supervisor |
-| 5 | Archive both institutional similarity reports under `docs/compliance/` *(directory now exists and holds the local scan artefacts)* | §10.3, §10.4 | Candidate |
+| 1 | Run the **institutional** document similarity scan and record the result *(local scan done — §10.3.1)* | §10.3 | Team |
+| 2 | Run the **cohort** code similarity scan and record the result *(local scan done — §10.4.1)* | §10.4 | Team |
+| 3 | Collect signatures from all four team members | §10.6 | Team |
+| 4 | Obtain the internal supervisor's counter-signature | §10.6 | Dr. Vasavi CS |
+| 5 | Archive both institutional similarity reports under `docs/compliance/` *(directory now exists and holds the local scan artefacts)* | §10.3, §10.4 | Team |
 | ~~6~~ | ~~Cite the bottleneck law in Testing & Performance §6.4.1~~ — ✅ done | §10.3.1 | — |
 
 ---
