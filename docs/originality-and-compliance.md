@@ -160,7 +160,7 @@ similarity index — it does not clear the document.
 > standard **bottleneck law** of operational analysis (X_max = 1/D_max; Denning & Buzen, 1978)
 > without citing it, while the neighbouring Little's Law reference *is* named. The derivation is the
 > author's own and no wording was taken, so this is not plagiarism — but an uncited restatement of a
-> named law is worth fixing before a viva. **Add the citation to §6.4.1.**
+> named law is worth fixing before a viva. ✅ **Resolved** — the citation was added to §6.4.1.
 
 Full report, method, limitations and reproduction commands:
 [`compliance/similarity-scan-local.md`](./compliance/similarity-scan-local.md).
@@ -301,7 +301,7 @@ of a false declaration under my institution's academic-integrity policy.
 | 4 | Fill in institution, department, enrolment number, programme, dates | §10.1, §10.6 | Candidate |
 | 5 | Obtain supervisor counter-signature | §10.6 | Supervisor |
 | 6 | Archive both institutional similarity reports under `docs/compliance/` *(directory now exists and holds the local scan artefacts)* | §10.3, §10.4 | Candidate |
-| 7 | Cite the bottleneck law in Testing & Performance §6.4.1 | §10.3.1 | Candidate |
+| ~~7~~ | ~~Cite the bottleneck law in Testing & Performance §6.4.1~~ — ✅ done | §10.3.1 | — |
 
 ---
 
