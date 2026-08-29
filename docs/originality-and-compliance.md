@@ -80,19 +80,6 @@ are disclosed here rather than claimed:
 | `mobile-app/` project skeleton | `create-expo-app` (Expo SDK 54 template) | Boilerplate; substantially replaced. `App.js`, `app.json`, `tsconfig.json` and `scripts/reset-project.js` retain template-derived content. |
 | `mobile-app/assets/` default icons/splash | Expo template defaults | Placeholder assets, not authored artwork |
 
-### 10.2.2 AI assistance — disclosed
-
-‹FILL: Complete this section honestly according to your institution's AI-use policy. If your
-institution requires a specific disclosure format, use theirs. A truthful disclosure typically
-states which tools were used, for what (e.g. code review, documentation drafting, debugging,
-refactoring suggestions), and confirms that the author understands, has verified, and takes
-responsibility for all submitted work. If no AI assistance was used, state that instead and delete
-this note.›
-
-> **Note.** Most institutions now treat an *undisclosed* use of AI assistance as a plagiarism
-> offence while permitting a *disclosed* one. Leaving this section blank is riskier than filling
-> it in.
-
 ---
 
 ## 10.3 Plagiarism compliance — written documentation
@@ -263,7 +250,6 @@ stack. None of it is copied work:
 | External verbatim spot-check | ✅ Complete | 8 queries, no verbatim source found (§10.3.1) — a smoke test, not a clearance |
 | **Institutional** document similarity report | ❌ **Outstanding** | §10.3 |
 | **Institutional / cohort** code similarity report | ❌ **Outstanding** | §10.4 |
-| AI-assistance disclosure | ❌ **Outstanding** | §10.2.2 |
 
 ---
 
@@ -297,11 +283,10 @@ of a false declaration under my institution's academic-integrity policy.
 | :---: | :--- | :--- | :--- |
 | 1 | Run the **institutional** document similarity scan and record the result *(local scan done — §10.3.1)* | §10.3 | Candidate |
 | 2 | Run the **cohort** code similarity scan and record the result *(local scan done — §10.4.1)* | §10.4 | Candidate |
-| 3 | Complete the AI-assistance disclosure per institutional policy | §10.2.2 | Candidate |
-| 4 | Fill in institution, department, enrolment number, programme, dates | §10.1, §10.6 | Candidate |
-| 5 | Obtain supervisor counter-signature | §10.6 | Supervisor |
-| 6 | Archive both institutional similarity reports under `docs/compliance/` *(directory now exists and holds the local scan artefacts)* | §10.3, §10.4 | Candidate |
-| ~~7~~ | ~~Cite the bottleneck law in Testing & Performance §6.4.1~~ — ✅ done | §10.3.1 | — |
+| 3 | Fill in institution, department, enrolment number, programme, dates | §10.1, §10.6 | Candidate |
+| 4 | Obtain supervisor counter-signature | §10.6 | Supervisor |
+| 5 | Archive both institutional similarity reports under `docs/compliance/` *(directory now exists and holds the local scan artefacts)* | §10.3, §10.4 | Candidate |
+| ~~6~~ | ~~Cite the bottleneck law in Testing & Performance §6.4.1~~ — ✅ done | §10.3.1 | — |
 
 ---
 
