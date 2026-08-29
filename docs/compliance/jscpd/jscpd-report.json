@@ -1,0 +1,1537 @@
+{
+  "statistics": {
+    "detectionDate": "2026-08-29T08:56:00.708Z",
+    "formats": {
+      "javascript": {
+        "sources": {
+          "mobile-app/src/components/ui/GradientButton.js": {
+            "lines": 82,
+            "tokens": 651,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/components/ui/GlassCard.js": {
+            "lines": 36,
+            "tokens": 309,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/components/ui/CustomInput.js": {
+            "lines": 70,
+            "tokens": 511,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/services/api.js": {
+            "lines": 64,
+            "tokens": 507,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/screens/TicketScreen.js": {
+            "lines": 208,
+            "tokens": 1919,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 38,
+            "duplicatedTokens": 311,
+            "percentage": 18.27,
+            "percentageTokens": 16.21,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/screens/RegisterScreen.js": {
+            "lines": 201,
+            "tokens": 2098,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 16,
+            "duplicatedTokens": 187,
+            "percentage": 7.96,
+            "percentageTokens": 8.91,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/screens/ProfileScreen.js": {
+            "lines": 131,
+            "tokens": 1652,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/screens/PaymentScreen.js": {
+            "lines": 99,
+            "tokens": 920,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/screens/NotificationsScreen.js": {
+            "lines": 268,
+            "tokens": 2372,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 25,
+            "duplicatedTokens": 167,
+            "percentage": 9.33,
+            "percentageTokens": 7.04,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/screens/MyEventsScreen.js": {
+            "lines": 162,
+            "tokens": 2075,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/screens/ManageEventScreen.js": {
+            "lines": 316,
+            "tokens": 3117,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 25,
+            "duplicatedTokens": 223,
+            "percentage": 7.91,
+            "percentageTokens": 7.15,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/screens/LoginScreen.js": {
+            "lines": 224,
+            "tokens": 2095,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 5,
+            "duplicatedTokens": 69,
+            "percentage": 2.23,
+            "percentageTokens": 3.29,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/screens/HomeScreen.js": {
+            "lines": 752,
+            "tokens": 8918,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 22,
+            "duplicatedTokens": 269,
+            "percentage": 2.93,
+            "percentageTokens": 3.02,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/screens/EventDetailsScreen.js": {
+            "lines": 642,
+            "tokens": 7478,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/screens/EditProfileScreen.js": {
+            "lines": 177,
+            "tokens": 1791,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/screens/CreateEventScreen.js": {
+            "lines": 775,
+            "tokens": 9468,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 25,
+            "duplicatedTokens": 260,
+            "percentage": 3.23,
+            "percentageTokens": 2.75,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/screens/BookingSuccessScreen.js": {
+            "lines": 25,
+            "tokens": 325,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/navigation/AppNavigator.js": {
+            "lines": 133,
+            "tokens": 1374,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/context/NotificationContext.js": {
+            "lines": 29,
+            "tokens": 207,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/context/AuthContext.js": {
+            "lines": 169,
+            "tokens": 1680,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 14,
+            "duplicatedTokens": 170,
+            "percentage": 8.28,
+            "percentageTokens": 10.12,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/constants/theme.js": {
+            "lines": 64,
+            "tokens": 535,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "mobile-app/src/components/CustomTabBar.js": {
+            "lines": 177,
+            "tokens": 1426,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "backend/tests/server.test.js": {
+            "lines": 10,
+            "tokens": 109,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "backend/tests/notifications.test.js": {
+            "lines": 271,
+            "tokens": 2704,
+            "sources": 1,
+            "clones": 7,
+            "duplicatedLines": 62,
+            "duplicatedTokens": 683,
+            "percentage": 22.88,
+            "percentageTokens": 25.26,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "backend/tests/deadlines.test.js": {
+            "lines": 217,
+            "tokens": 2195,
+            "sources": 1,
+            "clones": 6,
+            "duplicatedLines": 47,
+            "duplicatedTokens": 565,
+            "percentage": 21.66,
+            "percentageTokens": 25.74,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "backend/tests/checkin.test.js": {
+            "lines": 133,
+            "tokens": 1399,
+            "sources": 1,
+            "clones": 9,
+            "duplicatedLines": 77,
+            "duplicatedTokens": 922,
+            "percentage": 57.89,
+            "percentageTokens": 65.9,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "backend/tests/benchmark.js": {
+            "lines": 199,
+            "tokens": 2240,
+            "sources": 1,
+            "clones": 4,
+            "duplicatedLines": 52,
+            "duplicatedTokens": 600,
+            "percentage": 26.13,
+            "percentageTokens": 26.79,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "backend/src/routes/notifications.js": {
+            "lines": 65,
+            "tokens": 593,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "backend/src/routes/events.js": {
+            "lines": 258,
+            "tokens": 2791,
+            "sources": 1,
+            "clones": 4,
+            "duplicatedLines": 26,
+            "duplicatedTokens": 316,
+            "percentage": 10.08,
+            "percentageTokens": 11.32,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "backend/src/routes/bookings.js": {
+            "lines": 160,
+            "tokens": 1420,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 20,
+            "duplicatedTokens": 252,
+            "percentage": 12.5,
+            "percentageTokens": 17.75,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "backend/src/routes/auth.js": {
+            "lines": 313,
+            "tokens": 2624,
+            "sources": 1,
+            "clones": 8,
+            "duplicatedLines": 102,
+            "duplicatedTokens": 890,
+            "percentage": 32.59,
+            "percentageTokens": 33.92,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "backend/src/models/User.js": {
+            "lines": 46,
+            "tokens": 350,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "backend/src/models/Notification.js": {
+            "lines": 35,
+            "tokens": 239,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "backend/src/models/Event.js": {
+            "lines": 48,
+            "tokens": 580,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "backend/src/models/Booking.js": {
+            "lines": 28,
+            "tokens": 297,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "backend/src/middleware/auth.js": {
+            "lines": 21,
+            "tokens": 192,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "backend/src/config/db.js": {
+            "lines": 13,
+            "tokens": 122,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "backend/src/server.js": {
+            "lines": 115,
+            "tokens": 1241,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 6736,
+          "tokens": 70524,
+          "sources": 38,
+          "clones": 29,
+          "duplicatedLines": 278,
+          "duplicatedTokens": 2942,
+          "percentage": 4.13,
+          "percentageTokens": 4.17,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      }
+    },
+    "total": {
+      "lines": 6736,
+      "tokens": 70524,
+      "sources": 38,
+      "clones": 29,
+      "duplicatedLines": 278,
+      "duplicatedTokens": 2942,
+      "percentage": 4.13,
+      "percentageTokens": 4.17,
+      "newDuplicatedLines": 0,
+      "newClones": 0
+    }
+  },
+  "duplicates": [
+    {
+      "format": "javascript",
+      "lines": 14,
+      "fragment": "},\n  header: {\n    flexDirection: 'row',\n    alignItems: 'center',\n    justifyContent: 'space-between',\n    paddingHorizontal: SIZES.padding,\n    paddingTop: 20,\n    paddingBottom: 20,\n  },\n  backBtn: {\n    width: 40,\n    height: 40,\n    borderRadius: 20,\n    backgroundColor: 'rgba(255, 255, 255, 0.05)'",
+      "tokens": 88,
+      "firstFile": {
+        "name": "mobile-app/src/screens/NotificationsScreen.js",
+        "start": 145,
+        "end": 158,
+        "startLoc": {
+          "line": 145,
+          "column": 3,
+          "position": 1566
+        },
+        "endLoc": {
+          "line": 158,
+          "column": 49,
+          "position": 1654
+        }
+      },
+      "secondFile": {
+        "name": "mobile-app/src/screens/TicketScreen.js",
+        "start": 87,
+        "end": 99,
+        "startLoc": {
+          "line": 87,
+          "column": 25,
+          "position": 1087
+        },
+        "endLoc": {
+          "line": 99,
+          "column": 49,
+          "position": 1174
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 14,
+      "fragment": ";\n\n    return (\n        <View style={styles.container}>\n            <LinearGradient\n                colors={['#050511', '#0a0a2a']}\n                style={StyleSheet.absoluteFillObject}\n            />\n            <SafeAreaView style={styles.safeArea}>\n                <View style={styles.header}>\n                    <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>\n                        <ArrowLeft size={24} color=\"#fff\" />\n                    </TouchableOpacity>\n                    <View",
+      "tokens": 129,
+      "firstFile": {
+        "name": "mobile-app/src/screens/ManageEventScreen.js",
+        "start": 122,
+        "end": 135,
+        "startLoc": {
+          "line": 122,
+          "column": 6,
+          "position": 1379
+        },
+        "endLoc": {
+          "line": 135,
+          "column": 26,
+          "position": 1508
+        }
+      },
+      "secondFile": {
+        "name": "mobile-app/src/screens/TicketScreen.js",
+        "start": 15,
+        "end": 29,
+        "startLoc": {
+          "line": 15,
+          "column": 121,
+          "position": 236
+        },
+        "endLoc": {
+          "line": 29,
+          "column": 26,
+          "position": 366
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 13,
+      "fragment": "</View>\n            </SafeAreaView>\n        </View>\n    );\n};\n\nconst styles = StyleSheet.create({\n    container: { flex: 1, backgroundColor: COLORS.background },\n    safeArea: { flex: 1 },\n    header: {\n        flexDirection: 'row',\n        alignItems: 'center',\n        paddingHorizontal",
+      "tokens": 94,
+      "firstFile": {
+        "name": "mobile-app/src/screens/ManageEventScreen.js",
+        "start": 180,
+        "end": 192,
+        "startLoc": {
+          "line": 180,
+          "column": 17,
+          "position": 2077
+        },
+        "endLoc": {
+          "line": 192,
+          "column": 26,
+          "position": 2171
+        }
+      },
+      "secondFile": {
+        "name": "mobile-app/src/screens/TicketScreen.js",
+        "start": 79,
+        "end": 91,
+        "startLoc": {
+          "line": 79,
+          "column": 17,
+          "position": 1017
+        },
+        "endLoc": {
+          "line": 91,
+          "column": 23,
+          "position": 1111
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 6,
+      "fragment": ".</Text>\r\n        </Animated.View>\r\n\r\n        <Animated.View entering={FadeInDown.delay(400).duration(1000).springify()}>\r\n          <GlassCard style={styles.card}>\r\n            <Text style={styles.loginText",
+      "tokens": 69,
+      "firstFile": {
+        "name": "mobile-app/src/screens/LoginScreen.js",
+        "start": 85,
+        "end": 90,
+        "startLoc": {
+          "line": 85,
+          "column": 67,
+          "position": 1001
+        },
+        "endLoc": {
+          "line": 90,
+          "column": 42,
+          "position": 1070
+        }
+      },
+      "secondFile": {
+        "name": "mobile-app/src/screens/RegisterScreen.js",
+        "start": 66,
+        "end": 71,
+        "startLoc": {
+          "line": 66,
+          "column": 68,
+          "position": 759
+        },
+        "endLoc": {
+          "line": 71,
+          "column": 61,
+          "position": 823
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 6,
+      "fragment": "23, 59, 59, 999);\n                const todayStart = new Date();\n                todayStart.setHours(0,0,0,0);\n                result = result.filter(e => {\n                    const d = new Date(e.startDate || e.date);\n                    return d >= todayStart && d <= monthEnd",
+      "tokens": 95,
+      "firstFile": {
+        "name": "mobile-app/src/screens/HomeScreen.js",
+        "start": 123,
+        "end": 128,
+        "startLoc": {
+          "line": 123,
+          "column": 85,
+          "position": 1867
+        },
+        "endLoc": {
+          "line": 128,
+          "column": 60,
+          "position": 1962
+        }
+      },
+      "secondFile": {
+        "name": "mobile-app/src/screens/HomeScreen.js",
+        "start": 115,
+        "end": 120,
+        "startLoc": {
+          "line": 115,
+          "column": 34,
+          "position": 1718
+        },
+        "endLoc": {
+          "line": 120,
+          "column": 59,
+          "position": 1810
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 13,
+      "fragment": "</GlassCard>\n                </TouchableOpacity>\n            </Animated.View>\n        );\n    };\n\n    return (\n        <View style={styles.container}>\n            <LinearGradient\n                colors={['#050511', '#0a0a2a', '#001a1a']}\n                style={StyleSheet.absoluteFillObject}\n            />\n            {",
+      "tokens": 79,
+      "firstFile": {
+        "name": "mobile-app/src/screens/HomeScreen.js",
+        "start": 272,
+        "end": 284,
+        "startLoc": {
+          "line": 272,
+          "column": 21,
+          "position": 3777
+        },
+        "endLoc": {
+          "line": 284,
+          "column": 14,
+          "position": 3856
+        }
+      },
+      "secondFile": {
+        "name": "mobile-app/src/screens/NotificationsScreen.js",
+        "start": 81,
+        "end": 94,
+        "startLoc": {
+          "line": 81,
+          "column": 11,
+          "position": 996
+        },
+        "endLoc": {
+          "line": 94,
+          "column": 8,
+          "position": 1076
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 12,
+      "fragment": "); }\n        finally { setLoading(false); }\n    };\n\n    return (\n        <View style={styles.container}>\n            <LinearGradient\n                colors={['#050511', '#0a0a2a', '#001a1a']}\n                style={StyleSheet.absoluteFillObject}\n            />\n            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>\n                <ScrollView contentContainerStyle={{",
+      "tokens": 118,
+      "firstFile": {
+        "name": "mobile-app/src/screens/CreateEventScreen.js",
+        "start": 361,
+        "end": 372,
+        "startLoc": {
+          "line": 361,
+          "column": 68,
+          "position": 4281
+        },
+        "endLoc": {
+          "line": 372,
+          "column": 53,
+          "position": 4399
+        }
+      },
+      "secondFile": {
+        "name": "mobile-app/src/screens/RegisterScreen.js",
+        "start": 46,
+        "end": 63,
+        "startLoc": {
+          "line": 46,
+          "column": 47,
+          "position": 558
+        },
+        "endLoc": {
+          "line": 63,
+          "column": 58,
+          "position": 683
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 8,
+      "fragment": "}</Text>\n                                    <ChevronDown size={18} color={COLORS.textDim} />\n                                </View>\n                            </TouchableOpacity>\n                        </View>\n\n                        <View style={styles.inputGroup}>\n                            <Text style={styles.label}>Location",
+      "tokens": 71,
+      "firstFile": {
+        "name": "mobile-app/src/screens/CreateEventScreen.js",
+        "start": 430,
+        "end": 437,
+        "startLoc": {
+          "line": 430,
+          "column": 89,
+          "position": 5324
+        },
+        "endLoc": {
+          "line": 437,
+          "column": 64,
+          "position": 5395
+        }
+      },
+      "secondFile": {
+        "name": "mobile-app/src/screens/CreateEventScreen.js",
+        "start": 420,
+        "end": 427,
+        "startLoc": {
+          "line": 420,
+          "column": 83,
+          "position": 5165
+        },
+        "endLoc": {
+          "line": 427,
+          "column": 62,
+          "position": 5236
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 8,
+      "fragment": "});\n      const { token: jwt, user } = res.data;\n\n      setUser(user);\n      api.defaults.headers.common['x-auth-token'] = jwt;\n      await AsyncStorage.setItem('token', jwt);\n      await AsyncStorage.setItem('userInfo', JSON.stringify(user));\n      return",
+      "tokens": 85,
+      "firstFile": {
+        "name": "mobile-app/src/context/AuthContext.js",
+        "start": 62,
+        "end": 69,
+        "startLoc": {
+          "line": 62,
+          "column": 75,
+          "position": 638
+        },
+        "endLoc": {
+          "line": 69,
+          "column": 13,
+          "position": 723
+        }
+      },
+      "secondFile": {
+        "name": "mobile-app/src/context/AuthContext.js",
+        "start": 48,
+        "end": 55,
+        "startLoc": {
+          "line": 48,
+          "column": 58,
+          "position": 475
+        },
+        "endLoc": {
+          "line": 55,
+          "column": 6,
+          "position": 560
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 9,
+      "fragment": "const request = require('supertest');\nconst mongoose = require('mongoose');\nconst jwt = require('jsonwebtoken');\nconst app = require('../src/server');\nconst User = require('../src/models/User');\nconst Event = require('../src/models/Event');\nconst Booking = require('../src/models/Booking');\n\n// Increase timeout for DB operations",
+      "tokens": 85,
+      "firstFile": {
+        "name": "backend/tests/deadlines.test.js",
+        "start": 1,
+        "end": 9,
+        "startLoc": {
+          "line": 1,
+          "column": 1,
+          "position": 0
+        },
+        "endLoc": {
+          "line": 9,
+          "column": 38,
+          "position": 85
+        }
+      },
+      "secondFile": {
+        "name": "backend/tests/notifications.test.js",
+        "start": 1,
+        "end": 8,
+        "startLoc": {
+          "line": 1,
+          "column": 1,
+          "position": 0
+        },
+        "endLoc": {
+          "line": 8,
+          "column": 6,
+          "position": 84
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 7,
+      "fragment": "});\n    await hostUser.save();\n    hostToken = jwt.sign({ user: { id: hostUser.id } }, process.env.JWT_SECRET, { expiresIn: '1h' });\n\n    // Create Test Attendee\n    attendeeUser = new User({\n      name: 'Deadline Attendee'",
+      "tokens": 79,
+      "firstFile": {
+        "name": "backend/tests/deadlines.test.js",
+        "start": 28,
+        "end": 34,
+        "startLoc": {
+          "line": 28,
+          "column": 5,
+          "position": 247
+        },
+        "endLoc": {
+          "line": 34,
+          "column": 32,
+          "position": 326
+        }
+      },
+      "secondFile": {
+        "name": "backend/tests/notifications.test.js",
+        "start": 31,
+        "end": 37,
+        "startLoc": {
+          "line": 31,
+          "column": 5,
+          "position": 269
+        },
+        "endLoc": {
+          "line": 37,
+          "column": 28,
+          "position": 348
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 9,
+      "fragment": "};\n\n    const res = await request(app)\n      .post('/api/events')\n      .set('x-auth-token', hostToken)\n      .send(invalidEvent);\n\n    expect(res.statusCode).toEqual(400);\n    expect(res.body.errors[0].msg).toContain('Target age group is invalid'",
+      "tokens": 75,
+      "firstFile": {
+        "name": "backend/tests/deadlines.test.js",
+        "start": 207,
+        "end": 215,
+        "startLoc": {
+          "line": 207,
+          "column": 5,
+          "position": 2109
+        },
+        "endLoc": {
+          "line": 215,
+          "column": 75,
+          "position": 2184
+        }
+      },
+      "secondFile": {
+        "name": "backend/tests/deadlines.test.js",
+        "start": 114,
+        "end": 122,
+        "startLoc": {
+          "line": 114,
+          "column": 5,
+          "position": 1265
+        },
+        "endLoc": {
+          "line": 122,
+          "column": 96,
+          "position": 1340
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 12,
+      "fragment": "const request = require('supertest');\nconst mongoose = require('mongoose');\nconst jwt = require('jsonwebtoken');\nconst app = require('../src/server');\nconst User = require('../src/models/User');\nconst Event = require('../src/models/Event');\nconst Booking = require('../src/models/Booking');\n\n// Increase timeout for DB operations\njest.setTimeout(30000);\n\ndescribe('Check-in and User Population API'",
+      "tokens": 98,
+      "firstFile": {
+        "name": "backend/tests/checkin.test.js",
+        "start": 1,
+        "end": 12,
+        "startLoc": {
+          "line": 1,
+          "column": 1,
+          "position": 0
+        },
+        "endLoc": {
+          "line": 12,
+          "column": 44,
+          "position": 98
+        }
+      },
+      "secondFile": {
+        "name": "backend/tests/notifications.test.js",
+        "start": 1,
+        "end": 12,
+        "startLoc": {
+          "line": 1,
+          "column": 1,
+          "position": 0
+        },
+        "endLoc": {
+          "line": 12,
+          "column": 61,
+          "position": 98
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 18,
+      "fragment": ", () => {\n    let hostUser, attendeeUser;\n    let hostToken, attendeeToken;\n    let testEvent;\n    let testBooking;\n\n    beforeAll(async () => {\n        // Connect to MongoDB\n        if (mongoose.connection.readyState === 0) {\n            await mongoose.connect(process.env.MONGO_URI);\n        }\n\n        // Create Test Host\n        hostUser = new User({\n            name: 'Test Host',\n            email: `host_${Date.now()}_${Math.floor(Math.random() * 1000000)}@example.com`,\n            password: 'password123'\n        }",
+      "tokens": 151,
+      "firstFile": {
+        "name": "backend/tests/checkin.test.js",
+        "start": 12,
+        "end": 29,
+        "startLoc": {
+          "line": 12,
+          "column": 44,
+          "position": 99
+        },
+        "endLoc": {
+          "line": 29,
+          "column": 10,
+          "position": 250
+        }
+      },
+      "secondFile": {
+        "name": "backend/tests/notifications.test.js",
+        "start": 13,
+        "end": 29,
+        "startLoc": {
+          "line": 13,
+          "column": 58,
+          "position": 111
+        },
+        "endLoc": {
+          "line": 29,
+          "column": 31,
+          "position": 260
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 12,
+      "fragment": "${Date.now()}_${Math.floor(Math.random() * 1000000)}@example.com`,\n            password: 'password123'\n        });\n        await hostUser.save();\n        hostToken = jwt.sign({ user: { id: hostUser.id } }, process.env.JWT_SECRET, { expiresIn: '1h' });\n\n        // Create Test Attendee\n        attendeeUser = new User({\n            name: 'Test Attendee',\n            email: `attendee_${Date.now()}_${Math.floor(Math.random() * 1000000)}@example.com`,\n            password: 'password123'\n        }",
+      "tokens": 155,
+      "firstFile": {
+        "name": "backend/tests/checkin.test.js",
+        "start": 27,
+        "end": 38,
+        "startLoc": {
+          "line": 27,
+          "column": 26,
+          "position": 216
+        },
+        "endLoc": {
+          "line": 38,
+          "column": 10,
+          "position": 371
+        }
+      },
+      "secondFile": {
+        "name": "backend/tests/deadlines.test.js",
+        "start": 26,
+        "end": 39,
+        "startLoc": {
+          "line": 26,
+          "column": 29,
+          "position": 213
+        },
+        "endLoc": {
+          "line": 39,
+          "column": 31,
+          "position": 388
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 7,
+      "fragment": "${Date.now()}_${Math.floor(Math.random() * 1000000)}@example.com`,\n            password: 'password123'\n        });\n        await attendeeUser.save();\n        attendeeToken = jwt.sign({ user: { id: attendeeUser.id } }, process.env.JWT_SECRET, { expiresIn: '1h' });\n\n        // Create Test Event hosted by hostUser",
+      "tokens": 96,
+      "firstFile": {
+        "name": "backend/tests/checkin.test.js",
+        "start": 36,
+        "end": 42,
+        "startLoc": {
+          "line": 36,
+          "column": 30,
+          "position": 337
+        },
+        "endLoc": {
+          "line": 42,
+          "column": 48,
+          "position": 433
+        }
+      },
+      "secondFile": {
+        "name": "backend/tests/deadlines.test.js",
+        "start": 35,
+        "end": 41,
+        "startLoc": {
+          "line": 35,
+          "column": 33,
+          "position": 334
+        },
+        "endLoc": {
+          "line": 41,
+          "column": 68,
+          "position": 430
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 8,
+      "fragment": "});\n        await attendeeUser.save();\n        attendeeToken = jwt.sign({ user: { id: attendeeUser.id } }, process.env.JWT_SECRET, { expiresIn: '1h' });\n\n        // Create Test Event hosted by hostUser\n        testEvent = new Event({\n            host: hostUser.id,\n            name: 'Testing Event'",
+      "tokens": 88,
+      "firstFile": {
+        "name": "backend/tests/checkin.test.js",
+        "start": 38,
+        "end": 45,
+        "startLoc": {
+          "line": 38,
+          "column": 9,
+          "position": 371
+        },
+        "endLoc": {
+          "line": 45,
+          "column": 34,
+          "position": 459
+        }
+      },
+      "secondFile": {
+        "name": "backend/tests/notifications.test.js",
+        "start": 41,
+        "end": 48,
+        "startLoc": {
+          "line": 41,
+          "column": 5,
+          "position": 397
+        },
+        "endLoc": {
+          "line": 48,
+          "column": 41,
+          "position": 485
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 7,
+      "fragment": "try {\n            const hostId = hostUser ? hostUser.id : null;\n            const attendeeId = attendeeUser ? attendeeUser.id : null;\n            const testEventId = testEvent ? testEvent.id : null;\n\n            const userIds = [hostId, attendeeId].filter(id => id !== null);\n            if (testEventId",
+      "tokens": 97,
+      "firstFile": {
+        "name": "backend/tests/checkin.test.js",
+        "start": 71,
+        "end": 77,
+        "startLoc": {
+          "line": 71,
+          "column": 9,
+          "position": 673
+        },
+        "endLoc": {
+          "line": 77,
+          "column": 28,
+          "position": 770
+        }
+      },
+      "secondFile": {
+        "name": "backend/tests/notifications.test.js",
+        "start": 64,
+        "end": 70,
+        "startLoc": {
+          "line": 64,
+          "column": 5,
+          "position": 623
+        },
+        "endLoc": {
+          "line": 70,
+          "column": 18,
+          "position": 721
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 8,
+      "fragment": "const res = await request(app)\n            .post(`/api/events/${testEvent.id}/checkin`)\n            .set('x-auth-token', hostToken)\n            .send({ ticketCode: testBooking.ticketCode });\n\n        expect(res.statusCode).toEqual(200);\n        expect(res.body.msg).toEqual('Check-in successful');\n        expect",
+      "tokens": 85,
+      "firstFile": {
+        "name": "backend/tests/checkin.test.js",
+        "start": 91,
+        "end": 98,
+        "startLoc": {
+          "line": 91,
+          "column": 9,
+          "position": 918
+        },
+        "endLoc": {
+          "line": 98,
+          "column": 15,
+          "position": 1003
+        }
+      },
+      "secondFile": {
+        "name": "backend/tests/notifications.test.js",
+        "start": 117,
+        "end": 125,
+        "startLoc": {
+          "line": 117,
+          "column": 5,
+          "position": 1187
+        },
+        "endLoc": {
+          "line": 125,
+          "column": 32,
+          "position": 1273
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 7,
+      "fragment": ", async () => {\n        const res = await request(app)\n            .post(`/api/events/${testEvent.id}/checkin`)\n            .set('x-auth-token', hostToken)\n            .send({ ticketCode: testBooking.ticketCode });\n\n        expect(res.statusCode).toEqual(400",
+      "tokens": 76,
+      "firstFile": {
+        "name": "backend/tests/checkin.test.js",
+        "start": 104,
+        "end": 110,
+        "startLoc": {
+          "line": 104,
+          "column": 57,
+          "position": 1086
+        },
+        "endLoc": {
+          "line": 110,
+          "column": 43,
+          "position": 1162
+        }
+      },
+      "secondFile": {
+        "name": "backend/tests/checkin.test.js",
+        "start": 90,
+        "end": 96,
+        "startLoc": {
+          "line": 90,
+          "column": 69,
+          "position": 906
+        },
+        "endLoc": {
+          "line": 96,
+          "column": 43,
+          "position": 982
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 16,
+      "fragment": ", concurrency);\n          allResults.push(...batchResults);\n        }\n        const testEnd = performance.now();\n        const totalTimeMs = testEnd - testStart;\n        \n        const stats = calculateStats(allResults);\n        stats.throughput = parseFloat(((allResults.length / totalTimeMs) * 1000).toFixed(2));\n        stats.totalTimeMs = parseFloat(totalTimeMs.toFixed(2));\n        \n        const metricsRes = await fetch(`${BASE_URL}/api/metrics`);\n        const metricsData = await metricsRes.json();\n        stats.rssMB = metricsData.system.memoryUsage.rssMB;\n        stats.heapUsedMB = metricsData.system.memoryUsage.heapUsedMB;\n        \n        results.eventsConcurrency",
+      "tokens": 186,
+      "firstFile": {
+        "name": "backend/tests/benchmark.js",
+        "start": 151,
+        "end": 166,
+        "startLoc": {
+          "line": 151,
+          "column": 87,
+          "position": 1732
+        },
+        "endLoc": {
+          "line": 166,
+          "column": 34,
+          "position": 1918
+        }
+      },
+      "secondFile": {
+        "name": "backend/tests/benchmark.js",
+        "start": 115,
+        "end": 130,
+        "startLoc": {
+          "line": 115,
+          "column": 67,
+          "position": 1301
+        },
+        "endLoc": {
+          "line": 130,
+          "column": 34,
+          "position": 1487
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 12,
+      "fragment": "[concurrency] = stats;\n        \n        console.log(`  Concurrency: ${concurrency} users`);\n        console.log(`    Success Rate: ${stats.successRate}%`);\n        console.log(`    Throughput:   ${stats.throughput} req/sec`);\n        console.log(`    Mean Latency: ${stats.mean}ms`);\n        console.log(`    P95 Latency:  ${stats.p95}ms`);\n        console.log(`    RSS Memory:   ${stats.rssMB} MB`);\n        console.log('--------------------------------------------------');\n      }\n      \n      // Save results",
+      "tokens": 114,
+      "firstFile": {
+        "name": "backend/tests/benchmark.js",
+        "start": 166,
+        "end": 177,
+        "startLoc": {
+          "line": 166,
+          "column": 34,
+          "position": 1919
+        },
+        "endLoc": {
+          "line": 177,
+          "column": 22,
+          "position": 2033
+        }
+      },
+      "secondFile": {
+        "name": "backend/tests/benchmark.js",
+        "start": 130,
+        "end": 141,
+        "startLoc": {
+          "line": 130,
+          "column": 34,
+          "position": 1488
+        },
+        "endLoc": {
+          "line": 141,
+          "column": 103,
+          "position": 1602
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 6,
+      "fragment": ", auth, async (req, res) => {\n  try {\n    const event = await Event.findById(req.params.id);\n    if (!event) return res.status(404).json({ msg: 'Event not found' });\n\n    // Check if the requester is the host",
+      "tokens": 76,
+      "firstFile": {
+        "name": "backend/src/routes/events.js",
+        "start": 183,
+        "end": 188,
+        "startLoc": {
+          "line": 183,
+          "column": 25,
+          "position": 1962
+        },
+        "endLoc": {
+          "line": 188,
+          "column": 42,
+          "position": 2038
+        }
+      },
+      "secondFile": {
+        "name": "backend/src/routes/events.js",
+        "start": 146,
+        "end": 152,
+        "startLoc": {
+          "line": 146,
+          "column": 21,
+          "position": 1578
+        },
+        "endLoc": {
+          "line": 152,
+          "column": 18,
+          "position": 1655
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 9,
+      "fragment": ");\n  } catch (err) {\n    console.error(err.message);\n    if (err.kind === 'ObjectId') return res.status(404).json({ msg: 'Event not found' });\n    res.status(500).send('Server Error');\n  }\n});\n\n// @route   POST /api/events/:id/checkin",
+      "tokens": 82,
+      "firstFile": {
+        "name": "backend/src/routes/events.js",
+        "start": 194,
+        "end": 202,
+        "startLoc": {
+          "line": 194,
+          "column": 20,
+          "position": 2140
+        },
+        "endLoc": {
+          "line": 202,
+          "column": 41,
+          "position": 2222
+        }
+      },
+      "secondFile": {
+        "name": "backend/src/routes/events.js",
+        "start": 172,
+        "end": 180,
+        "startLoc": {
+          "line": 172,
+          "column": 38,
+          "position": 1869
+        },
+        "endLoc": {
+          "line": 180,
+          "column": 39,
+          "position": 1951
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 11,
+      "fragment": "eventId, quantity } = req.body;\n\n    try {\n        const event = await Event.findById(eventId);\n        if (!event) return res.status(404).json({ msg: 'Event not found' });\n\n        if (event.registrationDeadline && new Date() > new Date(event.registrationDeadline)) {\n            return res.status(400).json({ msg: 'Registrations for this event have closed' });\n        }\n\n        // Verify Signature (Skip for mock/free)",
+      "tokens": 126,
+      "firstFile": {
+        "name": "backend/src/routes/bookings.js",
+        "start": 91,
+        "end": 101,
+        "startLoc": {
+          "line": 91,
+          "column": 53,
+          "position": 802
+        },
+        "endLoc": {
+          "line": 101,
+          "column": 49,
+          "position": 928
+        }
+      },
+      "secondFile": {
+        "name": "backend/src/routes/bookings.js",
+        "start": 21,
+        "end": 31,
+        "startLoc": {
+          "line": 21,
+          "column": 13,
+          "position": 174
+        },
+        "endLoc": {
+          "line": 31,
+          "column": 11,
+          "position": 300
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 9,
+      "fragment": "),\n  ],\n  async (req, res) => {\n    const errors = validationResult(req);\n    if (!errors.isEmpty()) {\n      return res.status(400).json({ errors: errors.array() });\n    }\n\n    const { email",
+      "tokens": 84,
+      "firstFile": {
+        "name": "backend/src/routes/auth.js",
+        "start": 96,
+        "end": 104,
+        "startLoc": {
+          "line": 96,
+          "column": 54,
+          "position": 793
+        },
+        "endLoc": {
+          "line": 104,
+          "column": 18,
+          "position": 877
+        }
+      },
+      "secondFile": {
+        "name": "backend/src/routes/auth.js",
+        "start": 33,
+        "end": 41,
+        "startLoc": {
+          "line": 33,
+          "column": 83,
+          "position": 300
+        },
+        "endLoc": {
+          "line": 41,
+          "column": 17,
+          "position": 384
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 8,
+      "fragment": "const userResp = user.toObject();\n          delete userResp.password;\n          res.json({ token, user: userResp });\n        }\n      );\n    } catch (err) {\n      console.error(err.message);\n      res.status(500).send('Server error'",
+      "tokens": 79,
+      "firstFile": {
+        "name": "backend/src/routes/auth.js",
+        "start": 129,
+        "end": 136,
+        "startLoc": {
+          "line": 129,
+          "column": 11,
+          "position": 1117
+        },
+        "endLoc": {
+          "line": 136,
+          "column": 42,
+          "position": 1196
+        }
+      },
+      "secondFile": {
+        "name": "backend/src/routes/auth.js",
+        "start": 77,
+        "end": 84,
+        "startLoc": {
+          "line": 77,
+          "column": 11,
+          "position": 657
+        },
+        "endLoc": {
+          "line": 84,
+          "column": 42,
+          "position": 736
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 19,
+      "fragment": "const payload = {\n      user: {\n        id: user.id\n      }\n    };\n\n    jwt.sign(\n      payload,\n      process.env.JWT_SECRET,\n      { expiresIn: '5d' },\n      (err, token) => {\n        if (err) throw err;\n        const userResp = user.toObject();\n        delete userResp.password;\n        res.json({ token, user: userResp });\n      }\n    );\n  } catch (err) {\n    console.error(\"Google Auth Error:\"",
+      "tokens": 147,
+      "firstFile": {
+        "name": "backend/src/routes/auth.js",
+        "start": 172,
+        "end": 190,
+        "startLoc": {
+          "line": 172,
+          "column": 5,
+          "position": 1450
+        },
+        "endLoc": {
+          "line": 190,
+          "column": 39,
+          "position": 1597
+        }
+      },
+      "secondFile": {
+        "name": "backend/src/routes/auth.js",
+        "start": 117,
+        "end": 135,
+        "startLoc": {
+          "line": 117,
+          "column": 7,
+          "position": 1033
+        },
+        "endLoc": {
+          "line": 135,
+          "column": 24,
+          "position": 1180
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 19,
+      "fragment": "const payload = {\n          user: {\n            id: user.id\n          }\n        };\n\n        jwt.sign(\n          payload,\n          process.env.JWT_SECRET,\n          { expiresIn: '5d' },\n          (err, token) => {\n            if (err) throw err;\n            const userResp = user.toObject();\n            delete userResp.password;\n            res.json({ token, user: userResp });\n          }\n        );\n      }\n    )",
+      "tokens": 135,
+      "firstFile": {
+        "name": "backend/src/routes/auth.js",
+        "start": 251,
+        "end": 269,
+        "startLoc": {
+          "line": 251,
+          "column": 9,
+          "position": 2111
+        },
+        "endLoc": {
+          "line": 269,
+          "column": 6,
+          "position": 2246
+        }
+      },
+      "secondFile": {
+        "name": "backend/src/routes/auth.js",
+        "start": 117,
+        "end": 134,
+        "startLoc": {
+          "line": 117,
+          "column": 7,
+          "position": 1033
+        },
+        "endLoc": {
+          "line": 134,
+          "column": 12,
+          "position": 1167
+        }
+      }
+    }
+  ]
+}

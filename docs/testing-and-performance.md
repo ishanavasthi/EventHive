@@ -123,6 +123,14 @@ npm test         # all 4 Jest suites — requires MONGO_URI and JWT_SECRET
 > **Note.** Three of the four suites require a reachable MongoDB. Only `server.test.js` runs without
 > one.
 
+### Coverage
+
+`npm run test:coverage` instruments the suite with Istanbul. The run of 2026-08-29 on `f9bdbcd`
+measured **48.11 % statements / 34.25 % branches / 47.36 % functions / 49.87 % lines**, with all four
+Mongoose models at 100 % and `routes/auth.js` at 12.69 %. The per-file breakdown, the dated
+execution record, and a requirements traceability matrix are in the
+[Validation Report](./validation-report.md). Raw artefact: `backend/tests/coverage_results.json`.
+
 ---
 
 ## 6.3 Load benchmark methodology
