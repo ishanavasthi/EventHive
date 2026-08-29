@@ -6,16 +6,24 @@
 
 React Native (Expo) mobile client · Node.js/Express REST API · MongoDB · Docker · Kubernetes · CI/CD
 
-*B.Sc. Computer Science — Final Semester Capstone Project*
+*B.Sc. Computer Science (Online Mode) — Final Semester Capstone Project*
+
+*Birla Institute of Technology and Science, Pilani (BITS Pilani Digital) · Academic Year 2025–2026*
+
+**Team Developer Mindset** — Arjun Ojha (2023EBCS720) · Ishan Avasthi (2023EBCS640, Team Leader) · Karan Das A (2023EBCS642) · Rajat Tyagi (2023EBCS669)
+
+*Internal Supervisor: Dr. Vasavi CS*
 
 [![CI](https://img.shields.io/badge/CI-lint%20%2B%2016%20tests-brightgreen)](#-testing--performance)
 [![Tests](https://img.shields.io/badge/tests-16%20passing-brightgreen)](./docs/testing-and-performance.md)
 [![Lint](https://img.shields.io/badge/eslint-0%20errors-brightgreen)](./docs/testing-and-performance.md#static-analysis)
+[![Coverage](https://img.shields.io/badge/coverage-48%25%20statements-yellow)](./docs/validation-report.md)
+[![License](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 [![Backend](https://img.shields.io/badge/Node.js-Express%205-339933)](./backend)
 [![Mobile](https://img.shields.io/badge/React%20Native-Expo%20SDK%2054-000020)](./mobile-app)
 [![Database](https://img.shields.io/badge/MongoDB-Mongoose%208-47A248)](./docs/database.md)
 
-**📚 [Full Documentation](./docs/README.md)** · [Architecture](./docs/architecture.md) · [Database](./docs/database.md) · [Backend](./docs/backend.md) · [API](./docs/api-reference.md) · [Mobile](./docs/mobile-app.md) · [Testing](./docs/testing-and-performance.md) · [Setup](./docs/setup-and-deployment.md)
+**📚 [Full Documentation](./docs/README.md)** · [Architecture](./docs/architecture.md) · [Database](./docs/database.md) · [Backend](./docs/backend.md) · [API](./docs/api-reference.md) · [Mobile](./docs/mobile-app.md) · [Testing](./docs/testing-and-performance.md) · [Setup](./docs/setup-and-deployment.md) · [User Manual](./docs/user-manual.md) · [Validation](./docs/validation-report.md)
 
 </div>
 
@@ -33,6 +41,7 @@ React Native (Expo) mobile client · Node.js/Express REST API · MongoDB · Dock
 - [Repository structure](#-repository-structure)
 - [Documentation](#-documentation)
 - [Known limitations](#-known-limitations)
+- [Licence & attribution](#-licence--attribution)
 
 ---
 
@@ -246,6 +255,24 @@ npm test         # 4 suites, 16 tests
 Every push and pull request runs lint **and** the full suite against an ephemeral `mongo:7`
 service container in GitHub Actions.
 
+### Coverage — measured 2026-08-29 on `f9bdbcd`
+
+| Metric | Covered / Total | % |
+| :--- | :---: | :---: |
+| Statements | 204 / 424 | 48.11 % |
+| Branches | 62 / 181 | 34.25 % |
+| Functions | 18 / 38 | 47.36 % |
+| Lines | 200 / 401 | 49.87 % |
+
+All four Mongoose models are at **100 %**, and the three non-trivial flows — booking, check-in,
+notification fan-out — are covered end to end. The gap is concentrated in `routes/auth.js`
+(12.69 %), where the federated Google/Apple handlers cannot run without live provider tokens.
+Full breakdown and an honest reading in **[Validation Report §9.3](./docs/validation-report.md)**.
+
+```bash
+cd backend && npm run test:coverage
+```
+
 ### Measured performance
 
 > Figures below are read from **[`backend/tests/benchmark_results.json`](./backend/tests/benchmark_results.json)** —
@@ -356,7 +383,7 @@ EventHive/
 │   │   ├── middleware/auth.js  JWT verification
 │   │   ├── models/             User · Event · Booking · Notification
 │   │   └── routes/             auth · events · bookings · notifications
-│   ├── tests/                  4 Jest suites + load-benchmark harness + results
+│   ├── tests/                  4 Jest suites + benchmark harness + benchmark & coverage results
 │   ├── k8s/                    Deployment + Service manifests
 │   ├── seedEvents.js           3 hosts, 18 events across every category
 │   ├── keep_alive.js           Render cold-start ping
@@ -369,7 +396,9 @@ EventHive/
 │       ├── components/         GlassCard · GradientButton · CustomTabBar · CustomInput
 │       ├── constants/theme.js  "Aurora" design tokens
 │       └── services/api.js     Axios with dynamic base-URL resolution
-├── docs/                       Technical documentation (7 chapters)
+├── docs/                       Technical documentation (10 chapters)
+├── LICENSE                     MIT
+├── THIRD_PARTY_NOTICES.md      Dependency licences and attributions
 └── .github/workflows/          CI/CD pipeline
 ```
 
@@ -388,6 +417,9 @@ Full technical documentation lives in **[`docs/`](./docs/README.md)**.
 | **[5 · Mobile App](./docs/mobile-app.md)** | Navigation graph, all 13 screens, state management, API client resolution, design system, client optimisations |
 | **[6 · Testing & Performance](./docs/testing-and-performance.md)** | Test inventory, benchmark methodology, measured results, bottleneck analysis, mobile profiling, recommendations, reproduction guide |
 | **[7 · Setup & Deployment](./docs/setup-and-deployment.md)** | Environment variables, local setup, demo walkthrough, Docker, CI/CD, Kubernetes, Render, troubleshooting |
+| **[8 · User Manual](./docs/user-manual.md)** | End-user guide — sign-up, discovery and filtering, booking, the QR ticket, hosting, door check-in, troubleshooting |
+| **[9 · Validation Report](./docs/validation-report.md)** | Dated test-execution record, code coverage, static analysis, performance validation, 27-row requirements traceability matrix |
+| **[10 · Originality & Compliance](./docs/originality-and-compliance.md)** | Declaration of originality, plagiarism-scan procedure, disclosed scaffolding and AI use, licensing and attribution checklist |
 
 ---
 
@@ -409,10 +441,28 @@ Full detail in **[Architecture §1.8](./docs/architecture.md#18-known-limitation
 
 ---
 
+## 📜 Licence & attribution
+
+EventHive is released under the **[MIT License](./LICENSE)** © 2026 Team Developer Mindset
+(Arjun Ojha, Ishan Avasthi, Karan Das A, Rajat Tyagi).
+
+All third-party dependencies are consumed unmodified from the public npm registry and enumerated
+with their licences in **[`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md)** — 14 backend and 44
+mobile direct dependencies, plus a transitive audit of all 1,593 tree entries. Every licence present
+is permissive or weak-copyleft; **no GPL/AGPL package is linked into either distributable.**
+
+Originality declarations, the plagiarism-compliance procedure, and disclosed scaffolding are in
+**[Originality & Compliance](./docs/originality-and-compliance.md)**. Local similarity scans —
+**4.13 %** internal code duplication (jscpd, all clones internal to this repository) and **0.42 %**
+documentation self-duplication — are reported in
+**[`docs/compliance/`](./docs/compliance/similarity-scan-local.md)**.
+
+---
+
 <div align="center">
 
-**EventHive** — B.Sc. Computer Science Capstone Project
+**EventHive** — B.Sc. Computer Science Capstone Project · Team Developer Mindset · BITS Pilani Digital
 
-[Documentation](./docs/README.md) · [Architecture](./docs/architecture.md) · [API Reference](./docs/api-reference.md) · [Testing & Performance](./docs/testing-and-performance.md)
+[Documentation](./docs/README.md) · [User Manual](./docs/user-manual.md) · [API Reference](./docs/api-reference.md) · [Validation Report](./docs/validation-report.md)
 
 </div>

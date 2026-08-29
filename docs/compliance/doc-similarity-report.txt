@@ -1,0 +1,62 @@
+=== CORPUS ===
+  README.md                                1248 prose words,   1241 shingles
+  mobile-app/README.md                      165 prose words,    158 shingles
+  docs/README.md                            372 prose words,    365 shingles
+  docs/api-reference.md                     625 prose words,    618 shingles
+  docs/architecture.md                      745 prose words,    738 shingles
+  docs/backend.md                          1275 prose words,   1265 shingles
+  docs/database.md                          413 prose words,    406 shingles
+  docs/mobile-app.md                        744 prose words,    737 shingles
+  docs/originality-and-compliance.md        993 prose words,    986 shingles
+  docs/setup-and-deployment.md              722 prose words,    715 shingles
+  docs/testing-and-performance.md          1927 prose words,   1920 shingles
+  docs/user-manual.md                      1114 prose words,   1107 shingles
+  docs/validation-report.md                 686 prose words,    679 shingles
+
+=== PAIRWISE PROSE OVERLAP (code fences excluded) ===
+  containment = shared 8-word shingles / shingles of the SMALLER document
+
+    2.53%  containment |  0.45% jaccard |    4 shingles | longest verbatim run: 10 words
+          mobile-app/README.md  <->  docs/mobile-app.md
+          "leftover typescript scaffolding from . the application uses only ."
+    2.30%  containment |  0.87% jaccard |   17 shingles | longest verbatim run: 19 words
+          README.md  <->  docs/architecture.md
+          "the mobile app is the only client, and it speaks to the backend exclusively over a json rest api."
+    1.27%  containment |  0.14% jaccard |    2 shingles | longest verbatim run: 9 words
+          README.md  <->  mobile-app/README.md
+          "to the backend exclusively over a json rest api."
+    1.27%  containment |  0.22% jaccard |    2 shingles | longest verbatim run: 9 words
+          mobile-app/README.md  <->  docs/architecture.md
+          "to the backend exclusively over a json rest api."
+    0.70%  containment |  0.19% jaccard |    5 shingles | longest verbatim run: 12 words
+          docs/setup-and-deployment.md  <->  docs/testing-and-performance.md
+          "an rss floor of 211.72 mb and a peak of 298.23 mb"
+    0.59%  containment |  0.15% jaccard |    4 shingles | longest verbatim run: 9 words
+          docs/testing-and-performance.md  <->  docs/validation-report.md
+          "on every push and pull request to via github"
+    0.56%  containment |  0.22% jaccard |    7 shingles | longest verbatim run: 13 words
+          README.md  <->  docs/testing-and-performance.md
+          "each additional concurrent user adds a fixed 200 ms to everyone's wait. the"
+    0.54%  containment |  0.27% jaccard |    4 shingles | longest verbatim run: 11 words
+          docs/architecture.md  <->  docs/mobile-app.md
+          "the backend notification api is fully implemented and covered by 6"
+    0.28%  containment |  0.10% jaccard |    2 shingles | longest verbatim run: 9 words
+          README.md  <->  docs/setup-and-deployment.md
+          "on a physical device the api client automatically substitutes"
+    0.27%  containment |  0.06% jaccard |    1 shingles | longest verbatim run: 8 words
+          README.md  <->  docs/README.md
+          "a full-stack event discovery, hosting, and ticketing platform"
+    0.25%  containment |  0.09% jaccard |    1 shingles | longest verbatim run: 8 words
+          docs/database.md  <->  docs/setup-and-deployment.md
+          "free and paid, internal and external ticketing, with"
+    0.14%  containment |  0.05% jaccard |    1 shingles | longest verbatim run: 8 words
+          docs/architecture.md  <->  docs/user-manual.md
+          "documented deliberately. each is a real property of"
+
+=== CORPUS TOTALS (prose) ===
+  distinct 8-word shingles across the set : 10887
+  shingles appearing in >1 document       : 46  (0.42%)
+
+=== CORPUS TOTALS (including code blocks, tables, commands) ===
+  distinct 8-word shingles : 15881
+  in >1 document           : 119  (0.75%)

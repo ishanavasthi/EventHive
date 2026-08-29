@@ -86,7 +86,7 @@ full-screen.
 
 | Screen | File | Purpose | API calls |
 | :--- | :--- | :--- | :--- |
-| **Login** | `LoginScreen.js` | Email/password, Google, Apple, and guest entry. The sign-in divider renders only when the Apple button is present. | via `AuthContext` |
+| **Login** | `LoginScreen.js` | Email/password sign-in, plus Sign in with Apple on iOS only. The `OR` divider and the Apple button are both gated on `Platform.OS === 'ios'`, so Android sees neither. Footer link to Register. See the note below. | via `AuthContext` |
 | **Register** | `RegisterScreen.js` | Account creation with `userType` and `city` selection | via `AuthContext` |
 | **Home** | `HomeScreen.js` | The discovery feed — featured carousel, search, and four filters | `GET /events?page=1&limit=30` |
 | **Event Details** | `EventDetailsScreen.js` | Full event view; the CTA is context-dependent (see below) | `GET /events/:id`, `GET /bookings/my-bookings` |
@@ -99,6 +99,15 @@ full-screen.
 | **Notifications** | `NotificationsScreen.js` | Notification feed (provider currently stubbed — see §5.7) | — |
 | **Profile** | `ProfileScreen.js` | Account summary and navigation hub | — |
 | **Edit Profile** | `EditProfileScreen.js` | Email, avatar, city, bank details | `PUT /auth/profile` |
+
+> **Google sign-in and guest entry are implemented but unreachable from the UI.** `AuthContext`
+> exposes `promptAsync` (Google, via `expo-auth-session`) and `guestLogin`, and `LoginScreen.js`
+> defines a `handleGoogleLogin` callback — but **no rendered element invokes any of them**. The
+> committed sign-in screen offers email/password and, on iOS, Apple. The server-side handlers
+> (`POST /api/auth/google`, `POST /api/auth/apple`) are complete either way. Wiring the Google
+> button back up is a UI-only change; guest mode additionally needs a scoped server token, which is
+> [Known Limitation #6](./architecture.md#18-known-limitations--future-work). The
+> [User Manual §8.9](./user-manual.md) documents the behaviour as shipped.
 
 ### Home feed
 
@@ -165,6 +174,9 @@ Two React Contexts, both mounted in `App.js` above the navigator.
 
 `src/context/AuthContext.js` owns the session and exposes
 `{ user, setUser, loading, login, register, guestLogin, logout, promptAsync, appleLogin }`.
+
+> `guestLogin` and `promptAsync` are exposed here but consumed by no screen — see the note in
+> [§5.3](#53-screens).
 
 **Session lifecycle**
 
