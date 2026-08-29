@@ -21,8 +21,8 @@
 
 | Name | Enrolment number | Role |
 | :--- | :--- | :--- |
-| Arjun Ojha | 2023EBCS720 | Member |
 | **Ishan Avasthi** | **2023EBCS640** | **Team Leader** |
+| Arjun Ojha | 2023EBCS720 | Member |
 | Karan Das A | 2023EBCS642 | Member |
 | Rajat Tyagi | 2023EBCS669 | Member |
 
