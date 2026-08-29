@@ -1,7 +1,10 @@
 # EventHive — Documentation
 
 Technical documentation for **EventHive**, a full-stack event discovery, hosting, and ticketing
-platform built as a B.Sc. Computer Science capstone project.
+platform built as a B.Sc. Computer Science (Online Mode) capstone project by **Team Developer
+Mindset** — Arjun Ojha (2023EBCS720), Ishan Avasthi (2023EBCS640, Team Leader), Karan Das A
+(2023EBCS642) and Rajat Tyagi (2023EBCS669) — at the Birla Institute of Technology and Science,
+Pilani (BITS Pilani Digital), academic year 2025–2026, under the supervision of Dr. Vasavi CS.
 
 The system is a **React Native (Expo) mobile client** talking to a **Node.js / Express REST API**
 backed by **MongoDB**, containerised with Docker, deployed via a GitHub Actions CI/CD pipeline to

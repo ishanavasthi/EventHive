@@ -10,7 +10,13 @@
     "lint": "eslint src"
   },
   "keywords": [],
-  "author": "Ishan Avasthi",
+  "author": "Team Developer Mindset",
+  "contributors": [
+    "Arjun Ojha",
+    "Ishan Avasthi",
+    "Karan Das A",
+    "Rajat Tyagi"
+  ],
   "license": "MIT",
   "description": "EventHive REST API — event discovery, hosting and ticketing backend",
   "dependencies": {

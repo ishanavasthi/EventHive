@@ -1,6 +1,6 @@
 # 9. Validation Report
 
-*B.Sc. Computer Science Capstone Project — Verification & Validation Record*
+*Capstone Project — Verification & Validation Record · Team Developer Mindset · BITS Pilani Digital*
 
 ← [User Manual](./user-manual.md) · [Docs index](./README.md) · Next: [Originality & Compliance](./originality-and-compliance.md)
 

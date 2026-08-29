@@ -6,7 +6,13 @@
 
 React Native (Expo) mobile client · Node.js/Express REST API · MongoDB · Docker · Kubernetes · CI/CD
 
-*B.Sc. Computer Science — Final Semester Capstone Project*
+*B.Sc. Computer Science (Online Mode) — Final Semester Capstone Project*
+
+*Birla Institute of Technology and Science, Pilani (BITS Pilani Digital) · Academic Year 2025–2026*
+
+**Team Developer Mindset** — Arjun Ojha (2023EBCS720) · Ishan Avasthi (2023EBCS640, Team Leader) · Karan Das A (2023EBCS642) · Rajat Tyagi (2023EBCS669)
+
+*Internal Supervisor: Dr. Vasavi CS*
 
 [![CI](https://img.shields.io/badge/CI-lint%20%2B%2016%20tests-brightgreen)](#-testing--performance)
 [![Tests](https://img.shields.io/badge/tests-16%20passing-brightgreen)](./docs/testing-and-performance.md)
@@ -437,7 +443,8 @@ Full detail in **[Architecture §1.8](./docs/architecture.md#18-known-limitation
 
 ## 📜 Licence & attribution
 
-EventHive is released under the **[MIT License](./LICENSE)** © 2026 Ishan Avasthi.
+EventHive is released under the **[MIT License](./LICENSE)** © 2026 Team Developer Mindset
+(Arjun Ojha, Ishan Avasthi, Karan Das A, Rajat Tyagi).
 
 All third-party dependencies are consumed unmodified from the public npm registry and enumerated
 with their licences in **[`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md)** — 14 backend and 44
@@ -454,7 +461,7 @@ documentation self-duplication — are reported in
 
 <div align="center">
 
-**EventHive** — B.Sc. Computer Science Capstone Project
+**EventHive** — B.Sc. Computer Science Capstone Project · Team Developer Mindset · BITS Pilani Digital
 
 [Documentation](./docs/README.md) · [User Manual](./docs/user-manual.md) · [API Reference](./docs/api-reference.md) · [Validation Report](./docs/validation-report.md)
 
