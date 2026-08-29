@@ -6,12 +6,19 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "test": "jest",
+    "test:coverage": "jest --coverage --runInBand",
     "lint": "eslint src"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "author": "Team Developer Mindset",
+  "contributors": [
+    "Arjun Ojha",
+    "Ishan Avasthi",
+    "Karan Das A",
+    "Rajat Tyagi"
+  ],
+  "license": "MIT",
+  "description": "EventHive REST API — event discovery, hosting and ticketing backend",
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2.9.0",

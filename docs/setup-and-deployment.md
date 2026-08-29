@@ -1,6 +1,6 @@
 # 7. Setup & Deployment
 
-← [Testing & Performance](./testing-and-performance.md) · [Docs index](./README.md)
+← [Testing & Performance](./testing-and-performance.md) · [Docs index](./README.md) · Next: [User Manual](./user-manual.md)
 
 ---
 
@@ -360,4 +360,4 @@ Run it in a spare terminal before any evaluation or demo.
 
 ---
 
-← [Testing & Performance](./testing-and-performance.md) · [Docs index](./README.md)
+← [Testing & Performance](./testing-and-performance.md) · [Docs index](./README.md) · Next: [User Manual](./user-manual.md)

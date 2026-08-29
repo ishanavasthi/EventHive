@@ -123,6 +123,14 @@ npm test         # all 4 Jest suites — requires MONGO_URI and JWT_SECRET
 > **Note.** Three of the four suites require a reachable MongoDB. Only `server.test.js` runs without
 > one.
 
+### Coverage
+
+`npm run test:coverage` instruments the suite with Istanbul. The run of 2026-08-29 on `f9bdbcd`
+measured **48.11 % statements / 34.25 % branches / 47.36 % functions / 49.87 % lines**, with all four
+Mongoose models at 100 % and `routes/auth.js` at 12.69 %. The per-file breakdown, the dated
+execution record, and a requirements traceability matrix are in the
+[Validation Report](./validation-report.md). Raw artefact: `backend/tests/coverage_results.json`.
+
 ---
 
 ## 6.3 Load benchmark methodology
@@ -245,6 +253,12 @@ stays flat.** That is the signature of a fully serialised resource, and it lets 
 bottleneck arithmetically rather than by guesswork.
 
 ### The throughput ceiling is the reciprocal of the baseline cost
+
+This is the **bottleneck law** of operational analysis — for a closed system the maximum throughput
+is bounded by the reciprocal of the largest per-request service demand, `X_max ≤ 1 / D_max`
+(Denning & Buzen, 1978; see also Gunther, *Benchmarking Blunders and Things That Go Bump in the
+Night*, arXiv:cs/0404043). The derivation below applies it to the measured baseline rather than
+deriving it afresh.
 
 If requests are served effectively one at a time, maximum throughput equals `1 / service_time`:
 
