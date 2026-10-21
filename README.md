@@ -23,7 +23,7 @@ React Native (Expo) mobile client · Node.js/Express REST API · MongoDB · Dock
 [![Mobile](https://img.shields.io/badge/React%20Native-Expo%20SDK%2054-000020)](./mobile-app)
 [![Database](https://img.shields.io/badge/MongoDB-Mongoose%208-47A248)](./docs/database.md)
 
-**📚 [Full Documentation](./docs/README.md)** · [Architecture](./docs/architecture.md) · [Database](./docs/database.md) · [Backend](./docs/backend.md) · [API](./docs/api-reference.md) · [Mobile](./docs/mobile-app.md) · [Testing](./docs/testing-and-performance.md) · [Setup](./docs/setup-and-deployment.md) · [User Manual](./docs/user-manual.md) · [Validation](./docs/validation-report.md)
+**▶️ [Demo Video](https://youtu.be/e12TtBLe42A)** · **📚 [Full Documentation](./docs/README.md)** · [Architecture](./docs/architecture.md) · [Database](./docs/database.md) · [Backend](./docs/backend.md) · [API](./docs/api-reference.md) · [Mobile](./docs/mobile-app.md) · [Testing](./docs/testing-and-performance.md) · [Setup](./docs/setup-and-deployment.md) · [User Manual](./docs/user-manual.md) · [Validation](./docs/validation-report.md)
 
 </div>
 
